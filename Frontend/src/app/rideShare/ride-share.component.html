@@ -1,0 +1,13 @@
+<button (click)="openRideRequestDialog()" class="rs-add" md-fab>
+    <md-icon>add</md-icon>
+</button>
+
+<md-list>
+    <md-list-item *ngFor="let rideRequest of (rideRequests | pendingRides)">
+        <button (click)="ridePickedUp(rideRequest)" md-icon-button>
+        <md-icon>check</md-icon>
+      </button> Pickup at&nbsp;<span style="color: blue">{{rideRequest.createdTime | date:'shortTime'}}</span>&nbsp;| from &nbsp;
+        <span style="color: green">{{rideRequest.source}}</span>&nbsp; to &nbsp;
+        <span style="color: red">{{rideRequest.destination}}</span>
+    </md-list-item>
+</md-list>
