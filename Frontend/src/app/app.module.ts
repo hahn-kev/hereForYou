@@ -16,6 +16,9 @@ import { RideShareService } from './rideShare/ride-share.service';
 import { AgmCoreModule } from '@agm/core';
 import { PendingRidesPipe } from './rideShare/pending-rides.pipe';
 import { MapsAutocompleteDirective } from './maps-autocomplete.directive';
+import { UserComponent } from './user/user.component';
+import { AppRoutingModule } from './app-routing.module';
+import { UserService } from './user/user.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { MapsAutocompleteDirective } from './maps-autocomplete.directive';
     RideShareComponent,
     RequestDialogComponent,
     PendingRidesPipe,
-    MapsAutocompleteDirective
+    MapsAutocompleteDirective,
+    UserComponent
   ],
   entryComponents: [
     RequestDialogComponent
@@ -34,18 +38,13 @@ import { MapsAutocompleteDirective } from './maps-autocomplete.directive';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    RouterModule.forRoot([
-      {
-        path: 'ride-share',
-        component: RideShareComponent
-      }
-    ]),
+    AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDWCN-g9qVWAdVsMmgiefEB9fcFdb4JKeA',
       libraries: ['places']
     })
   ],
-  providers: [RideShareService],
+  providers: [RideShareService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

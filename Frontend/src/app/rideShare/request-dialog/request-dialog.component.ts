@@ -27,9 +27,9 @@ export class RequestDialogComponent {
     const now = new Date();
     let distance = Number.MAX_SAFE_INTEGER;
     this.times.forEach(time => {
-      if (Math.abs(time.getTime() - now.getTime()) < distance) {
+      if (time.getTime() > now.getTime() && (time.getTime() - now.getTime()) < distance) {
         this.time = time;
-        distance = Math.abs(time.getTime() - now.getTime());
+        distance = time.getTime() - now.getTime();
       }
     });
   }
