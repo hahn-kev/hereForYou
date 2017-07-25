@@ -1,0 +1,20 @@
+<form #loginForm="ngForm" (ngSubmit)="login()">
+    <div>
+        <md-input-container>
+            <input #usernameElement="ngModel" name="username" mdInput required [(ngModel)]="this.username" placeholder="Username">
+            <md-error *ngIf="usernameElement.valid || usernameElement.pristine">
+                Username required
+            </md-error>
+        </md-input-container>
+    </div>
+    <div>
+        <md-input-container>
+            <input #passwordElement="ngModel" type="password" name="password" mdInput required [(ngModel)]="this.password" placeholder="Password">
+            <md-error *ngIf="passwordElement.valid || passwordElement.pristine">
+                Password required
+            </md-error>
+        </md-input-container>
+    </div>
+
+    <button md-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+</form>
