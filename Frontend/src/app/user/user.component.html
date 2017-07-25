@@ -1,6 +1,9 @@
-<md-input-container>
-    <input mdInput [(ngModel)]="user.name" placeholder="Username">
-</md-input-container>
-<md-input-container>
-    <input mdInput [(ngModel)]="user.phoneNumber" type="tel" placeholder="Phonenumber">
-</md-input-container>
+<form (ngSubmit)="save()">
+    <md-input-container>
+        <input mdInput required name="name" [(ngModel)]="user.name" placeholder="Username">
+    </md-input-container>
+    <md-input-container>
+        <input mdInput required name="phonenumber" [(ngModel)]="user.phoneNumber" type="tel" placeholder="Phonenumber">
+    </md-input-container>
+    <button type="submit" md-button>Save</button>
+</form>

@@ -5,6 +5,7 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { AdminComponent } from './user/admin/admin.component';
+import { UserResolveService } from './user/user-resolve.service';
 const routes: Routes = [
   {
     path: '',
@@ -19,8 +20,11 @@ const routes: Routes = [
         component: AdminComponent
       },
       {
-        path: 'user/:id',
-        component: UserComponent
+        path: 'user/edit/:name',
+        component: UserComponent,
+        resolve: {
+          user: UserResolveService
+        }
       }
     ]
   },
@@ -31,6 +35,7 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserResolveService]
 })
 export class AppRoutingModule { }

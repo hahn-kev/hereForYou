@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/delay';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoginService implements CanActivate {
-  public loggedIn = false;
+  public loggedIn = environment.production ? false : true;
   public redirectTo: string;
   constructor(private router: Router) { }
   promptLogin(redirectTo?: string) {
