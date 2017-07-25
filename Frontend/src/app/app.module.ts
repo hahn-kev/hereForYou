@@ -19,6 +19,9 @@ import { MapsAutocompleteDirective } from './maps-autocomplete.directive';
 import { UserComponent } from './user/user.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './user/user.service';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
+import { AdminComponent } from './user/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { UserService } from './user/user.service';
     RequestDialogComponent,
     PendingRidesPipe,
     MapsAutocompleteDirective,
-    UserComponent
+    UserComponent,
+    LoginComponent,
+    AdminComponent
   ],
   entryComponents: [
     RequestDialogComponent
@@ -44,7 +49,7 @@ import { UserService } from './user/user.service';
       libraries: ['places']
     })
   ],
-  providers: [RideShareService, UserService],
+  providers: [RideShareService, UserService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
