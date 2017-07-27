@@ -33,9 +33,9 @@ export class RequestDialogComponent {
       }
     });
   }
-  createRequest() {
+  async createRequest() {
     this.request.createdTime = this.time;
-    this.request = this.rideShareService.createRequest(this.request);
+    this.request = await this.rideShareService.createRequest(this.request);
     this.dialog.close(this.request);
   }
 }

@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoginService implements CanActivate {
-  public loggedIn = environment.production ? false : true;
+  public loggedIn = !environment.production;
   public redirectTo: string;
   constructor(private router: Router) { }
   promptLogin(redirectTo?: string) {
