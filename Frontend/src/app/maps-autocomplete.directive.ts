@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, NgZone } from '@angular/core';
-import { NgModel } from "@angular/forms";
+import { NgModel } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { } from '@types/googlemaps';
 

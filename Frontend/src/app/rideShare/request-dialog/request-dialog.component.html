@@ -2,13 +2,13 @@
 <form #requestForm="ngForm" (ngSubmit)="createRequest()">
     <md-dialog-content>
         <md-input-container>
-            <input maps-autocomplete #sourceElement="ngModel" name="source" mdInput required [(ngModel)]="request.source" placeholder="Pickup Location">
+            <input appMapsAutocomplete #sourceElement="ngModel" name="source" mdInput required [(ngModel)]="request.source" placeholder="Pickup Location">
             <md-error *ngIf="sourceElement.valid || sourceElement.pristine">
                 Pickup location is required
             </md-error>
         </md-input-container>
         <md-input-container>
-            <input #destinationElement="ngModel" name="destination" mdInput required [(ngModel)]="request.destination" placeholder="Destination">
+            <input appMapsAutocomplete #destinationElement="ngModel" name="destination" mdInput required [(ngModel)]="request.destination" placeholder="Destination">
             <md-error>
                 Pickup location is required
             </md-error>
