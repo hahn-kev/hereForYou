@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
 import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
-  users = [new User('Kevin', '123'), new User('Tom', '456')]
   constructor(private http: Http) { }
   getUsers() {
     return this.http.get('/api/user').map((value) => value.json()).toPromise<User[]>();
