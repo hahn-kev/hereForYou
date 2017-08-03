@@ -9,5 +9,6 @@ namespace HereForYou.Entities
         public string Destination { get; set; }
         public DateTime CreatedTime { get; set; }
         public bool Completed { get; set; }
+        public string AcceptedBy { get; set; }
     }
 }
