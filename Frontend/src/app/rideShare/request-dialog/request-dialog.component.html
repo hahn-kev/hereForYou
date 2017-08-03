@@ -1,6 +1,6 @@
 <h2 md-dialog-title>Request Ride</h2>
 <form #requestForm="ngForm" (ngSubmit)="createRequest()">
-    <md-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="space-between stretch">
         <md-input-container>
             <input appMapsAutocomplete #sourceElement="ngModel" name="source" mdInput required [(ngModel)]="request.source" placeholder="Pickup Location">
             <md-error *ngIf="sourceElement.valid || sourceElement.pristine">
@@ -10,13 +10,13 @@
         <md-input-container>
             <input appMapsAutocomplete #destinationElement="ngModel" name="destination" mdInput required [(ngModel)]="request.destination" placeholder="Destination">
             <md-error>
-                Pickup location is required
+                Destination is required
             </md-error>
         </md-input-container>
         <md-select name="time" required placeholder="Pickup time" [(ngModel)]="this.time">
             <md-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</md-option>
         </md-select>
-    </md-dialog-content>
+    </div>
     <md-dialog-actions>
         <button md-button md-dialog-close>Cancel</button>
         <button md-button type="submit" [disabled]="!requestForm.form.valid">Create</button>

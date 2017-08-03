@@ -17,15 +17,16 @@ export class RequestDialogComponent {
     private dialog: MdDialogRef<RequestDialogComponent>,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
-    const array = new Array(24 * 2).fill(0);
-    this.times = array.map((value, index) => {
+      //create a list of dates to display in the drop down, currently in 30 minute increments
+    this.times = new Array(24 * 2).fill(0).map((value, index) => {
       const date = new Date();
-      date.setHours(
-        (index + 2 - (index % 2)) / 2, index % 2 * 30);
+      date.setHours((index + 2 - (index % 2)) / 2, index % 2 * 30);
       return date;
     });
+
     const now = new Date();
     let distance = Number.MAX_SAFE_INTEGER;
+    //find the first time to come after now.
     this.times.forEach(time => {
       if (time.getTime() > now.getTime() && (time.getTime() - now.getTime()) < distance) {
         this.time = time;

@@ -1,3 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+.mat-select {
+    /* fix padding on hint on top */
+    padding-top: 20px;
+}
+
+.mat-select:not(:first-child) {
+    margin-top: 16px;
+}
+
+.mat-input-container:not(:first-child) {
+    margin-top: 16px;
+}
+
+.mat-input-container {
+    /* fix padding on error text */
+    padding-bottom: 5px;
+}
