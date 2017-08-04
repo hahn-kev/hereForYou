@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HereForYou.Entities;
 
@@ -6,7 +7,16 @@ namespace HereForYou.DataLayer
 {
     public class RideRequestRepository
     {
-        private static readonly List<RideRequest> _rideRequests = new List<RideRequest>();
+        private static readonly List<RideRequest> _rideRequests = new List<RideRequest>()
+        {
+            new RideRequest()
+            {
+                CreatedTime = DateTime.Now.AddHours(1),
+                Destination = "somewhere",
+                Source = "somewhere else",
+                Id = 1
+            }
+        };
 
         public List<RideRequest> RideRequests() => _rideRequests;
 

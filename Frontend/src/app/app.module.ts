@@ -22,6 +22,7 @@ import { UserService } from './user/user.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { AdminComponent } from './user/admin/admin.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdminComponent } from './user/admin/admin.component';
     MapsAutocompleteDirective,
     UserComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    HomeComponent
   ],
   entryComponents: [
     RequestDialogComponent
@@ -40,6 +42,7 @@ import { AdminComponent } from './user/admin/admin.component';
   imports: [
     BrowserModule,
     HttpModule,
+    FlexLayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,

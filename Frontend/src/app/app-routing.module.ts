@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { RideShareComponent } from './rideShare/ride-share.component';
-import { UserComponent } from './user/user.component';
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
-import { AdminComponent } from './user/admin/admin.component';
-import { UserResolveService } from './user/user-resolve.service';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {RideShareComponent} from './rideShare/ride-share.component';
+import {UserComponent} from './user/user.component';
+import {LoginComponent} from './login/login.component';
+import {LoginService} from './login/login.service';
+import {AdminComponent} from './user/admin/admin.component';
+import {UserResolveService} from './user/user-resolve.service';
+import {HomeComponent} from './home/home.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +27,15 @@ const routes: Routes = [
         resolve: {
           user: UserResolveService
         }
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: '**',
+        redirectTo: '/home',
+        pathMatch: 'full'
       }
     ]
   },
@@ -38,4 +49,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [UserResolveService]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
