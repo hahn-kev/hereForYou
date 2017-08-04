@@ -15,6 +15,13 @@ namespace HereForYou.DataLayer
                 Destination = "somewhere",
                 Source = "somewhere else",
                 Id = 1
+            },
+            new RideRequest()
+            {
+                CreatedTime = DateTime.Now.AddHours(1).AddMinutes(20),
+                Destination = "Wal-mart",
+                Source = "Some bank",
+                Id = 2
             }
         };
 
