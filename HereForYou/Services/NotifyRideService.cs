@@ -32,13 +32,13 @@ namespace HereForYou.Services
         private void NotifyUser(RideRequest rideRequest, User user)
         {
             string message = FormatMessage(rideRequest, user);
-//#if !DEBUG
+#if !DEBUG
 //            MessageResource.Create(from: new PhoneNumber("805-538-2428"),
 //                to: new PhoneNumber(user.PhoneNumber),
 //                body: message);
-//#else
+#else
             Console.Write(message);
-//#endif
+#endif
         }
 
         private string FormatMessage(RideRequest rideRequest, User user)

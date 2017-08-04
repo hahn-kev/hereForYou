@@ -2,6 +2,12 @@
 {
     public class Settings
     {
-        public string BaseUrl { get; set; } = "http://localhost:4201";
+        public string BaseUrl { get; set; } =
+#if DEBUG
+            "http://localhost:4201";
+    #else
+            "http://drop.hahn-kev.com";
+#endif
+
     }
 }
