@@ -1,6 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+// @import '~@angular/material/prebuilt-themes/indigo-pink.scss';
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@include mat-core();
+
+// Define a theme.
+$primary: mat-palette($mat-indigo);
+$accent:  mat-palette($mat-pink, A200, A100, A400);
+
+$theme: mat-light-theme($primary, $accent);
+
+// Include all theme styles for the components.
+@include angular-material-theme($theme);
+
+@import 'app/app.component.scss';
+@include active-link($theme);
 .mat-select {
     /* fix padding on hint on top */
     padding-top: 20px;

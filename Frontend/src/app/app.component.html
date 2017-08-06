@@ -1,14 +1,17 @@
-﻿<div class="main" fxLayout="column" fxLayoutAlign="start stretch">
+﻿<div class="main">
   <md-toolbar color="primary">
-    <button md-icon-button>
-      <md-icon>menu</md-icon>
-    </button>
+    <button md-icon-button (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
     <span>Here for you</span>
-    <a routerLink="/ride-share" md-icon-button>
-      <md-icon>directions car</md-icon>
-    </a>
+
   </md-toolbar>
-  <div fxFlex="grow" class="main-view">
+  <md-sidenav-container>
+    <md-sidenav #sidenav>
+      <h2 *ngIf="currentUser | async as user">{{user.name}}</h2>
+      <a md-button routerLink="/ride-share" routerLinkActive="active-link">
+        <md-icon>directions car</md-icon> Ride Share
+      </a>
+    </md-sidenav>
     <router-outlet></router-outlet>
-  </div>
+  </md-sidenav-container>
+
 </div>

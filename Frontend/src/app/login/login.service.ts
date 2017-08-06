@@ -4,30 +4,54 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/skip';
 import { environment } from '../../environments/environment';
+import { User } from '../user/user';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class LoginService implements CanActivate {
-  public loggedIn = !environment.production;
+  private dummyUser = new User('Tim', '8052860614');
+  private readonly currentUserSubject = new BehaviorSubject<User>(null);
   public redirectTo: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.redirectTo = router.routerState.snapshot.url;
+    if (!environment.production) {
+      this.currentUserSubject.next(this.dummyUser);
+    } else {
+      //todo get logged in state from cookie
+    }
+    this.loggedIn().skip(1).subscribe((loggedIn) => {
+      if (loggedIn) {
+        this.router.navigate([this.redirectTo || 'home']);
+      }
+    });
+  }
   promptLogin(redirectTo?: string) {
     this.redirectTo = redirectTo;
     this.router.navigate(['/login']);
   }
-  async login(username: string, password: string): Promise<boolean> {
+  login(username: string, password: string): Observable<boolean> {
     //todo actually login
-    this.loggedIn = await Observable.of(true).delay(1000).toPromise();
-    if (this.loggedIn) {
-      this.router.navigate([this.redirectTo || '']);
-    }
-    return this.loggedIn;
+
+    (Observable.of(true).delay(1000).map(() => new User(username, this.dummyUser.phoneNumber)))
+      .subscribe((user) => this.currentUserSubject.next(user));
+
+    return this.loggedIn();
   }
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    if (this.loggedIn) {
-      return true;
-    }
-    this.promptLogin(state.url);
-    return false;
+  loggedIn(): Observable<boolean> {
+    return this.currentUserSubject.map((user) => user != null);
+  }
+  currentUser() {
+    return this.currentUserSubject.asObservable();
+  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.loggedIn().map(loggedIn => {
+      if (!loggedIn) {
+        this.promptLogin(state.url);
+      }
+      return loggedIn;
+    });
   }
 }

@@ -1,3 +1,31 @@
-.fillHeight {
-  height: 100%;
+.home {
+    height: 100%;
+    display: grid;
+}
+
+@media (max-width: 800px) {
+  .home {
+        min-height: 1400px;
+        grid-template-columns: 0px 1fr 0px;
+        grid-template-rows: 0px 1fr 1fr 1fr 0px;
+        grid-gap: 70px;
+        grid-template-areas:
+        ". . ."
+        ". believe ."
+        ". live ."
+        ". speak ."
+        ". . .";
+    }
+}
+
+@media (min-width: 800px) {
+  .home {
+        grid-template-columns: 0px 1fr 1fr 1fr 0px;
+        grid-template-rows: 0px 1fr 0px;
+        grid-gap: 70px;
+        grid-template-areas:
+        ". . . . ."
+        ". believe live speak ."
+        ". . . . .";
+    }
 }

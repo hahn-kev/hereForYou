@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {RideShareComponent} from './rideShare/ride-share.component';
-import {UserComponent} from './user/user.component';
-import {LoginComponent} from './login/login.component';
-import {LoginService} from './login/login.service';
-import {AdminComponent} from './user/admin/admin.component';
-import {UserResolveService} from './user/user-resolve.service';
-import {HomeComponent} from './home/home.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RideShareComponent } from './rideShare/ride-share.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
+import { AdminComponent } from './user/admin/admin.component';
+import { UserResolveService } from './user/user-resolve.service';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -33,7 +33,7 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: '**',
+        path: '',
         redirectTo: '/home',
         pathMatch: 'full'
       }
@@ -42,6 +42,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/home',
+    pathMatch: 'full'
   }
 ];
 @NgModule({

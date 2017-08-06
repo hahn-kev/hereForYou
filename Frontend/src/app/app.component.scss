@@ -1,0 +1,17 @@
+.main {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    background-color: #FAFAFA;
+}
+
+@import '~@angular/material/theming';
+
+@mixin active-link($theme) {
+  $accent: map-get($theme, accent);
+
+  .active-link {
+    color: mat-color($accent) !important;
+  }
+
+}
