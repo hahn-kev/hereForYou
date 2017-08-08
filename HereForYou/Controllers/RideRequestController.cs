@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
 using HereForYou.Services;
+using LinqToDB;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HereForYou.Controllers
@@ -44,7 +45,6 @@ namespace HereForYou.Controllers
             }
             var rideRequest = _rideRequestRepository.GetById(id);
             if (rideRequest == null) throw new NullReferenceException("No ride found matching ID");
-            rideRequest.Completed = true;
             rideRequest.AcceptedBy = user;
             _rideRequestRepository.Save(rideRequest);
             return Redirect("~/ride-share");

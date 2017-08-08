@@ -2,35 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using HereForYou.Entities;
+using LinqToDB;
+using LinqToDB.Data;
 
 namespace HereForYou.DataLayer
 {
     public class RideRequestRepository
     {
-        private static readonly List<RideRequest> _rideRequests = new List<RideRequest>()
-        {
-            new RideRequest()
-            {
-                CreatedTime = DateTime.Now.AddHours(1),
-                Destination = "somewhere",
-                Source = "somewhere else",
-                Id = 1
-            },
-            new RideRequest()
-            {
-                CreatedTime = DateTime.Now.AddHours(1).AddMinutes(20),
-                Destination = "Wal-mart",
-                Source = "Some bank",
-                Id = 2
-            }
-        };
+        private readonly HereForYouConnection _connection;
 
-        public List<RideRequest> RideRequests() => _rideRequests;
+        public RideRequestRepository(HereForYouConnection connection)
+        {
+            _connection = connection;
+        }
+
+
+        public List<RideRequest> RideRequests() => _connection.RideRequests.ToList();
 
         public RideRequest Add(RideRequest rideRequest)
         {
-            _rideRequests.Add(rideRequest);
-            rideRequest.Id = _rideRequests.Count;
+            rideRequest.Id = _connection.InsertId(rideRequest);
             return rideRequest;
         }
 
@@ -39,19 +30,13 @@ namespace HereForYou.DataLayer
             if (rideRequest.Id <= 0) Add(rideRequest);
             else
             {
-                for (var i = 0; i < _rideRequests.Count; i++)
-                {
-                    var request = _rideRequests[i];
-                    if (rideRequest.Id != request.Id) continue;
-                    _rideRequests[i] = rideRequest;
-                    break;
-                }
+                _connection.Update(rideRequest);
             }
         }
 
         public RideRequest GetById(int id)
         {
-            return _rideRequests.FirstOrDefault(request => request.Id == id);
+            return _connection.RideRequests.SingleOrDefault(request => request.Id == id);
         }
     }
 }

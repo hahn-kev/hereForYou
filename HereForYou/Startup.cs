@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HereForYou.DataLayer;
 using HereForYou.Services;
+using LinqToDB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Twilio;
 using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
@@ -25,7 +27,7 @@ namespace HereForYou
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
         }
@@ -37,9 +39,10 @@ namespace HereForYou
             services.AddOptions();
             services.Configure<Settings>(Configuration);
             services.AddMvc();
-            services.AddSingleton<RideRequestRepository>();
-            services.AddSingleton<UsersRepository>();
-            services.AddSingleton<NotifyRideService>();
+            services.AddTransient<RideRequestRepository>();
+            services.AddTransient<UsersRepository>();
+            services.AddTransient<NotifyRideService>();
+            services.AddTransient<HereForYouConnection>();
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -48,7 +51,6 @@ namespace HereForYou
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -71,9 +73,10 @@ namespace HereForYou
 
             app.UseMvc();
             app.UseStaticFiles();
-            const string accountSid = "ACe7a76c8c36d5681111d66ec92bf64f31";
-            const string authToken = "87c5bd4333d51c41291384e1884255dc";
-            TwilioClient.Init(accountSid, authToken);
+            var settings = app.ApplicationServices.GetService<IOptions<Settings>>().Value;
+            DataConnection.DefaultSettings = settings;
+            TwilioClient.Init(settings.TwilioAccountSid, settings.TwilioAuthToken);
+
         }
     }
 }
