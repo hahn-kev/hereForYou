@@ -23,7 +23,7 @@ namespace HereForYou
         }
 
         public string DefaultConfiguration => "PostGreSQL";
-        public string DefaultDataProvider => "PostGreSQL";
+        public string DefaultDataProvider => "MyPostGreSQLProvider";
 
         public IEnumerable<IConnectionStringSettings> ConnectionStrings
         {
@@ -32,7 +32,7 @@ namespace HereForYou
                 yield return new ConnectionStringSettings
                 {
                     Name = "PostGreSQL",
-                    ProviderName = "PostgreSQL",
+                    ProviderName = "MyPostGreSQLProvider",
                     ConnectionString = FormatConnectionString(ConnectionString)
                 };
             }

@@ -47,7 +47,7 @@ namespace HereForYou.Services
                    $"From: {rideRequest.Source}" + Environment.NewLine +
                    $"To: {rideRequest.Destination}" + Environment.NewLine +
                    $"At: {rideRequest.CreatedTime.ToLocalTime():g}" + Environment.NewLine +
-                   $"Accpet? {_options.BaseUrl}/api/riderequest/{nameof(RideRequestController.Accept)}/{rideRequest.Id}?user={user.Name}";
+                   $"Accpet? {_options.BaseUrl}/api/riderequest/{nameof(RideRequestController.Accept)}/{rideRequest.Id}?user={user.UserName}";
         }
     }
 }
