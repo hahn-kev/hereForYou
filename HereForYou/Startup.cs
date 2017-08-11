@@ -125,7 +125,6 @@ namespace HereForYou
             TwilioClient.Init(settings.TwilioAccountSid, settings.TwilioAuthToken);
                 
             using (var scope = app.ApplicationServices.CreateScope())
-
             {
                 var hereForYouConnection = scope.ServiceProvider.GetService<HereForYouConnection>();
                 if (env.IsDevelopment())

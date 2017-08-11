@@ -6,6 +6,7 @@ using HereForYou.Entities;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -28,6 +29,7 @@ namespace HereForYou.Controllers
             _options = options.Value;
         }
 
+        [Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
@@ -51,19 +53,21 @@ namespace HereForYou.Controllers
         {
             var signInResult =
                 await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, false);
+            Response.Cookies.Delete(".AspNetCore.Identity.Application");
             if (signInResult.IsLockedOut)
             {
-                return new JsonResult("Account Locked") {StatusCode = 401};
+                return new JsonResult("Account Locked");
             }
             if (!signInResult.Succeeded)
             {
-                return new JsonResult("Sign in failed") {StatusCode = 401};
+                return new JsonResult("Sign in failed");
             }
             var user = await _userManager.FindByNameAsync(credentials.Username);
             return new JsonResult(new Dictionary<string, object>
             {
                 {"access_token", GetAccessToken(user.Id)},
-                {"id_token", GetIdToken(user)}
+                {"id_token", GetIdToken(user)},
+                {"user", user}
             });
         }
 

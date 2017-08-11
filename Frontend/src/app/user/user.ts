@@ -1,8 +1,7 @@
 export class User {
-  constructor(
-    public name?: string,
-    public phoneNumber?: string,
-    public password?: string,
-    public rideProvider = false) { }
+  constructor(public userName?: string,
+              public phoneNumber?: string,
+              public id?: number,
+              public rideProvider = false) { }
   // todo have range support
 }

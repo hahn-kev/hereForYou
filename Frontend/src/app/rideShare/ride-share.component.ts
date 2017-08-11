@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { MdDialog } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
+import { Component, OnInit } from "@angular/core";
+import { MdDialog } from "@angular/material";
+import "rxjs/add/operator/toPromise";
 
-import { RequestDialogComponent } from './request-dialog/request-dialog.component';
-import { RideRequest } from './ride-request';
-import { RideShareService } from './ride-share.service';
+import { RequestDialogComponent } from "./request-dialog/request-dialog.component";
+import { RideRequest } from "./ride-request";
+import { RideShareService } from "./ride-share.service";
 
 @Component({
   selector: 'app-ride-share',
@@ -14,7 +12,7 @@ import { RideShareService } from './ride-share.service';
   styleUrls: ['./ride-share.component.css']
 })
 export class RideShareComponent implements OnInit {
-  rideRequests: RideRequest[] = []
+  rideRequests: RideRequest[] = [];
   constructor(private rideShareService: RideShareService, private dialog: MdDialog) {
 
   }

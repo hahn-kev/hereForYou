@@ -1,22 +1,21 @@
-import {Injectable} from '@angular/core';
-import {RideRequest} from './ride-request';
-import {Observable} from 'rxjs/Observable'
-import {Http} from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
+import { Injectable } from "@angular/core";
+import { RideRequest } from "./ride-request";
+import "rxjs/add/operator/toPromise";
+import "rxjs/add/operator/map";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable()
 export class RideShareService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   getRequestedRides(): Promise<RideRequest[]> {
-    return this.http.get('/api/riderequest').map((value) => value.json()).toPromise<RideRequest[]>();
+    return this.http.get<RideRequest[]>('/api/riderequest').toPromise();
   }
 
   createRequest(rideRequest: RideRequest) {
-    return this.http.put('/api/riderequest', rideRequest).map((value) => value.json()).toPromise<RideRequest>();
+    return this.http.put<RideRequest>('/api/riderequest', rideRequest).toPromise();
   }
 
   ridePickedUp(rideRequest: RideRequest) {
