@@ -1,6 +1,7 @@
 import { Directive, ElementRef, NgZone, OnInit } from "@angular/core";
 import { NgModel } from "@angular/forms";
 import { MapsAPILoader } from "@agm/core";
+import { } from '@types/googlemaps';
 
 @Directive({
   selector: '[appMapsAutocomplete]'
