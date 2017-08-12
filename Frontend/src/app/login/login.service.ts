@@ -12,7 +12,6 @@ import { LocalStorageService } from "angular-2-local-storage";
 
 @Injectable()
 export class LoginService implements CanActivate {
-  private dummyUser = new User('Tim', '8052860614');
   private readonly currentUserSubject = new BehaviorSubject<User>(null);
   public redirectTo: string;
   public accessToken: string;
@@ -53,7 +52,6 @@ export class LoginService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.loggedIn().map(loggedIn => {
-      this.currentUserSubject;
       if (!loggedIn) {
         this.promptLogin(state.url);
       }

@@ -1,13 +1,12 @@
-import { Directive, ElementRef, OnInit, NgZone } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { MapsAPILoader } from '@agm/core';
-import { } from '@types/googlemaps';
+import { Directive, ElementRef, NgZone, OnInit } from "@angular/core";
+import { NgModel } from "@angular/forms";
+import { MapsAPILoader } from "@agm/core";
 
 @Directive({
   selector: '[appMapsAutocomplete]'
 })
 export class MapsAutocompleteDirective implements OnInit {
-  private autoComplete: google.maps.places.Autocomplete
+  private autoComplete: google.maps.places.Autocomplete;
   constructor(private element: ElementRef,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
