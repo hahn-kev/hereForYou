@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { RideShareComponent } from './rideShare/ride-share.component';
-import { UserComponent } from './user/user.component';
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
-import { AdminComponent } from './user/admin/admin.component';
-import { UserResolveService } from './user/user-resolve.service';
-import { HomeComponent } from './home/home.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { RideShareComponent } from "./rideShare/ride-share.component";
+import { UserComponent } from "./user/user.component";
+import { LoginComponent } from "./login/login.component";
+import { LoginService } from "./login/login.service";
+import { AdminComponent } from "./user/admin/admin.component";
+import { UserResolveService } from "./user/user-resolve.service";
+import { HomeComponent } from "./home/home.component";
+import { LearnComponent } from "./learn/learn.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
         resolve: {
           user: UserResolveService
         }
+      },
+      {
+        path: 'learn',
+        component: LearnComponent
       },
       {
         path: 'home',

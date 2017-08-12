@@ -5,6 +5,16 @@
     background-color: #FAFAFA;
 }
 
+.mat-subheader {
+  margin: 0;
+}
+
+#user {
+  padding: 16px;
+  margin: 0;
+}
+
+
 @import '~@angular/material/theming';
 
 @mixin active-link($theme) {

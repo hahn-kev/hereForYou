@@ -10,7 +10,6 @@ import { RideShareComponent } from "./rideShare/ride-share.component";
 import { RequestDialogComponent } from "./rideShare/request-dialog/request-dialog.component";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "@angular/material";
 import "hammerjs";
 import { RideShareService } from "./rideShare/ride-share.service";
 import { AgmCoreModule } from "@agm/core";
@@ -25,6 +24,24 @@ import { AdminComponent } from "./user/admin/admin.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthenciateInterceptorService } from "./login/authenciate-interceptor.service";
 import { AuthenticateService } from "./login/authenticate.service";
+import { LearnComponent } from "./learn/learn.component";
+import {
+  MdButtonModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdDatepickerModule,
+  MdDialogModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdOptionModule,
+  MdSelectModule,
+  MdSidenavModule,
+  MdTableModule,
+  MdToolbarModule,
+  MdTooltipModule
+} from "@angular/material";
+import { FlipCardComponent } from "./home/flip-card/flip-card.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +53,9 @@ import { AuthenticateService } from "./login/authenticate.service";
     UserComponent,
     LoginComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    LearnComponent,
+    FlipCardComponent
   ],
   entryComponents: [
     RequestDialogComponent
@@ -50,7 +69,20 @@ import { AuthenticateService } from "./login/authenticate.service";
     HttpClientModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MaterialModule,
+    MdButtonModule,
+    MdInputModule,
+    MdOptionModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdToolbarModule,
+    MdTooltipModule,
+    MdCardModule,
+    MdListModule,
+    MdDialogModule,
+    MdDatepickerModule,
+    MdTableModule,
+    MdIconModule,
+    MdCheckboxModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
