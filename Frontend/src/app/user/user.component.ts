@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from './user';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from './user.service';
+import { Component, OnInit } from "@angular/core";
+import { User } from "./user";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserService } from "./user.service";
 
 @Component({
   selector: 'app-user',
@@ -9,12 +9,18 @@ import { UserService } from './user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  user = new User();
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
+  private user = new User();
+  private isNew: boolean;
+  private password: string;
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
+
+  }
 
   ngOnInit() {
     this.route.data.subscribe((data: { user: User }) => {
       this.user = data.user;
+      this.isNew = !this.user.userName;
     })
   }
 

@@ -18,6 +18,5 @@ namespace HereForYou.DataLayer
 
         public User UserByName(string name) =>
             _hereForYouConnection.Users.FirstOrDefault(user => user.UserName.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-
     }
 }
