@@ -9,7 +9,12 @@
   <md-sidenav-container>
     <md-sidenav #sidenav id="sidenav">
       <md-nav-list>
-        <h2 *ngIf="currentUser | async as user" id="user">Welcome {{user.userName}}</h2>
+        <h2 *ngIf="currentUser | async as user" id="user">Welcome {{user.userName}}
+          <button md-icon-button (click)="logout()" mdTooltip="Logout">
+            <md-icon>exit_to_app</md-icon>
+          </button>
+        </h2>
+
         <md-list-item routerLink="/home" routerLinkActive="active-link">
           <md-icon md-list-icon>home</md-icon>
           <a md-line>Home</a>

@@ -13,10 +13,16 @@ export class AppComponent implements OnInit {
   currentUser: Observable<User>;
   @ViewChild('sidenav')
   private sidenav: MdSidenav;
-  constructor(loginService: LoginService, private router: Router) {
+
+  constructor(private loginService: LoginService, private router: Router) {
     this.currentUser = loginService.currentUser();
   }
   ngOnInit(): void {
     this.router.events.subscribe(() => this.sidenav.close());
+  }
+
+  logout() {
+    this.loginService.setLoggedIn(null, null);
+    this.loginService.promptLogin();
   }
 }
