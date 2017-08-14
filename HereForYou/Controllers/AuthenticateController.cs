@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using HereForYou.Entities;
 using JWT;
@@ -10,26 +13,30 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HereForYou.Controllers
 {
     ///setup using this guide: https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/
+    ///and this https://pioneercode.com/post/authentication-in-an-asp-dot-net-core-api-part-3-json-web-token
     [Route("api/[controller]")]
     public class AuthenticateController : Controller
     {
         private readonly JWTSettings _options;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly SecurityTokenHandler _securityTokenHandler;
 
         public AuthenticateController(IOptions<JWTSettings> options, SignInManager<User> signInManager,
             UserManager<User> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _securityTokenHandler = new JwtSecurityTokenHandler();
             _options = options.Value;
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
@@ -42,7 +49,7 @@ namespace HereForYou.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (!result.Succeeded)
             {
-                return Errors(result);
+                return result.Errors();
             }
 
             return Accepted();
@@ -63,66 +70,35 @@ namespace HereForYou.Controllers
                 return new JsonResult("Sign in failed");
             }
             var user = await _userManager.FindByNameAsync(credentials.Username);
+            var token = await GetJwtSecurityToken(user);
             return new JsonResult(new Dictionary<string, object>
             {
-                {"access_token", GetAccessToken(user.Id)},
-                {"id_token", GetIdToken(user)},
+                {"access_token", _securityTokenHandler.WriteToken(token)},
                 {"user", user}
             });
         }
 
-        private JsonResult Errors(IdentityResult result)
+        private async Task<JwtSecurityToken> GetJwtSecurityToken(User user)
         {
-            var items = result.Errors
-                .Select(x => x.Description)
-                .ToArray();
-            return new JsonResult(items) {StatusCode = 400};
+            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+
+            return new JwtSecurityToken(
+                issuer: _options.Issuer,
+                audience: _options.Audience,
+                claims: GetTokenClaims(user).Union(claimsPrincipal.Claims),
+                expires: DateTime.UtcNow.AddDays(7),
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256)
+            );
         }
 
-        private string GetAccessToken(int userId)
+        private static IEnumerable<Claim> GetTokenClaims(User user)
         {
-            var payload = new Dictionary<string, object>
+            return new List<Claim>
             {
-                {"sub", userId},
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
             };
-            return GetToken(payload);
-        }
-
-        private string GetIdToken(User user)
-        {
-            var payload = new Dictionary<string, object>
-            {
-                {"id", user.Id},
-                {"sub", user.Email},
-                {"email", user.Email},
-                {"emailConfirmed", user.EmailConfirmed},
-            };
-            return GetToken(payload);
-        }
-
-        private string GetToken(Dictionary<string, object> payload)
-        {
-            var secret = _options.SecretKey;
-
-            payload.Add("iss", _options.Issuer);
-            payload.Add("aud", _options.Audience);
-            payload.Add("nbf", ConvertToUnixTimestamp(DateTime.Now));
-            payload.Add("iat", ConvertToUnixTimestamp(DateTime.Now));
-            payload.Add("exp", ConvertToUnixTimestamp(DateTime.Now.AddDays(7)));
-            //todo reuse these objects
-            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
-            IJsonSerializer serializer = new JsonNetSerializer();
-            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-
-            return encoder.Encode(payload, secret);
-        }
-
-        private static double ConvertToUnixTimestamp(DateTime date)
-        {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan diff = date.ToUniversalTime() - origin;
-            return Math.Floor(diff.TotalSeconds);
         }
     }
 }

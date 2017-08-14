@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Twilio;
 
@@ -63,6 +65,10 @@ namespace HereForYou
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
             services.AddMvc();
+            services.AddAuthorization(options =>
+            {
+//                options.AddPolicy("test");
+            });
             services.AddTransient<RideRequestRepository>();
             services.AddTransient<UsersRepository>();
             services.AddTransient<NotifyRideService>();
@@ -109,13 +115,15 @@ namespace HereForYou
                     ValidIssuer = jwtSettings.Issuer,
                     
                     ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience
-                }
+                    ValidAudience = jwtSettings.Audience,
+                    
+                },
+                SecurityTokenValidators = { }
             });
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AutomaticAuthenticate = false,
-                AutomaticChallenge = false
+                AutomaticChallenge = false,
             });
             app.UseMvc();
             
@@ -131,7 +139,7 @@ namespace HereForYou
                 {
                     DataConnection.TurnTraceSwitchOn();
                     DataConnection.WriteTraceLine = (message, category) => Debug.WriteLine(message, category);
-                    hereForYouConnection.Setup();
+                    hereForYouConnection.Setup().Wait();
                 }
             }
         }

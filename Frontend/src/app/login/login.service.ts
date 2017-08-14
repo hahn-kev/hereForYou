@@ -9,12 +9,14 @@ import "rxjs/add/operator/do";
 import { User } from "../user/user";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { LocalStorageService } from "angular-2-local-storage";
+import { JwtHelperService } from "./jwt-helper.service";
 
 @Injectable()
 export class LoginService implements CanActivate {
   private readonly currentUserSubject = new BehaviorSubject<User>(null);
   public redirectTo: string;
   public accessToken: string;
+  public roles: string[];
 
   constructor(private router: Router, private localStorage: LocalStorageService) {
     this.redirectTo = router.routerState.snapshot.url;
@@ -39,6 +41,8 @@ export class LoginService implements CanActivate {
     this.localStorage.set('accessToken', accessToken);
     this.localStorage.set('user', user);
     this.accessToken = accessToken;
+    let decodedToken = JwtHelperService.decodeToken(accessToken);
+    //todo pull out roles, and any claims we want
     this.currentUserSubject.next(user);
   }
 
