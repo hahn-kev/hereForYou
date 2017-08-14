@@ -37,6 +37,7 @@ import {
   MdOptionModule,
   MdSelectModule,
   MdSidenavModule,
+  MdSnackBarModule,
   MdTableModule,
   MdToolbarModule,
   MdTooltipModule
@@ -83,6 +84,7 @@ import { FlipCardComponent } from "./home/flip-card/flip-card.component";
     MdTableModule,
     MdIconModule,
     MdCheckboxModule,
+    MdSnackBarModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({

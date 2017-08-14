@@ -21,4 +21,13 @@ export class AuthenticateService {
       });
     return this.loginService.loggedIn();
   }
+
+  registerUser(user: User, password: string) {
+    return this.http.post('/api/authenticate/register', {
+      password: password,
+      userName: user.userName,
+      honeNumber: user.phoneNumber,
+      rideProvider: user.rideProvider
+    }).toPromise();
+  }
 }

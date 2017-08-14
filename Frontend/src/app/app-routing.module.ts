@@ -8,6 +8,7 @@ import { AdminComponent } from "./user/admin/admin.component";
 import { UserResolveService } from "./user/user-resolve.service";
 import { HomeComponent } from "./home/home.component";
 import { LearnComponent } from "./learn/learn.component";
+import { IsNewResolverService } from "./user/is-new-resolver.service";
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
         path: 'user/edit/:name',
         component: UserComponent,
         resolve: {
-          user: UserResolveService
+          user: UserResolveService,
+          isNew: IsNewResolverService
         }
       },
       {
@@ -57,7 +59,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [UserResolveService]
+  providers: [UserResolveService, IsNewResolverService]
 })
 export class AppRoutingModule {
 }
