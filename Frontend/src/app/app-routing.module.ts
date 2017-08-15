@@ -9,6 +9,7 @@ import { UserResolveService } from "./user/user-resolve.service";
 import { HomeComponent } from "./home/home.component";
 import { LearnComponent } from "./learn/learn.component";
 import { IsNewResolverService } from "./user/is-new-resolver.service";
+import { RoleGuardService } from './login/role-guard.service';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
       },
       {
         path: 'user/admin',
-        component: AdminComponent
+        component: AdminComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          requireRole: 'admin'
+        }
       },
       {
         path: 'user/edit/:name',

@@ -46,6 +46,8 @@ import {
 import { FlipCardComponent } from './home/flip-card/flip-card.component';
 import { ActivityIndicatorService } from './activity-indicator.service';
 import { ActivityIndicatorInterceptorService } from './activity-indicator-interceptor.service';
+import { RoleGuardService } from './login/role-guard.service';
+import { RequireRoleDirective } from './login/require-role.directive';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { ActivityIndicatorInterceptorService } from './activity-indicator-interc
     HomeComponent,
     LearnComponent,
     FlipCardComponent,
+    RequireRoleDirective
   ],
   entryComponents: [
     RequestDialogComponent
@@ -114,6 +117,7 @@ import { ActivityIndicatorInterceptorService } from './activity-indicator-interc
       useClass: ActivityIndicatorInterceptorService,
       multi: true
     },
+    RoleGuardService
   ],
   bootstrap: [AppComponent]
 })

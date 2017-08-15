@@ -37,12 +37,15 @@
           <md-icon md-list-icon>forum</md-icon>
           <span md-line>Grow</span>
         </a>
-        <md-divider></md-divider>
-        <h3 md-subheader>Admin</h3>
-        <md-list-item routerLink="/user/admin" routerLinkActive="active-link">
-          <md-icon md-list-icon>face</md-icon>
-          <a md-line>User Managment</a>
-        </md-list-item>
+        <ng-container *requireRole="'admin'">
+          <md-divider></md-divider>
+          <h3 md-subheader>Admin</h3>
+          <md-list-item routerLink="/user/admin" routerLinkActive="active-link">
+            <md-icon md-list-icon>face</md-icon>
+            <a md-line>User Managment</a>
+          </md-list-item>
+        </ng-container>
+
       </md-nav-list>
     </md-sidenav>
     <router-outlet></router-outlet>

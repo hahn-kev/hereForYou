@@ -16,13 +16,11 @@ export class LoginService implements CanActivate {
   private readonly currentUserSubject = new BehaviorSubject<User>(null);
   public redirectTo: string;
   public accessToken: string;
-  public roles: string[];
+  public rolesSubject = new BehaviorSubject<string[]>([]);
 
   constructor(private router: Router, private localStorage: LocalStorageService) {
     this.redirectTo = router.routerState.snapshot.url;
-
-    this.accessToken = localStorage.get<string>('accessToken');
-    this.currentUserSubject.next(localStorage.get<User>('user'));
+    this.setLoggedIn(localStorage.get<User>('user'), localStorage.get<string>('accessToken'));
 
     this.loggedIn().skip(1).subscribe((loggedIn) => {
       if (loggedIn) {
@@ -43,10 +41,11 @@ export class LoginService implements CanActivate {
     this.accessToken = accessToken;
     let decodedToken = JwtHelperService.decodeToken(accessToken);
     //todo pull out roles, and any claims we want
-    this.roles = [];
+    let roles = [];
     if (decodedToken) {
-      this.roles.push(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+      roles.push(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
     }
+    this.rolesSubject.next(roles);
     this.currentUserSubject.next(user);
   }
 
@@ -65,5 +64,9 @@ export class LoginService implements CanActivate {
       }
       return loggedIn;
     });
+  }
+
+  hasRole(role: string): Observable<boolean> {
+    return this.rolesSubject.map(roles => roles.includes(role));
   }
 }
