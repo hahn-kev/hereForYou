@@ -48,6 +48,7 @@ import { ActivityIndicatorService } from './activity-indicator.service';
 import { ActivityIndicatorInterceptorService } from './activity-indicator-interceptor.service';
 import { RoleGuardService } from './login/role-guard.service';
 import { RequireRoleDirective } from './login/require-role.directive';
+import { MarkdownModule } from 'angular2-markdown';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { RequireRoleDirective } from './login/require-role.directive';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDWCN-g9qVWAdVsMmgiefEB9fcFdb4JKeA',
       libraries: ['places']
-    })
+    }),
+    MarkdownModule.forRoot()
   ],
   providers: [
     RideShareService,

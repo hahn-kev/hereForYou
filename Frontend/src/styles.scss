@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/theming';
 // @import '~@angular/material/prebuilt-themes/indigo-pink.scss';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css');
 
 @include mat-core();
 
