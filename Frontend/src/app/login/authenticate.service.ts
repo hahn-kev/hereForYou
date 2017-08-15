@@ -23,7 +23,7 @@ export class AuthenticateService {
     return this.http.post('/api/authenticate/register', {
       password: password,
       userName: user.userName,
-      honeNumber: user.phoneNumber,
+      phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider
     }).toPromise();
   }

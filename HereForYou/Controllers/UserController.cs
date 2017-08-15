@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
 using LinqToDB;
+using LinqToDB.Common;
 using LinqToDB.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace HereForYou.Controllers
     {
         private readonly UsersRepository _usersRepository;
         private readonly UserManager<User> _userManager;
+
         public UserController(UsersRepository usersRepository, UserManager<User> userManager)
         {
             _usersRepository = usersRepository;
@@ -36,11 +38,24 @@ namespace HereForYou.Controllers
             return _usersRepository.UserByName(name);
         }
 
-//        [HttpPut]
-//        public User Put([FromBody] User user)
-//        {
-//            return _usersRepository.Save(user);
-//        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] RegisterUser registerUser)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.RideProvider = registerUser.RideProvider;
+            user.PhoneNumber = registerUser.PhoneNumber;
+            user.UserName = registerUser.UserName;
+            await _userManager.UpdateAsync(user);
+            if (string.IsNullOrEmpty(registerUser.Password)) return Accepted();
+
+            await _userManager.RemovePasswordAsync(user);
+            var result = await _userManager.AddPasswordAsync(user, registerUser.Password);
+            if (!result.Succeeded)
+            {
+                return result.Errors();
+            }
+            return Accepted();
+        }
 
         [HttpPut("grantadmin")]
         public async Task<IActionResult> GrantAdmin(string username)

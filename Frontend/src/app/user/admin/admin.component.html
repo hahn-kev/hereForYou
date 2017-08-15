@@ -1,8 +1,11 @@
 <md-nav-list>
-  <md-list-item *ngFor="let user of users" routerLink="/user/edit/{{user.userName}}">
-    <span md-line>{{user.userName}}</span>
+  <ng-container *ngFor="let user of users">
+    <md-list-item routerLink="/user/edit/{{user.userName}}">
+      <span md-line>{{user.userName}}</span>
+    </md-list-item>
     <md-divider></md-divider>
-  </md-list-item>
+  </ng-container>
+
 </md-nav-list>
 
 <a routerLink="/user/edit/new" class="user-add" md-fab mdTooltip="Add new User" mdTooltipPosition="left">

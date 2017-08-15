@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
+    this.errorMessage = '';
     try {
       await this.authenticateService.login(this.username, this.password);
     } catch (errorResponse) {

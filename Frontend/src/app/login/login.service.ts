@@ -24,6 +24,7 @@ export class LoginService implements CanActivate {
 
     this.loggedIn().skip(1).subscribe((loggedIn) => {
       if (loggedIn) {
+        if (this.redirectTo.endsWith('login')) this.redirectTo = 'home';
         this.router.navigate([this.redirectTo || 'home']);
       }
     });

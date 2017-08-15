@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { User } from "./user";
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/map";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { User } from './user';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -16,8 +16,13 @@ export class UserService {
     // todo use dedicated REST request
     return (await this.getUsers()).filter((user) => user.userName === name).pop();
   }
-  saveUser(user: User) {
-    // todo save user
-    return this.http.put('/api/user', user).toPromise();
+
+  saveUser(user: User, password: string) {
+    return this.http.put(`/api/user/${user.id}`, {
+      password: password,
+      userName: user.userName,
+      phoneNumber: user.phoneNumber,
+      rideProvider: user.rideProvider
+    }).toPromise();
   }
 }

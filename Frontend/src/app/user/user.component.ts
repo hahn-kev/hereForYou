@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { User } from "./user";
-import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "./user.service";
-import { AuthenticateService } from "../login/authenticate.service";
-import { MdSnackBar } from "@angular/material";
+import { Component, OnInit } from '@angular/core';
+import { User } from './user';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from './user.service';
+import { AuthenticateService } from '../login/authenticate.service';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-user',
@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
     if (this.isNew) {
       await this.authenticateService.registerUser(this.user, this.password);
     } else {
-      await this.userService.saveUser(this.user);
+      await this.userService.saveUser(this.user, this.password);
     }
     this.router.navigate(['/user/admin']);
   }
