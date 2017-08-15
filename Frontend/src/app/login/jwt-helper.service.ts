@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class JwtHelperService {
@@ -63,6 +63,7 @@ export class JwtHelperService {
   }
 
   public static decodeToken(token: string): any {
+    if (token == null) return null;
     let parts = token.split('.');
 
     if (parts.length !== 3) {

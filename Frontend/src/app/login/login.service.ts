@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/delay";
-import "rxjs/add/operator/skip";
-import "rxjs/add/operator/do";
-import { User } from "../user/user";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { LocalStorageService } from "angular-2-local-storage";
-import { JwtHelperService } from "./jwt-helper.service";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/do';
+import { User } from '../user/user';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { LocalStorageService } from 'angular-2-local-storage';
+import { JwtHelperService } from './jwt-helper.service';
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -43,6 +43,10 @@ export class LoginService implements CanActivate {
     this.accessToken = accessToken;
     let decodedToken = JwtHelperService.decodeToken(accessToken);
     //todo pull out roles, and any claims we want
+    this.roles = [];
+    if (decodedToken) {
+      this.roles.push(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+    }
     this.currentUserSubject.next(user);
   }
 
