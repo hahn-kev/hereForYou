@@ -6,9 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using HereForYou.Entities;
-using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -63,11 +60,17 @@ namespace HereForYou.Controllers
             Response.Cookies.Delete(".AspNetCore.Identity.Application");
             if (signInResult.IsLockedOut)
             {
-                return new JsonResult("Account Locked");
+                return new JsonResult(new Dictionary<string, object>
+                {
+                    {"status", "Account Locked, please contact an administrator"}
+                }) {StatusCode = 401};
             }
             if (!signInResult.Succeeded)
             {
-                return new JsonResult("Sign in failed");
+                return new JsonResult(new Dictionary<string, object>
+                {
+                    {"status", "Invalid UserName or Password"}
+                }) {StatusCode = 401};
             }
             var user = await _userManager.FindByNameAsync(credentials.Username);
             var token = await GetJwtSecurityToken(user);

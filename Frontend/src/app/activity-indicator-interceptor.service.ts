@@ -9,6 +9,7 @@ export class ActivityIndicatorInterceptorService implements HttpInterceptor {
     this.activityIndicatorService.showIndicator();
     return next.handle(req).do(event => {
     }, error => {
+      this.activityIndicatorService.hideIndicator();
     }, () => {
       this.activityIndicatorService.hideIndicator();
     });

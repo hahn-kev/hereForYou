@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticateService } from "./authenticate.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticateService } from './authenticate.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +9,19 @@ import { AuthenticateService } from "./authenticate.service";
 export class LoginComponent implements OnInit {
   username: string;
   password: string;
+  errorMessage: string;
 
   constructor(private authenticateService: AuthenticateService) {
   }
 
   ngOnInit() {
   }
-  login() {
-    this.authenticateService.login(this.username, this.password);
+
+  async login() {
+    try {
+      await this.authenticateService.login(this.username, this.password);
+    } catch (errorResponse) {
+      this.errorMessage = errorResponse.error.status;
+    }
   }
 }

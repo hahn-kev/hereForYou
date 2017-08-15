@@ -21,7 +21,9 @@
           </md-error>
         </md-input-container>
       </div>
-
+      <md-error *ngIf="errorMessage">
+        {{errorMessage}}
+      </md-error>
       <button md-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
   </md-card>
