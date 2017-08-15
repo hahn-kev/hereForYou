@@ -6,9 +6,9 @@
 @media (max-width: 1360px) {
   .home {
     min-height: 1400px;
-    grid-template-columns: 1fr 360px 1fr;
+    grid-template-columns: 1fr minmax(250px, 1fr) 1fr;
     grid-template-rows: 0 1fr 1fr 1fr 0;
-    grid-gap: 70px;
+    grid-row-gap: 70px;
     grid-template-areas: ". . ." ". believe ." ". live ." ". speak ." ". . .";
   }
 }
