@@ -35,10 +35,14 @@ namespace HereForYou.DataLayer
 
             protected override void BuildDataType(SqlDataType type, bool createDbType)
             {
-                if (type.DataType == DataType.DateTimeOffset)
+                switch (type.DataType)
                 {
-                    StringBuilder.Append("timetz");
-                    return;
+                    case DataType.DateTimeOffset:
+                        StringBuilder.Append("timetz");
+                        return;
+                    case DataType.Guid:
+                        StringBuilder.Append("uuid");
+                        return;
                 }
                 base.BuildDataType(type, createDbType);
             }

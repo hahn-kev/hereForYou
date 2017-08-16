@@ -10,6 +10,8 @@ namespace HereForYou.Entities
         public string Source { get; set; }
         public string Destination { get; set; }
         public DateTime CreatedTime { get; set; }
-        public string AcceptedBy { get; set; }
+        public int? AcceptedById { get; set; }
+        public int RequestedById { get; set; }
+        public Guid AuthId { get; set; } = Guid.NewGuid();
     }
 }

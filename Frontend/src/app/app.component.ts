@@ -1,9 +1,9 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { LoginService } from "./login/login.service";
-import { User } from "./user/user";
-import { MdSidenav } from "@angular/material";
-import { Router } from "@angular/router";
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { LoginService } from './login/login.service';
+import { User } from './user/user';
+import { MdSidenav } from '@angular/material';
+import { Router } from '@angular/router';
 import { ActivityIndicatorService } from './activity-indicator.service';
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   private sidenav: MdSidenav;
 
   constructor(private loginService: LoginService, private router: Router, activityIndicatorService: ActivityIndicatorService) {
-    this.currentUser = loginService.currentUser();
+    this.currentUser = loginService.observeCurrentUser();
     this.indicatorStatus = activityIndicatorService.observeIndicator();
   }
 

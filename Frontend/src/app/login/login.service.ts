@@ -54,8 +54,12 @@ export class LoginService implements CanActivate {
     return this.currentUserSubject.map((user) => user != null && this.accessToken != null);
   }
 
-  currentUser() {
+  observeCurrentUser() {
     return this.currentUserSubject.asObservable();
+  }
+
+  currentUser() {
+    return this.currentUserSubject.getValue();
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

@@ -17,7 +17,8 @@ namespace HereForYou.Controllers
         private readonly NotifyRideService _notifyRideService;
         private readonly UsersRepository _usersRepository;
 
-        public RideRequestController(RideRequestRepository rideRequestRepository, NotifyRideService notifyRideService, UsersRepository usersRepository)
+        public RideRequestController(RideRequestRepository rideRequestRepository, NotifyRideService notifyRideService,
+            UsersRepository usersRepository)
         {
             _rideRequestRepository = rideRequestRepository;
             _notifyRideService = notifyRideService;
@@ -33,22 +34,41 @@ namespace HereForYou.Controllers
         [HttpPut]
         public RideRequest Put([FromBody] RideRequest rideRequest)
         {
-            rideRequest =_rideRequestRepository.Add(rideRequest);
-            _notifyRideService.Notify(rideRequest);
+            if (rideRequest.RequestedById <= 0) throw new Exception("Requested by Id required");
+            rideRequest = _rideRequestRepository.Add(rideRequest);
+            try
+            {
+                _notifyRideService.NotifyNewRide(rideRequest, Url);
+            }
+            catch (Exception e)
+            {
+                _rideRequestRepository.Remove(rideRequest.Id);
+                throw;
+            }
             return rideRequest;
         }
 
-        [HttpGet("accept/{id}")]
-        public IActionResult Accept(string user, int id)
+        private static readonly object AcceptLock = new object();
+
+        [AllowAnonymous]
+        [HttpGet("accept/{rideRequestId}")]
+        public IActionResult Accept(string username, int rideRequestId, string auth)
         {
-            if (string.IsNullOrEmpty(user) || _usersRepository.UserByName(user) == null)
+            if (!Guid.TryParse(auth, out Guid authGuid)) return Unauthorized();
+            RideRequest rideRequest;
+            User user;
+            lock (AcceptLock)
             {
-                throw new ArgumentException("user not specified");
+                rideRequest = _rideRequestRepository.GetById(rideRequestId);
+                if (rideRequest == null) throw new NullReferenceException("No ride found matching ID");
+                if (rideRequest.AuthId != authGuid) return Unauthorized();
+                if (rideRequest.AcceptedById > 0) throw new Exception("Ride has already been accepted by another user");
+                user = _usersRepository.UserByName(username);
+                if (user == null) throw new NullReferenceException("User not found");
+                rideRequest.AcceptedById = user.Id;
+                _rideRequestRepository.Save(rideRequest);
             }
-            var rideRequest = _rideRequestRepository.GetById(id);
-            if (rideRequest == null) throw new NullReferenceException("No ride found matching ID");
-            rideRequest.AcceptedBy = user;
-            _rideRequestRepository.Save(rideRequest);
+            _notifyRideService.NotifyRideAccepted(rideRequest, user);
             return Redirect("~/ride-share");
         }
     }

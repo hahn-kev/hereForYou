@@ -25,6 +25,11 @@ namespace HereForYou.DataLayer
             return rideRequest;
         }
 
+        public void Remove(int id)
+        {
+            _connection.RideRequests.Delete(request => request.Id == id);
+        }
+
         public void Save(RideRequest rideRequest)
         {
             if (rideRequest.Id <= 0) Add(rideRequest);
