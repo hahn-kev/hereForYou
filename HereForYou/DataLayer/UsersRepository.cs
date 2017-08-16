@@ -24,13 +24,5 @@ namespace HereForYou.DataLayer
         }
 
         public User UserById(int id) => _hereForYouConnection.Users.FirstOrDefault(user => user.Id == id);
-
-        public int UserIdByName(string username)
-        {
-            if (string.IsNullOrEmpty(username)) return 0;
-            return _hereForYouConnection.Users
-                .Where(user => user.UserName.Equals(username, StringComparison.CurrentCultureIgnoreCase))
-                .Select(user => user.Id).FirstOrDefault();
-        }
     }
 }
