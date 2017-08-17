@@ -14,4 +14,10 @@ namespace HereForYou.Entities
         public int RequestedById { get; set; }
         public Guid AuthId { get; set; } = Guid.NewGuid();
     }
+
+    public class RideRequestUsers : RideRequest
+    {
+        public string AcceptedByUser { get; set; }
+        public string RequestedByUser { get; set; }
+    }
 }

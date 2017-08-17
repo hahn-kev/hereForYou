@@ -1,15 +1,17 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { RideShareComponent } from "./rideShare/ride-share.component";
-import { UserComponent } from "./user/user.component";
-import { LoginComponent } from "./login/login.component";
-import { LoginService } from "./login/login.service";
-import { AdminComponent } from "./user/admin/admin.component";
-import { UserResolveService } from "./user/user-resolve.service";
-import { HomeComponent } from "./home/home.component";
-import { LearnComponent } from "./learn/learn.component";
-import { IsNewResolverService } from "./user/is-new-resolver.service";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RideShareComponent } from './rideShare/ride-share.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
+import { AdminComponent } from './user/admin/admin.component';
+import { UserResolveService } from './user/user-resolve.service';
+import { HomeComponent } from './home/home.component';
+import { LearnComponent } from './learn/learn.component';
+import { IsNewResolverService } from './user/is-new-resolver.service';
 import { RoleGuardService } from './login/role-guard.service';
+import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
+import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
 
 const routes: Routes = [
   {
@@ -19,6 +21,29 @@ const routes: Routes = [
       {
         path: 'ride-share',
         component: RideShareComponent
+      },
+      {
+        path: 'ride-share/admin',
+        children: [
+          {
+            path: ':user/:id',
+            component: RidesListComponent,
+            resolve: {
+              rides: RidesResolveService
+            }
+          },
+          {
+            path: '',
+            component: RidesListComponent,
+            resolve: {
+              rides: RidesResolveService
+            }
+          }
+        ],
+        canActivate: [RoleGuardService],
+        data: {
+          requireRole: 'admin'
+        }
       },
       {
         path: 'user/admin',

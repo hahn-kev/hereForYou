@@ -7,6 +7,7 @@ import { MdSnackBar } from '@angular/material';
 @Injectable()
 export class RoleGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    //noinspection TypeScriptUnresolvedVariable
     let role = route.data.requireRole;
     if (!role) {
       return true;

@@ -5,7 +5,8 @@
       <md-icon>menu</md-icon>
     </button>
     <span>Here for you</span>
-
+    <span class="example-spacer"></span>
+    <ng-container appToolbarTemplate></ng-container>
   </md-toolbar>
   <md-sidenav-container>
     <md-sidenav #sidenav id="sidenav">
@@ -43,6 +44,10 @@
           <md-list-item routerLink="/user/admin" routerLinkActive="active-link">
             <md-icon md-list-icon>face</md-icon>
             <a md-line>User Managment</a>
+          </md-list-item>
+          <md-list-item routerLink="/ride-share/admin" routerLinkActive="active-link">
+            <md-icon md-list-icon>directions car</md-icon>
+            <a md-line>Ride Share aduit</a>
           </md-list-item>
         </ng-container>
 

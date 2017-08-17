@@ -27,6 +27,7 @@ import { AuthenticateService } from './login/authenticate.service';
 import { LearnComponent } from './learn/learn.component';
 import {
   MdButtonModule,
+  MdButtonToggleModule,
   MdCardModule,
   MdCheckboxModule,
   MdDatepickerModule,
@@ -49,6 +50,12 @@ import { ActivityIndicatorInterceptorService } from './activity-indicator-interc
 import { RoleGuardService } from './login/role-guard.service';
 import { RequireRoleDirective } from './login/require-role.directive';
 import { MarkdownModule } from 'angular2-markdown';
+import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
+import { CdkTableModule } from '@angular/cdk';
+import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
+import { ToolbarTemplateDirective } from './toolbar/toolbar-template.directive';
+import { ToolbarContentDirective } from './toolbar/toolbar-content.directive';
+import { ToolbarService } from './toolbar/toolbar.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +70,10 @@ import { MarkdownModule } from 'angular2-markdown';
     HomeComponent,
     LearnComponent,
     FlipCardComponent,
-    RequireRoleDirective
+    RequireRoleDirective,
+    RidesListComponent,
+    ToolbarTemplateDirective,
+    ToolbarContentDirective
   ],
   entryComponents: [
     RequestDialogComponent
@@ -93,6 +103,9 @@ import { MarkdownModule } from 'angular2-markdown';
     MdCheckboxModule,
     MdSnackBarModule,
     MdProgressBarModule,
+    MdTableModule,
+    CdkTableModule,
+    MdButtonToggleModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
@@ -119,7 +132,9 @@ import { MarkdownModule } from 'angular2-markdown';
       useClass: ActivityIndicatorInterceptorService,
       multi: true
     },
-    RoleGuardService
+    RoleGuardService,
+    RidesResolveService,
+    ToolbarService
   ],
   bootstrap: [AppComponent]
 })

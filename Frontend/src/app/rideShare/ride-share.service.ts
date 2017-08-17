@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RideRequest } from './ride-request';
+import { RideRequest, RideRequestUsers } from './ride-request';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
@@ -23,5 +23,17 @@ export class RideShareService {
   ridePickedUp(rideRequest: RideRequest) {
     //todo send to api
     rideRequest.completed = true;
+  }
+
+  rideRequestsForDriver(driverId: number) {
+    return this.http.get('/api/riderequest/ridesbydriver/' + driverId).toPromise<RideRequestUsers[]>()
+  }
+
+  rideRequestsForRider(riderId: number) {
+    return this.http.get('/api/riderequest/ridesbyrider/' + riderId).toPromise<RideRequestUsers[]>()
+  }
+
+  rideRequestsWithUsers() {
+    return this.http.get('/api/riderequest/rideswusers/').toPromise<RideRequestUsers[]>()
   }
 }

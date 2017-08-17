@@ -5,9 +5,15 @@ export class RideRequest {
   createdTime: Date;
   completed = false;
   requestedById: number;
+  acceptedById?: number;
   constructor(init?: Partial<RideRequest>) {
     if (init) {
       Object.assign(this, init);
     }
   }
+}
+
+export class RideRequestUsers extends RideRequest {
+  acceptedByUser: string;
+  requestedByUser: string;
 }

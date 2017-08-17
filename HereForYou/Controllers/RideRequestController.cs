@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
 using HereForYou.Services;
@@ -30,6 +31,28 @@ namespace HereForYou.Controllers
         {
             return _rideRequestRepository.RideRequests();
         }
+        
+        [Authorize(Roles = "admin")]
+        [HttpGet("ridesWUsers")]
+        public IEnumerable<RideRequestUsers> RidesWithUsernames()
+        {
+            return _rideRequestRepository.RidesWithUsernames();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("ridesByDriver/{providerId}")]
+        public IEnumerable<RideRequestUsers> ProvidedRides(int providerId)
+        {
+            return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedById == providerId);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("ridesByRider/{riderId}")]
+        public IEnumerable<RideRequestUsers> RiddenRides(int riderId)
+        {
+            return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedById == riderId);
+        }
+
 
         [HttpPut]
         public RideRequest Put([FromBody] RideRequest rideRequest)

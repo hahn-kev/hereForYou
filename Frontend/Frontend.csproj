@@ -11,4 +11,7 @@
   <ItemGroup>
     <None Remove="node_modules\**"/>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\directives"/>
+  </ItemGroup>
 </Project>
