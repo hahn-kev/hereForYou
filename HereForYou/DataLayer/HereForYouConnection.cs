@@ -31,10 +31,10 @@ namespace HereForYou.DataLayer
         {
 #if DEBUG
             var builder = MappingSchema.GetFluentMappingBuilder();
-            SetWithIdentity<User>(builder, user => user.Id);
-            SetWithIdentity<IdentityUserClaim<int>>(builder, userClaim => userClaim.Id);
-            SetWithIdentity<IdentityRole<int>>(builder, role => role.Id);
-            SetWithIdentity<IdentityRoleClaim<int>>(builder, roleClaim => roleClaim.Id);
+            builder.Entity<User>().HasIdentity(user => user.Id);
+            builder.Entity<IdentityUserClaim<int>>().HasIdentity(claim => claim.Id);
+            builder.Entity<IdentityRole<int>>().HasIdentity(role => role.Id);
+            builder.Entity<IdentityRoleClaim<int>>().HasIdentity(claim => claim.Id);
             TryCreateTable<User>();
             TryCreateTable<IdentityUserClaim<int>>();
             TryCreateTable<IdentityUserLogin<int>>();
@@ -53,11 +53,6 @@ namespace HereForYou.DataLayer
                 }
             }
 #endif
-        }
-
-        private void SetWithIdentity<T>(FluentMappingBuilder builder, Expression<Func<T, object>> id)
-        {
-            builder.Entity<T>().HasIdentity(id);
         }
 
         private void TryCreateTable<T>()
