@@ -12,6 +12,8 @@ import { IsNewResolverService } from './user/is-new-resolver.service';
 import { RoleGuardService } from './login/role-guard.service';
 import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
+import { YourRightsComponent } from './home/static/your-rights.component';
+import { LifeLessonsComponent } from './home/static/life-lessons.component';
 
 const routes: Routes = [
   {
@@ -44,6 +46,14 @@ const routes: Routes = [
         data: {
           requireRole: 'admin'
         }
+      },
+      {
+        path: 'your-rights',
+        component: YourRightsComponent
+      },
+      {
+        path: 'life-lessons',
+        component: LifeLessonsComponent
       },
       {
         path: 'user/admin',

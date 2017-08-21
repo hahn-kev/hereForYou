@@ -56,6 +56,8 @@ import { RidesResolveService } from './rideShare/rides-list/rides-resolve.servic
 import { ToolbarTemplateDirective } from './toolbar/toolbar-template.directive';
 import { ToolbarContentDirective } from './toolbar/toolbar-content.directive';
 import { ToolbarService } from './toolbar/toolbar.service';
+import { YourRightsComponent } from './home/static/your-rights.component';
+import { LifeLessonsComponent } from './home/static/life-lessons.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { ToolbarService } from './toolbar/toolbar.service';
     RequireRoleDirective,
     RidesListComponent,
     ToolbarTemplateDirective,
-    ToolbarContentDirective
+    ToolbarContentDirective,
+    YourRightsComponent,
+    LifeLessonsComponent
   ],
   entryComponents: [
     RequestDialogComponent
