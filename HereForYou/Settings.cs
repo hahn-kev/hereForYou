@@ -17,6 +17,9 @@ namespace HereForYou
         public string TwilioAccountSid { get; set; }
         public string TwilioAuthToken { get; set; }
         
+        public string MailgunApiKey { get; set; }
+        public string MailgunDomain { get; set; }
+        
         public IEnumerable<IDataProviderSettings> DataProviders
         {
             get {yield break;}

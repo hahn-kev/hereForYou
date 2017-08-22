@@ -12,12 +12,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Twilio;
 
@@ -69,10 +67,11 @@ namespace HereForYou
             {
 //                options.AddPolicy("test");
             });
-            services.AddTransient<RideRequestRepository>();
-            services.AddTransient<UsersRepository>();
-            services.AddTransient<NotifyRideService>();
-            services.AddTransient<HereForYouConnection>();
+            services.AddScoped<RideRequestRepository>();
+            services.AddScoped<UsersRepository>();
+            services.AddScoped<NotifyRideService>();
+            services.AddScoped<EmailService>();
+            services.AddScoped<HereForYouConnection>();
         }
 
         public IConfigurationRoot Configuration { get; set; }
