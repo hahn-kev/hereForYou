@@ -1,20 +1,19 @@
 .home {
-  height: 100%;
   display: grid;
 }
 
 @media (max-width: 1360px) {
   .home {
-    min-height: 1400px;
-    grid-template-columns: 1fr minmax(250px, 1fr) 1fr;
-    grid-template-rows: 0 1fr 1fr 1fr 0;
-    grid-row-gap: 70px;
+    grid-template-columns: 14px minmax(250px, 1fr) 14px;
+    grid-template-rows: 0 auto auto auto 0;
+    grid-row-gap: 14px;
     grid-template-areas: ". . ." ". believe ." ". live ." ". speak ." ". . .";
   }
 }
 
 @media (min-width: 1360px) {
   .home {
+    height: 100%;
     grid-template-columns: 1fr repeat(3, 360px) 1fr;
     grid-template-rows: 1fr 360px 1fr;
     grid-gap: 70px;
