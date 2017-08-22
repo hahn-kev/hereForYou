@@ -1,0 +1,35 @@
+<div class="help">
+  <md-card>
+    <form #helpForm="ngForm" (ngSubmit)="submit()">
+      <h3>Need help?</h3>
+      <div>
+        <md-input-container>
+          <input #nameElement="ngModel" name="name" mdInput required [(ngModel)]="name"
+                 placeholder="Name">
+          <md-error *ngIf="nameElement.valid || nameElement.pristine">
+            Name required
+          </md-error>
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container>
+          <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" mdInput required [(ngModel)]="phoneNumber"
+                 placeholder="Phone Number">
+          <md-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
+            Phone Number required
+          </md-error>
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container>
+          <textarea #messageElement="ngModel" name="message" mdInput required [(ngModel)]="message"
+                    placeholder="Message"></textarea>
+          <md-error *ngIf="messageElement.valid || messageElement.pristine">
+            Message required
+          </md-error>
+        </md-input-container>
+      </div>
+      <button md-button type="submit" [disabled]="!helpForm.form.valid">Send</button>
+    </form>
+  </md-card>
+</div>

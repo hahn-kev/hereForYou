@@ -8,7 +8,7 @@ namespace HereForYou.Controllers
     [Route("api/[controller]")]
     public class EmailController : Controller
     {
-        private EmailService _emailService;
+        private readonly EmailService _emailService;
 
         public EmailController(EmailService emailService)
         {
@@ -16,10 +16,10 @@ namespace HereForYou.Controllers
         }
 
         [HttpPost("help")]
-        public async Task<IActionResult> help(string from, string body)
+        public async Task<IActionResult> Help(string from, string body, string phoneNumber)
         {
             //todo resolve support email address
-            body = $"{from} would like help, here is their request: " + Environment.NewLine + body;
+            body = $"{from} would like help, their phone number is {phoneNumber}. here is their request: " + Environment.NewLine + body;
             
             await _emailService.SendEmail("tbd", "Help request", body);
             return Accepted();

@@ -1,6 +1,6 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -58,6 +58,8 @@ import { ToolbarContentDirective } from './toolbar/toolbar-content.directive';
 import { ToolbarService } from './toolbar/toolbar.service';
 import { YourRightsComponent } from './home/static/your-rights.component';
 import { LifeLessonsComponent } from './home/static/life-lessons.component';
+import { HelpComponent } from './help/help.component';
+import { MyErrorHandlerService } from './my-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { LifeLessonsComponent } from './home/static/life-lessons.component';
     ToolbarTemplateDirective,
     ToolbarContentDirective,
     YourRightsComponent,
-    LifeLessonsComponent
+    LifeLessonsComponent,
+    HelpComponent
   ],
   entryComponents: [
     RequestDialogComponent
@@ -138,7 +141,11 @@ import { LifeLessonsComponent } from './home/static/life-lessons.component';
     },
     RoleGuardService,
     RidesResolveService,
-    ToolbarService
+    ToolbarService,
+    {
+      provide: ErrorHandler,
+      useClass: MyErrorHandlerService
+    }
   ],
   bootstrap: [AppComponent]
 })

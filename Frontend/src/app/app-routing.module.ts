@@ -14,6 +14,7 @@ import { RidesListComponent } from './rideShare/rides-list/rides-list.component'
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
 import { YourRightsComponent } from './home/static/your-rights.component';
 import { LifeLessonsComponent } from './home/static/life-lessons.component';
+import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
       {
         path: 'life-lessons',
         component: LifeLessonsComponent
+      },
+      {
+        path: 'help',
+        component: HelpComponent
       },
       {
         path: 'user/admin',

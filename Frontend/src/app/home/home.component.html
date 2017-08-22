@@ -2,15 +2,15 @@
   <md-card [style.grid-area]="'believe'" class="mat-elevation-z6">
     <md-nav-list>
       <h3 md-subheader>Believe</h3>
-      <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+      <a md-list-item href="http://discourse.hahn-kev.com:82/new-topic?category=prayer">
         <md-icon md-list-icon>sentiment_very_satisfied</md-icon>
         <span md-line>Request Prayer</span>
       </a>
-      <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+      <a md-list-item href="http://discourse.hahn-kev.com:82/new-topic?category=prayer">
         <md-icon md-list-icon>forum</md-icon>
         <span md-line>Share an Answered Prayer</span>
       </a>
-      <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+      <a md-list-item href="http://discourse.hahn-kev.com:82/new-topic?category=prayer">
         <md-icon md-list-icon>forum</md-icon>
         <span md-line>Encouragement</span>
       </a>
@@ -19,35 +19,39 @@
   <md-card [style.grid-area]="'live'" class="mat-elevation-z6">
     <md-nav-list>
       <h3 md-subheader>Live <h5>and live well... or something else?</h5></h3>
-      <md-list-item routerLink="/ride-share">
+      <a md-list-item routerLink="/ride-share">
         <md-icon md-list-icon>directions car</md-icon>
         <p md-line>Ride Share</p>
-      </md-list-item>
+      </a>
 
-      <a href="http://discourse.hahn-kev.com:82/" md-list-item>
+      <a md-list-item href="http://discourse.hahn-kev.com:82/">
         <md-icon md-list-icon>forum</md-icon>
         <span md-line>Grow</span>
       </a>
-      <md-list-item routerLink="/your-rights">
+      <a md-list-item routerLink="/your-rights">
         <md-icon md-list-icon>security</md-icon>
         <p md-line>Your Rights</p>
-      </md-list-item>
-      <md-list-item routerLink="/life-lessons">
+      </a>
+      <a md-list-item routerLink="/life-lessons">
         <md-icon md-list-icon>local_library</md-icon>
         <p md-line>Life Lessons</p>
-      </md-list-item>
+      </a>
     </md-nav-list>
   </md-card>
   <md-card [style.grid-area]="'speak'" class="mat-elevation-z6">
     <md-nav-list>
       <h3 md-subheader>Speak</h3>
-      <md-list-item routerLink="/learn" routerLinkActive="active-link">
+      <a md-list-item routerLink="/learn" routerLinkActive="active-link">
         <md-icon md-list-icon>school</md-icon>
         <a md-line>Learn</a>
-      </md-list-item>
-      <a href="http://discourse.hahn-kev.com:82/c/learn" md-list-item>
+      </a>
+      <a md-list-item href="http://discourse.hahn-kev.com:82/c/learn">
         <md-icon md-list-icon>local_library</md-icon>
         <span md-line>Class List and Signup</span>
+      </a>
+      <a md-list-item routerLink="/help" routerLinkActive="active-link">
+        <md-icon md-list-icon>help</md-icon>
+        <a md-line>Ask for Help</a>
       </a>
     </md-nav-list>
   </md-card>
