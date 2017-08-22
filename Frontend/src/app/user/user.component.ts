@@ -11,9 +11,9 @@ import { MdSnackBar } from '@angular/material';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private user: User;
-  private isNew: boolean;
-  private password: string;
+  public user: User;
+  public isNew: boolean;
+  public password: string;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,

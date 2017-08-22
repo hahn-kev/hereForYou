@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import { Component, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-flip-card',
@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 })
 export class FlipCardComponent implements OnInit {
 
-  private trigger: string = 'inactive';
+  public trigger: string = 'inactive';
 
   constructor() {
   }
