@@ -63,6 +63,7 @@ namespace HereForYou
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
             services.AddMvc();
+            services.AddResponseCaching();
             services.AddAuthorization(options =>
             {
 //                options.AddPolicy("test");
@@ -100,6 +101,7 @@ namespace HereForYou
                 }
             });
             app.UseStaticFiles();
+            app.UseResponseCaching();
             app.UseIdentity();
             var jwtSettings = app.ApplicationServices.GetService<IOptions<JWTSettings>>().Value;
             //setup using this guide: https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/
