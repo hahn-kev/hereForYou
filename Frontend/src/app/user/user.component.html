@@ -1,26 +1,35 @@
-<form #userForm="ngForm" (ngSubmit)="save()">
-  <div>
-    <md-input-container>
-      <input mdInput required name="name" [(ngModel)]="user.userName" placeholder="Username">
-    </md-input-container>
-  </div>
-  <div>
-    <md-input-container>
-      <input mdInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel" placeholder="Phone Number">
-    </md-input-container>
-  </div>
-  <div>
-    <md-input-container *ngIf="!isNew">
-      <input mdInput name="password" autocomplete="off" [(ngModel)]="password" type="password" placeholder="Password">
-    </md-input-container>
-    <md-input-container *ngIf="isNew">
-      <input mdInput required name="password" autocomplete="off" [(ngModel)]="password" type="password"
-             placeholder="Password">
-    </md-input-container>
-  </div>
-  <div>
-    <md-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</md-checkbox>
-  </div>
+<div class="user">
+  <md-card>
+    <form #userForm="ngForm" (ngSubmit)="save()">
+      <div>
+        <md-input-container>
+          <input mdInput required name="name" [(ngModel)]="user.userName" placeholder="Username">
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container>
+          <input mdInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
+                 placeholder="Phone Number">
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container *ngIf="!isNew">
+          <input mdInput name="password" autocomplete="off" [(ngModel)]="password" type="password"
+                 placeholder="Password">
+        </md-input-container>
+        <md-input-container *ngIf="isNew">
+          <input mdInput required name="password" autocomplete="off" [(ngModel)]="password" type="password"
+                 placeholder="Password">
+        </md-input-container>
+      </div>
+      <div>
+        <md-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</md-checkbox>
+      </div>
 
-  <button type="submit" [disabled]="!userForm.form.valid" md-button>{{isNew ? 'Register' : 'Save'}}</button>
-</form>
+      <button type="submit" [disabled]="!userForm.form.valid" md-button>{{isNew ? 'Register' : 'Save'}}</button>
+    </form>
+  </md-card>
+</div>
+
+
+

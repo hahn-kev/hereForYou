@@ -1,0 +1,15 @@
+.user {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 360px 1fr;
+  grid-template-columns: 1fr 360px 1fr;
+  grid-template-areas: '. . .' '. user .' '. . . ';
+}
+
+md-card {
+  grid-area: user;
+}
+
+md-input-container {
+  width: 100%;
+}
