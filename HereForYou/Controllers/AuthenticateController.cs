@@ -20,12 +20,12 @@ namespace HereForYou.Controllers
     public class AuthenticateController : Controller
     {
         private readonly JWTSettings _options;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly SecurityTokenHandler _securityTokenHandler;
 
-        public AuthenticateController(IOptions<JWTSettings> options, SignInManager<User> signInManager,
-            UserManager<User> userManager)
+        public AuthenticateController(IOptions<JWTSettings> options, SignInManager<IdentityUser> signInManager,
+            UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -37,7 +37,7 @@ namespace HereForYou.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
-            var user = new User
+            var user = new IdentityUser
             {
                 UserName = registerUser.UserName,
                 PhoneNumber = registerUser.PhoneNumber,
@@ -81,26 +81,26 @@ namespace HereForYou.Controllers
             });
         }
 
-        private async Task<JwtSecurityToken> GetJwtSecurityToken(User user)
+        private async Task<JwtSecurityToken> GetJwtSecurityToken(IdentityUser identityUser)
         {
-            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(identityUser);
 
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
                 audience: _options.Audience,
-                claims: GetTokenClaims(user).Union(claimsPrincipal.Claims),
+                claims: GetTokenClaims(identityUser).Union(claimsPrincipal.Claims),
                 expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256)
             );
         }
 
-        private static IEnumerable<Claim> GetTokenClaims(User user)
+        private static IEnumerable<Claim> GetTokenClaims(IdentityUser identityUser)
         {
             return new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                new Claim(JwtRegisteredClaimNames.Sub, identityUser.UserName)
             };
         }
     }

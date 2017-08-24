@@ -53,7 +53,6 @@ namespace HereForYou.Controllers
             return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedById == riderId);
         }
 
-
         [HttpPut]
         public RideRequest Put([FromBody] RideRequest rideRequest, int timezoneOffset)
         {
@@ -83,19 +82,19 @@ namespace HereForYou.Controllers
         {
             if (!Guid.TryParse(auth, out Guid authGuid)) return Unauthorized();
             RideRequest rideRequest;
-            User user;
+            IUser identityUser;
             lock (AcceptLock)
             {
                 rideRequest = _rideRequestRepository.GetById(rideRequestId);
                 if (rideRequest == null) throw new NullReferenceException("No ride found matching ID");
                 if (rideRequest.AuthId != authGuid) return Unauthorized();
                 if (rideRequest.AcceptedById > 0) throw new Exception("Ride has already been accepted by another user");
-                user = _usersRepository.UserByName(username);
-                if (user == null) throw new NullReferenceException("User not found");
-                rideRequest.AcceptedById = user.Id;
+                identityUser = _usersRepository.UserByName(username);
+                if (identityUser == null) throw new NullReferenceException("User not found");
+                rideRequest.AcceptedById = identityUser.Id;
                 _rideRequestRepository.Save(rideRequest);
             }
-            _notifyRideService.NotifyRideAccepted(rideRequest, user);
+            _notifyRideService.NotifyRideAccepted(rideRequest, identityUser);
             return Redirect("~/ride-share");
         }
     }

@@ -32,12 +32,12 @@ namespace HereForYou.Services
 //            }
         }
 
-        public void NotifyRideAccepted(RideRequest rideRequest, User acceptedBy)
+        public void NotifyRideAccepted(RideRequest rideRequest, IUser acceptedBy)
         {
             NotifyRideAccepted(rideRequest, acceptedBy, _usersRepository.UserById(rideRequest.RequestedById));
         }
 
-        public void NotifyRideAccepted(RideRequest rideRequest, User acceptedBy, User requestedBy)
+        public void NotifyRideAccepted(RideRequest rideRequest, IUser acceptedBy, IUser requestedBy)
         {
             //todo send text to ride requester, and user providing ride
             SendNotification(acceptedBy.PhoneNumber, FormatAcceptedMessageToProvider(rideRequest, requestedBy));
@@ -55,7 +55,7 @@ namespace HereForYou.Services
 #endif
         }
 
-        private string FormatNewRideMessage(RideRequest rideRequest, User user, IUrlHelper url)
+        private string FormatNewRideMessage(RideRequest rideRequest, IUser user, IUrlHelper url)
         {
             return $"Someone in your area would like a ride." + Environment.NewLine +
                    $"From: {rideRequest.Source}" + Environment.NewLine +
@@ -66,7 +66,7 @@ namespace HereForYou.Services
                    $"Once you accept you will be sent their Username and Phone number";
         }
 
-        private string FormatAcceptedMessageToRequester(User acceptedBy)
+        private string FormatAcceptedMessageToRequester(IUser acceptedBy)
         {
             //todo fill in placeholder
             return
@@ -75,7 +75,7 @@ namespace HereForYou.Services
                 $"Please contact [placeholder] if you have any problems or feel unsafe";
         }
 
-        private string FormatAcceptedMessageToProvider(RideRequest rideRequest, User requestedBy)
+        private string FormatAcceptedMessageToProvider(RideRequest rideRequest, IUser requestedBy)
         {
             return
                 $"Thank you for accepting to give {requestedBy.UserName} a ride, you can contact them on their number at {requestedBy.PhoneNumber}. " +

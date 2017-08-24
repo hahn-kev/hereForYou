@@ -14,15 +14,15 @@ namespace HereForYou.DataLayer
             _hereForYouConnection = hereForYouConnection;
         }
 
-        public IEnumerable<User> Users() => _hereForYouConnection.Users;
+        public IQueryable<UserProfile> Users => _hereForYouConnection.UserProfiles;
 
-        public User UserByName(string name)
+        public UserProfile UserByName(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
-            return _hereForYouConnection.Users.FirstOrDefault(user =>
+            return Users.FirstOrDefault(user =>
                 user.UserName == name);
         }
 
-        public User UserById(int id) => _hereForYouConnection.Users.FirstOrDefault(user => user.Id == id);
+        public UserProfile UserById(int id) => Users.FirstOrDefault(user => user.Id == id);
     }
 }

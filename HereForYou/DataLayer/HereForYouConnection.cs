@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,11 @@ using LinqToDB.SqlQuery;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Npgsql;
+using IdentityUser = HereForYou.Entities.IdentityUser;
 
 namespace HereForYou.DataLayer
 {
-    public class HereForYouConnection : IdentityDataConnection<User, IdentityRole<int>, int>
+    public class HereForYouConnection : IdentityDataConnection<IdentityUser, IdentityRole<int>, int>
     {
         private readonly RoleManager<IdentityRole<int>> _roleManager;
 
@@ -27,15 +29,17 @@ namespace HereForYou.DataLayer
 
         public ITable<RideRequest> RideRequests => GetTable<RideRequest>();
 
+        public IQueryable<UserProfile> UserProfiles => GetTable<UserProfile>();
+
         public async Task Setup()
         {
 #if DEBUG
             var builder = MappingSchema.GetFluentMappingBuilder();
-            builder.Entity<User>().HasIdentity(user => user.Id);
+            builder.Entity<IdentityUser>().HasIdentity(user => user.Id);
             builder.Entity<IdentityUserClaim<int>>().HasIdentity(claim => claim.Id);
             builder.Entity<IdentityRole<int>>().HasIdentity(role => role.Id);
             builder.Entity<IdentityRoleClaim<int>>().HasIdentity(claim => claim.Id);
-            TryCreateTable<User>();
+            TryCreateTable<IdentityUser>();
             TryCreateTable<IdentityUserClaim<int>>();
             TryCreateTable<IdentityUserLogin<int>>();
             TryCreateTable<IdentityUserToken<int>>();

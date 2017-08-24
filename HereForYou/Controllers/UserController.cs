@@ -10,6 +10,7 @@ using LinqToDB.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using IdentityUser = HereForYou.Entities.IdentityUser;
 
 namespace HereForYou.Controllers
 {
@@ -18,22 +19,22 @@ namespace HereForYou.Controllers
     public class UserController : Controller
     {
         private readonly UsersRepository _usersRepository;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(UsersRepository usersRepository, UserManager<User> userManager)
+        public UserController(UsersRepository usersRepository, UserManager<IdentityUser> userManager)
         {
             _usersRepository = usersRepository;
             _userManager = userManager;
         }
 
         [HttpGet]
-        public IEnumerable<User> Users()
+        public IEnumerable<IUser> Users()
         {
-            return _usersRepository.Users();
+            return _usersRepository.Users;
         }
 
         [HttpGet("{name}")]
-        public User Get(string name)
+        public UserProfile Get(string name)
         {
             return _usersRepository.UserByName(name);
         }

@@ -8,6 +8,7 @@ using HereForYou.Entities;
 using HereForYou.Services;
 using LinqToDB.Data;
 using LinqToDB.Identity;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Twilio;
+using IdentityUser = HereForYou.Entities.IdentityUser;
 
 namespace HereForYou
 {
@@ -41,7 +43,7 @@ namespace HereForYou
             services.Configure<Settings>(Configuration);
             services.Configure<JWTSettings>(Configuration.GetSection("JWTSettings"));
 
-            services.AddIdentity<User, IdentityRole<int>>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole<int>>(options =>
                 {
                     // avoid redirecting REST clients on 401
                     options.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents
@@ -80,6 +82,8 @@ namespace HereForYou
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            var telemetryConfiguration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+            telemetryConfiguration.DisableTelemetry = true;
             loggerFactory.AddConsole();
             if (env.IsDevelopment())
             {
@@ -131,6 +135,7 @@ namespace HereForYou
             var settings = app.ApplicationServices.GetService<IOptions<Settings>>().Value;
             DataConnection.AddDataProvider(new MyPostgreSQLDataProvider("MyPostGreSQLProvider"));
             DataConnection.DefaultSettings = settings;
+            LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             TwilioClient.Init(settings.TwilioAccountSid, settings.TwilioAuthToken);
                 
             using (var scope = app.ApplicationServices.CreateScope())
