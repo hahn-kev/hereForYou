@@ -55,9 +55,13 @@ namespace HereForYou.Controllers
 
 
         [HttpPut]
-        public RideRequest Put([FromBody] RideRequest rideRequest)
+        public RideRequest Put([FromBody] RideRequest rideRequest, int timezoneOffset)
         {
             if (rideRequest.RequestedById <= 0) throw new Exception("Requested by Id required");
+            //timezone offset from browser is reverse of offset in .net
+            var offsetTimeSpan = TimeSpan.FromMinutes(timezoneOffset).Negate();
+            rideRequest.PickupTime = rideRequest.PickupTime.ToOffset(offsetTimeSpan);
+            //todo authorize by user Id
             rideRequest = _rideRequestRepository.Add(rideRequest);
             try
             {

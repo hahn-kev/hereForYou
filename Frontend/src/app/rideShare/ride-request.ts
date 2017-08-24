@@ -2,7 +2,7 @@ export class RideRequest {
   id: number;
   source: string;
   destination: string;
-  createdTime: Date;
+  pickupTime: Date;
   completed = false;
   requestedById: number;
   acceptedById?: number;

@@ -64,7 +64,7 @@ namespace HereForYou.DataLayer
                     Id = r.Id,
                     Source = r.Source,
                     Destination = r.Destination,
-                    CreatedTime = r.CreatedTime,
+                    PickupTime = r.PickupTime,
                     AcceptedById = r.AcceptedById,
                     RequestedById = r.RequestedById,
                     AuthId = r.AuthId,

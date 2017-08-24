@@ -60,7 +60,7 @@ namespace HereForYou.Services
             return $"Someone in your area would like a ride." + Environment.NewLine +
                    $"From: {rideRequest.Source}" + Environment.NewLine +
                    $"To: {rideRequest.Destination}" + Environment.NewLine +
-                   $"At: {rideRequest.CreatedTime.ToLocalTime():g}" + Environment.NewLine +
+                   $"At: {rideRequest.PickupTime:g}" + Environment.NewLine +
                    $"Accpet? {_options.BaseUrl}{url.Action("Accept", "RideRequest", new {rideRequestId = rideRequest.Id, username = user.UserName, auth = rideRequest.AuthId})}" +
                    Environment.NewLine +
                    $"Once you accept you will be sent their Username and Phone number";
@@ -80,7 +80,7 @@ namespace HereForYou.Services
             return
                 $"Thank you for accepting to give {requestedBy.UserName} a ride, you can contact them on their number at {requestedBy.PhoneNumber}. " +
                 $"As a reminder remeber that you're picking them up at: {rideRequest.Source} and " +
-                $"taking them to: {rideRequest.Destination} at: {rideRequest.CreatedTime.ToLocalTime():g}";
+                $"taking them to: {rideRequest.Destination} at: {rideRequest.PickupTime:g}";
         }
     }
 }

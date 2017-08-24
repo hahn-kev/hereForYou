@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { MdDialog } from "@angular/material";
-import "rxjs/add/operator/toPromise";
+import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
+import 'rxjs/add/operator/toPromise';
 
-import { RequestDialogComponent } from "./request-dialog/request-dialog.component";
-import { RideRequest } from "./ride-request";
-import { RideShareService } from "./ride-share.service";
+import { RequestDialogComponent } from './request-dialog/request-dialog.component';
+import { RideRequest } from './ride-request';
+import { RideShareService } from './ride-share.service';
 
 @Component({
   selector: 'app-ride-share',
@@ -28,8 +28,5 @@ export class RideShareComponent implements OnInit {
       return;
     }
     this.rideRequests.push(rideRequest);
-  }
-  ridePickedUp(request: RideRequest) {
-    this.rideShareService.ridePickedUp(request);
   }
 }

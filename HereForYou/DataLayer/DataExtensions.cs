@@ -38,7 +38,7 @@ namespace HereForYou.DataLayer
                 switch (type.DataType)
                 {
                     case DataType.DateTimeOffset:
-                        StringBuilder.Append("timetz");
+                        StringBuilder.Append("TimeStampTZ");
                         return;
                     case DataType.Guid:
                         StringBuilder.Append("uuid");
