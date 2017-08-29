@@ -12,8 +12,8 @@ export class RideShareService {
   }
 
   async getRequestedRides(): Promise<RideRequest[]> {
-    let rides = await this.http.get<RideRequest[]>('/api/riderequest').toPromise();
-    for (let ride of rides) {
+    const rides = await this.http.get<RideRequest[]>('/api/riderequest').toPromise();
+    for (const ride of rides) {
       ride.pickupTime = new Date(ride.pickupTime);
     }
     return rides;

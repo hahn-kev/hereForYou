@@ -19,7 +19,7 @@
       <md-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</md-option>
     </md-select>
     <md-input-container>
-      <input name="date" mdInput [min]="minDate" [(ngModel)]="date" [mdDatepicker]="picker" placeholder="Choose a date">
+      <input name="date" mdInput [min]="minDate" [(ngModel)]="date" [mdDatepicker]="picker" placeholder="Pickup Date">
       <button mdSuffix [mdDatepickerToggle]="picker"></button>
     </md-input-container>
     <md-datepicker #picker></md-datepicker>
