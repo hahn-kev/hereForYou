@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using HereForYou.Controllers;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
 using HereForYou.Services;
@@ -10,6 +12,7 @@ using LinqToDB.Data;
 using LinqToDB.Identity;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -64,7 +67,7 @@ namespace HereForYou
                 })
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
-            services.AddMvc();
+            services.AddMvc(options => { options.InputFormatters.Add(new TextPlainInputFormatter()); });
             services.AddResponseCaching();
             services.AddAuthorization(options =>
             {
@@ -73,6 +76,7 @@ namespace HereForYou
             services.AddScoped<RideRequestRepository>();
             services.AddScoped<UsersRepository>();
             services.AddScoped<NotifyRideService>();
+            services.AddScoped<EditablePageRepository>();
             services.AddScoped<EmailService>();
             services.AddScoped<HereForYouConnection>();
         }
@@ -111,19 +115,17 @@ namespace HereForYou
             //setup using this guide: https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
-                TokenValidationParameters =  new TokenValidationParameters
+                TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey)),
-                    
+
                     ValidateIssuer = true,
                     ValidIssuer = jwtSettings.Issuer,
-                    
+
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
-                    
-                },
-                SecurityTokenValidators = { }
+                }
             });
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -131,13 +133,13 @@ namespace HereForYou
                 AutomaticChallenge = false,
             });
             app.UseMvc();
-            
+
             var settings = app.ApplicationServices.GetService<IOptions<Settings>>().Value;
             DataConnection.AddDataProvider(new MyPostgreSQLDataProvider("MyPostGreSQLProvider"));
             DataConnection.DefaultSettings = settings;
             LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             TwilioClient.Init(settings.TwilioAccountSid, settings.TwilioAuthToken);
-                
+
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var hereForYouConnection = scope.ServiceProvider.GetService<HereForYouConnection>();

@@ -36,6 +36,7 @@ namespace HereForYou.DataLayer
         public ITable<RideRequest> RideRequests => GetTable<RideRequest>();
 
         public IQueryable<UserProfile> UserProfiles => GetTable<UserProfile>();
+        public ITable<EditablePage> EditablePages => GetTable<EditablePage>();
 
         public async Task Setup()
         {
@@ -48,6 +49,7 @@ namespace HereForYou.DataLayer
             TryCreateTable<IdentityRole<int>>();
             TryCreateTable<IdentityRoleClaim<int>>();
             TryCreateTable<RideRequest>();
+            TryCreateTable<EditablePage>();
             
             var roles = new[]{"admin"};
             foreach (var role in roles)

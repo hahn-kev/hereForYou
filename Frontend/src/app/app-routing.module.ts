@@ -12,9 +12,8 @@ import { IsNewResolverService } from './user/is-new-resolver.service';
 import { RoleGuardService } from './login/role-guard.service';
 import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
-import { YourRightsComponent } from './home/static/your-rights.component';
-import { LifeLessonsComponent } from './home/static/life-lessons.component';
 import { HelpComponent } from './help/help.component';
+import { CmsComponent } from './cms/cms.component';
 
 const routes: Routes = [
   {
@@ -50,11 +49,11 @@ const routes: Routes = [
       },
       {
         path: 'your-rights',
-        component: YourRightsComponent
+        redirectTo: 'cms/your-rights'
       },
       {
         path: 'life-lessons',
-        component: LifeLessonsComponent
+        redirectTo: 'cms/life-lessons'
       },
       {
         path: 'help',
@@ -75,6 +74,10 @@ const routes: Routes = [
           user: UserResolveService,
           isNew: IsNewResolverService
         }
+      },
+      {
+        path: 'cms/:pageName',
+        component: CmsComponent
       },
       {
         path: 'learn',

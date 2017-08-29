@@ -28,4 +28,8 @@ export class RequireRoleDirective {
       this.hasView = false;
     }
   }
+
+  ngOnDestroy() {
+    this.hasRoleSubscription.unsubscribe();
+  }
 }

@@ -11,7 +11,7 @@ export class ToolbarTemplateDirective {
 
   constructor(private viewContainer: ViewContainerRef,
               private toolbarService: ToolbarService) {
-    this.toolbarService.ObserveTemplateRef().subscribe(templateRef => {
+    this.subscription = this.toolbarService.ObserveTemplateRef().subscribe(templateRef => {
       if (this.hasView) {
         this.viewContainer.clear();
         this.hasView = false;

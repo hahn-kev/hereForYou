@@ -60,6 +60,7 @@ import { YourRightsComponent } from './home/static/your-rights.component';
 import { LifeLessonsComponent } from './home/static/life-lessons.component';
 import { HelpComponent } from './help/help.component';
 import { MyErrorHandlerService } from './my-error-handler.service';
+import { CmsComponent } from './cms/cms.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { MyErrorHandlerService } from './my-error-handler.service';
     ToolbarContentDirective,
     YourRightsComponent,
     LifeLessonsComponent,
-    HelpComponent
+    HelpComponent,
+    CmsComponent
   ],
   entryComponents: [
     RequestDialogComponent
