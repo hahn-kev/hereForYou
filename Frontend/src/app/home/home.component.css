@@ -2,7 +2,7 @@
   display: grid;
 }
 
-@media (max-width: 1360px) {
+@media (max-width: 1000px) {
   .home {
     grid-template-columns: 14px minmax(250px, 1fr) 14px;
     grid-template-rows: 0 auto auto auto 0;
@@ -11,12 +11,12 @@
   }
 }
 
-@media (min-width: 1360px) {
+@media (min-width: 1000px) {
   .home {
     height: 100%;
-    grid-template-columns: 1fr repeat(3, 360px) 1fr;
+    grid-template-columns: 1fr 320px 1fr 320px 1fr 320px 1fr;
     grid-template-rows: 1fr 360px 1fr;
-    grid-gap: 70px;
-    grid-template-areas: ". . . . ." ". believe live speak ." ". . . . .";
+    grid-row-gap: 70px;
+    grid-template-areas: ". . . . . . ." ". believe . live . speak ." ". . . . . . .";
   }
 }
