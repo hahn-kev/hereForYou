@@ -1,7 +1,6 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
@@ -52,7 +51,7 @@ import { RoleGuardService } from './login/role-guard.service';
 import { RequireRoleDirective } from './login/require-role.directive';
 import { MarkdownModule } from 'angular2-markdown';
 import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
-import { CdkTableModule } from '@angular/cdk';
+import { CdkTableModule } from '@angular/cdk/table';
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
 import { ToolbarTemplateDirective } from './toolbar/toolbar-template.directive';
 import { ToolbarContentDirective } from './toolbar/toolbar-content.directive';
@@ -93,7 +92,6 @@ import { MyErrorHandlerService } from './my-error-handler.service';
     }),
     BrowserModule,
     HttpClientModule,
-    FlexLayoutModule,
     BrowserAnimationsModule,
     MdButtonModule,
     MdInputModule,
