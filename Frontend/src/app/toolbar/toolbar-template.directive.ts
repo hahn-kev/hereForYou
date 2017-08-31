@@ -1,11 +1,11 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ToolbarService } from './toolbar.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
   selector: '[appToolbarTemplate]'
 })
-export class ToolbarTemplateDirective {
+export class ToolbarTemplateDirective implements OnDestroy {
   subscription: Subscription;
   hasView = false;
 

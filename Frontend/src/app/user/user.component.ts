@@ -8,7 +8,7 @@ import { MdSnackBar } from '@angular/material';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
   public user: User;

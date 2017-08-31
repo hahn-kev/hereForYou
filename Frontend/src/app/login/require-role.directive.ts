@@ -1,11 +1,11 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { LoginService } from './login.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
   selector: '[requireRole]'
 })
-export class RequireRoleDirective {
+export class RequireRoleDirective implements OnDestroy {
   private hasView = false;
   private hasRoleSubscription: Subscription;
 

@@ -9,11 +9,12 @@
   </ng-container>
 </ng-container>
 
-<div *ngIf="page" class="grid">
-  <md-input-container *ngIf="editing">
-    <textarea mdInput [(ngModel)]="page.content" placeholder="Markdown"></textarea>
-  </md-input-container>
-
-  <markdown [data]="page.content"></markdown>
+<div *ngIf="page" class="cms">
+  <md-form-field *ngIf="editing">
+    <textarea rows="10" cols="80" mdInput [(ngModel)]="page.content" placeholder="Markdown"></textarea>
+  </md-form-field>
+  <md-card>
+    <markdown [data]="page.content"></markdown>
+  </md-card>
 </div>
 

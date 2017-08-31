@@ -1,6 +1,16 @@
-.grid {
-  height: 100%;
+.cms {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr auto;
+  grid-column-gap: 16px;
+  padding: 16px;
+  grid-template-areas: "edit card ";
+
+  .mat-card {
+    grid-area: card;
+  }
+  .mat-input-container {
+    grid-area: edit;
+    width: 100%;
+  }
 }
