@@ -27,6 +27,7 @@ namespace HereForYou.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IEnumerable<RideRequest> ListRides()
         {
             return _rideRequestRepository.RideRequests();

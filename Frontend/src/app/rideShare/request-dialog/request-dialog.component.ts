@@ -1,8 +1,7 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { RideShareService } from '../ride-share.service';
 import { MdDialogRef } from '@angular/material';
 import { RideRequest } from '../ride-request';
-import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-request-dialog',
@@ -16,9 +15,7 @@ export class RequestDialogComponent {
   date: Date;
   minDate = new Date();
   constructor(private rideShareService: RideShareService,
-    private dialog: MdDialogRef<RequestDialogComponent>,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
+              private dialog: MdDialogRef<RequestDialogComponent>) {
       //create a list of dates to display in the drop down, currently in 30 minute increments
     this.times = new Array(24 * 2).fill(0).map((value, index) => {
       const date = new Date();
