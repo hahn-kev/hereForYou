@@ -48,6 +48,10 @@ namespace HereForYou.Controllers
             {
                 return result.Errors();
             }
+            if (user.Id <= 0)
+            {
+                throw new Exception("user id not generated error");
+            }
 
             return Accepted();
         }

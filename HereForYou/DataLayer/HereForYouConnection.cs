@@ -25,6 +25,12 @@ namespace HereForYou.DataLayer
         public HereForYouConnection(RoleManager<IdentityRole<int>> roleManager)
         {
             _roleManager = roleManager;
+            
+            var builder = MappingSchema.GetFluentMappingBuilder();
+            builder.Entity<IdentityUser>().HasIdentity(user => user.Id);
+            builder.Entity<IdentityUserClaim<int>>().HasIdentity(claim => claim.Id);
+            builder.Entity<IdentityRole<int>>().HasIdentity(role => role.Id);
+            builder.Entity<IdentityRoleClaim<int>>().HasIdentity(claim => claim.Id);
         }
 
         public ITable<RideRequest> RideRequests => GetTable<RideRequest>();
@@ -34,11 +40,6 @@ namespace HereForYou.DataLayer
         public async Task Setup()
         {
 #if DEBUG
-            var builder = MappingSchema.GetFluentMappingBuilder();
-            builder.Entity<IdentityUser>().HasIdentity(user => user.Id);
-            builder.Entity<IdentityUserClaim<int>>().HasIdentity(claim => claim.Id);
-            builder.Entity<IdentityRole<int>>().HasIdentity(role => role.Id);
-            builder.Entity<IdentityRoleClaim<int>>().HasIdentity(claim => claim.Id);
             TryCreateTable<IdentityUser>();
             TryCreateTable<IdentityUserClaim<int>>();
             TryCreateTable<IdentityUserLogin<int>>();
