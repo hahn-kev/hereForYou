@@ -6,16 +6,17 @@
     <md-button-toggle-group [ngModel]="userView" (ngModelChange)="setUserView($event)">
       <md-button-toggle value="driver">Driver</md-button-toggle>
       <md-button-toggle value="rider">Rider</md-button-toggle>
+      <md-button-toggle value="any">Any</md-button-toggle>
     </md-button-toggle-group>
-    <md-select class="select" [ngModel]="userId" (ngModelChange)="setUserId($event)">
-      <md-option [value]="2">khahn</md-option>
-      <md-option [value]="1">testUser</md-option>
+    <md-select class="select" [ngModel]="userName" placeholder="User" (ngModelChange)="setUserName($event)">
+      <md-option value="all">All</md-option>
+      <md-option *ngFor="let user of users | async" [value]="user.userName">{{user.userName}}</md-option>
     </md-select>
   </div>
   <md-table [dataSource]="dataSource">
     <ng-container cdkColumnDef="createdTime">
       <md-header-cell *cdkHeaderCellDef> Created time</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.createdTime | date:'short'}}</md-cell>
+      <md-cell *cdkCellDef="let row"> {{row.pickupTime | date:'short'}}</md-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="source">

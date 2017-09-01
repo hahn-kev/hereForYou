@@ -9,13 +9,13 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
   getUsers() {
-    return this.http.get<User[]>('/api/user').toPromise<User[]>();
-    // return Promise.resolve<User[]>(this.users);
+    return this.http.get<User[]>('/api/user');
   }
-  async getUser(name: string) {
-    // todo use dedicated REST request
-    return (await this.getUsers()).filter((user) => user.userName === name).pop();
+
+  getUser(name: string) {
+    return this.http.get<User>(`/api/user/${name}`);
   }
+
 
   saveUser(user: User, password: string) {
     return this.http.put(`/api/user/${user.id}`, {

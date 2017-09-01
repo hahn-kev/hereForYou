@@ -32,7 +32,7 @@ namespace HereForYou.Controllers
         {
             return _rideRequestRepository.RideRequests();
         }
-        
+
         [Authorize(Roles = "admin")]
         [HttpGet("ridesWUsers")]
         public IEnumerable<RideRequestUsers> RidesWithUsernames()
@@ -41,17 +41,18 @@ namespace HereForYou.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpGet("ridesByDriver/{providerId}")]
-        public IEnumerable<RideRequestUsers> ProvidedRides(int providerId)
+        [HttpGet("ridesByUser/{type}/{userName}")]
+        public IEnumerable<RideRequestUsers> RiddenRides(string type, string userName)
         {
-            return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedById == providerId);
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("ridesByRider/{riderId}")]
-        public IEnumerable<RideRequestUsers> RiddenRides(int riderId)
-        {
-            return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedById == riderId);
+            if (type == "rider")
+            {
+                return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedByUser == userName);
+            }
+            if (type == "driver")
+            {
+                return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName);
+            }
+            return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName || user.RequestedByUser == userName);
         }
 
         [HttpPut]
@@ -96,7 +97,7 @@ namespace HereForYou.Controllers
                 _rideRequestRepository.Save(rideRequest);
             }
             _notifyRideService.NotifyRideAccepted(rideRequest, identityUser);
-            return Redirect("~/ride-share");
+            return Redirect("~/home");
         }
     }
 }

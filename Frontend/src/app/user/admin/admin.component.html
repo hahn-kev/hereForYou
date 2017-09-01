@@ -1,5 +1,5 @@
 <md-nav-list>
-  <ng-container *ngFor="let user of users">
+  <ng-container *ngFor="let user of users | async">
     <md-list-item routerLink="/user/edit/{{user.userName}}">
       <span md-line>{{user.userName}}</span>
     </md-list-item>

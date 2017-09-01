@@ -8,6 +8,7 @@ import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/debounceTime';
 import { User } from '../../user/user';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-rides-list',
@@ -16,29 +17,34 @@ import { User } from '../../user/user';
 })
 export class RidesListComponent implements OnInit {
   dataSource: RidesDataSource;
-  userId: number;
+  userName: string;
   userView: string;
-  users: User[];
+  users: Observable<User[]>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private snackService: MdSnackBar) {
+  constructor(private route: ActivatedRoute, private router: Router, private snackService: MdSnackBar, private userService: UserService) {
   }
 
   ngOnInit() {
     this.dataSource = new RidesDataSource();
     this.route.data.combineLatest(this.route.params).debounceTime(5).subscribe(values => {
       let rides: RideRequestUsers[] = values[0]['rides'];
-      this.userId = +values[1]['id'];
-      this.userView = values[1]['user'];
+      this.userName = values[1]['userName'] || 'all';
+      this.userView = values[1]['type'] || 'any';
       this.dataSource.ObserverData.next(rides);
     });
+    this.users = this.userService.getUsers();
   }
 
-  setUserId(id: number) {
-    this.router.navigate(['/ride-share/admin/', this.userView || 'rider', id]);
+  setUserName(userName: string) {
+    if (userName) {
+      this.router.navigate(['/ride-share/admin/', this.userView, userName]);
+    } else {
+      this.router.navigate(['/ride-share/admin/', this.userView]);
+    }
   }
 
   setUserView(userView: string) {
-    this.router.navigate(['/ride-share/admin/', userView, this.userId]);
+    this.router.navigate(['/ride-share/admin/', userView, this.userName]);
   }
 
   // async refreshData() {

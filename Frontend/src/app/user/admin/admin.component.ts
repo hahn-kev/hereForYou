@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { User } from "../user";
-import { UserService } from "../user.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { User } from '../user';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-admin',
@@ -9,7 +10,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User[] = [];
+  users: Observable<User[]>;
   constructor(private userService: UserService, private router: Router) { }
 
   async ngOnInit() {

@@ -57,8 +57,8 @@ namespace HereForYou.DataLayer
         public IQueryable<RideRequestUsers> RidesWithUsernames()
         {
             return from r in _connection.RideRequests
-                join driver in _connection.Users on r.AcceptedById equals driver.Id
-                join rider in _connection.Users on r.RequestedById equals rider.Id
+                from driver in _connection.Users.Where(driver => driver.Id == r.AcceptedById).DefaultIfEmpty()
+                from rider in _connection.Users.Where(rider => rider.Id == r.RequestedById).DefaultIfEmpty()
                 select new RideRequestUsers
                 {
                     Id = r.Id,
@@ -68,8 +68,8 @@ namespace HereForYou.DataLayer
                     AcceptedById = r.AcceptedById,
                     RequestedById = r.RequestedById,
                     AuthId = r.AuthId,
-                    AcceptedByUser = driver.UserName,
-                    RequestedByUser = rider.UserName
+                    AcceptedByUser = driver.UserName ?? string.Empty,
+                    RequestedByUser = rider.UserName ?? string.Empty
                 };
         }
     }

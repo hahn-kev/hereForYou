@@ -13,9 +13,7 @@ export class RideShareService {
 
   async getRequestedRides(): Promise<RideRequest[]> {
     const rides = await this.http.get<RideRequest[]>('/api/riderequest').toPromise();
-    for (const ride of rides) {
-      ride.pickupTime = new Date(ride.pickupTime);
-    }
+    this.processRides(rides);
     return rides;
   }
 
@@ -28,15 +26,17 @@ export class RideShareService {
     ).toPromise<RideRequest>();
   }
 
-  rideRequestsForDriver(driverId: number) {
-    return this.http.get('/api/riderequest/ridesbydriver/' + driverId).toPromise<RideRequestUsers[]>()
-  }
-
-  rideRequestsForRider(riderId: number) {
-    return this.http.get('/api/riderequest/ridesbyrider/' + riderId).toPromise<RideRequestUsers[]>()
+  rideRequestsByUser(type: string, userName: string) {
+    return this.http.get<RideRequestUsers[]>(`/api/riderequest/ridesByUser/${type}/${userName}`).do(this.processRides);
   }
 
   rideRequestsWithUsers() {
-    return this.http.get('/api/riderequest/rideswusers/').toPromise<RideRequestUsers[]>()
+    return this.http.get<RideRequestUsers[]>('/api/riderequest/rideswusers/').do(this.processRides);
+  }
+
+  processRides(rides: RideRequest[]) {
+    for (const ride of rides) {
+      ride.pickupTime = new Date(ride.pickupTime);
+    }
   }
 }

@@ -28,7 +28,14 @@ const routes: Routes = [
         path: 'ride-share/admin',
         children: [
           {
-            path: ':user/:id',
+            path: ':type/:userName',
+            component: RidesListComponent,
+            resolve: {
+              rides: RidesResolveService
+            }
+          },
+          {
+            path: ':type',
             component: RidesListComponent,
             resolve: {
               rides: RidesResolveService
