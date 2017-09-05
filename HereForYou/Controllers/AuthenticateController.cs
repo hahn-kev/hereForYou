@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using HereForYou.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,18 +23,20 @@ namespace HereForYou.Controllers
     public class AuthenticateController : Controller
     {
         public const string JwtCookieName = ".JwtAccessToken";
-        private readonly JWTSettings _options;
+        private readonly JWTSettings _jwtOptions;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SecurityTokenHandler _securityTokenHandler;
+        private Settings _settings;
 
-        public AuthenticateController(IOptions<JWTSettings> options, SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager)
+        public AuthenticateController(IOptions<JWTSettings> jwtOptions, SignInManager<IdentityUser> signInManager,
+            UserManager<IdentityUser> userManager, IOptions<Settings> options)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _securityTokenHandler = new JwtSecurityTokenHandler();
-            _options = options.Value;
+            _jwtOptions = jwtOptions.Value;
+            _settings = options.Value;
         }
 
         [Authorize(Roles = "admin")]
@@ -84,7 +89,7 @@ namespace HereForYou.Controllers
             return new JsonResult(new Dictionary<string, object>
             {
                 {"access_token", accessTokenString},
-                {"user", new RegisterUser(user)}
+                {"user", new UserProfile(user)}
             });
         }
 
@@ -93,12 +98,13 @@ namespace HereForYou.Controllers
             var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(identityUser);
 
             return new JwtSecurityToken(
-                issuer: _options.Issuer,
-                audience: _options.Audience,
+                issuer: _jwtOptions.Issuer,
+                audience: _jwtOptions.Audience,
                 claims: GetTokenClaims(identityUser).Union(claimsPrincipal.Claims),
                 expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256)
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
+                    SecurityAlgorithms.HmacSha256)
             );
         }
 
@@ -106,9 +112,60 @@ namespace HereForYou.Controllers
         {
             return new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, identityUser.UserName)
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+        }
+
+        [HttpGet("sso")]
+        public async Task<IActionResult> Sso(string sso, string sig)
+        {
+            if (GetHash(sso, _settings.DiscourseSsoSecret) != sig)
+            {
+                return Unauthorized();
+            }
+            var ssoBody = QueryHelpers.ParseQuery(Encoding.UTF8.GetString(Convert.FromBase64String(sso)));
+            string nonce = ssoBody["nonce"];
+
+            if (User == null)
+            {
+                //todo redirect to login and handel there
+                throw new NotImplementedException();
+            }
+            var identityUser = await _userManager.GetUserAsync(User);
+            var queryBuilder = new QueryBuilder
+            {
+                {"nonce", nonce},
+                {"email", identityUser.Email ?? string.Empty},
+                {"external_id", identityUser.Id.ToString()},
+                {"username", identityUser.UserName},
+                {"name", identityUser.UserName},
+                {"admin", User.IsInRole("admin").ToString()}
+            };
+            var returnPayload = queryBuilder.ToString();
+            if (returnPayload[0] == '?') returnPayload = returnPayload.Substring(1);
+            var encodedPayload = Convert.ToBase64String(Encoding.UTF8.GetBytes(returnPayload));
+            var returnSignature = GetHash(encodedPayload, _settings.DiscourseSsoSecret);
+            var returnUriBuilder = new UriBuilder(_settings.DiscourseBaseUrl)
+            {
+                Path = "/session/sso_login",
+                Query = new QueryBuilder {{"sso", encodedPayload}, {"sig", returnSignature}}.ToString()
+            };
+            var returnUrl = returnUriBuilder.ToString();
+            return RedirectPermanent(returnUrl);
+        }
+
+        private static string GetHash(string payload, string ssoSecret)
+        {
+            var keyBytes = Encoding.UTF8.GetBytes(ssoSecret);
+
+            var hasher = new HMACSHA256(keyBytes);
+            var bytes = Encoding.UTF8.GetBytes(payload);
+            var hash = hasher.ComputeHash(bytes);
+
+            var sb = new StringBuilder();
+            foreach (var x in hash)
+                sb.AppendFormat("{0:x2}", x);
+            return sb.ToString();
         }
     }
 }

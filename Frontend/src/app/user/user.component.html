@@ -8,6 +8,12 @@
       </div>
       <div>
         <md-input-container>
+          <input mdInput name="email" [(ngModel)]="user.email" type="email"
+                 placeholder="Email">
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container>
           <input mdInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
                  placeholder="Phone Number">
         </md-input-container>

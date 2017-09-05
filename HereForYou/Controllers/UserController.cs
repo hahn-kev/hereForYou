@@ -43,9 +43,7 @@ namespace HereForYou.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] RegisterUser registerUser)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
-            user.RideProvider = registerUser.RideProvider;
-            user.PhoneNumber = registerUser.PhoneNumber;
-            user.UserName = registerUser.UserName;
+            user.CopyFrom(registerUser);
             await _userManager.UpdateAsync(user);
             if (string.IsNullOrEmpty(registerUser.Password)) return Accepted();
 

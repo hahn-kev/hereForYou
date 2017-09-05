@@ -7,6 +7,7 @@ namespace HereForYou
 {
     public class Settings : ILinqToDBSettings
     {
+        private string _discourseBaseUrl;
         public string BaseUrl { get; set; } =
 #if DEBUG
             "http://localhost:4201";
@@ -20,6 +21,20 @@ namespace HereForYou
         public string MailgunApiKey { get; set; }
         public string MailgunDomain { get; set; }
         
+        public string DiscourseSsoSecret { get; set; }
+
+        public string DiscourseBaseUrl
+        {
+            get
+            {
+                if (_discourseBaseUrl == null) return null;
+                if (_discourseBaseUrl.StartsWith("http")) return _discourseBaseUrl;
+                _discourseBaseUrl = "http://" + _discourseBaseUrl;
+                return _discourseBaseUrl;
+            }
+            set => _discourseBaseUrl = value;
+        }
+
         public IEnumerable<IDataProviderSettings> DataProviders
         {
             get {yield break;}

@@ -24,7 +24,8 @@ export class AuthenticateService {
       password: password,
       userName: user.userName,
       phoneNumber: user.phoneNumber,
-      rideProvider: user.rideProvider
+      rideProvider: user.rideProvider,
+      email: user.email
     }).toPromise();
   }
 }
