@@ -125,6 +125,14 @@ namespace HereForYou
 
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
+                },
+                Events = new JwtBearerEvents()
+                {
+                    OnMessageReceived = context =>
+                    {
+                        context.Token = context.Request.Cookies[AuthenticateController.JwtCookieName];
+                        return Task.CompletedTask;
+                    }
                 }
             });
             app.UseCookieAuthentication(new CookieAuthenticationOptions

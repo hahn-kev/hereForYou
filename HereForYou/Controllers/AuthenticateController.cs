@@ -19,6 +19,7 @@ namespace HereForYou.Controllers
     [Route("api/[controller]")]
     public class AuthenticateController : Controller
     {
+        public const string JwtCookieName = ".JwtAccessToken";
         private readonly JWTSettings _options;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -61,7 +62,6 @@ namespace HereForYou.Controllers
         {
             var signInResult =
                 await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, false);
-            Response.Cookies.Delete(".AspNetCore.Identity.Application");
             if (signInResult.IsLockedOut)
             {
                 return new JsonResult(new Dictionary<string, object>
@@ -76,12 +76,15 @@ namespace HereForYou.Controllers
                     {"status", "Invalid UserName or Password"}
                 }) {StatusCode = 401};
             }
+            Response.Cookies.Delete(".AspNetCore.Identity.Application");
             var user = await _userManager.FindByNameAsync(credentials.Username);
             var token = await GetJwtSecurityToken(user);
+            var accessTokenString = _securityTokenHandler.WriteToken(token);
+            Response.Cookies.Append(JwtCookieName, accessTokenString);
             return new JsonResult(new Dictionary<string, object>
             {
-                {"access_token", _securityTokenHandler.WriteToken(token)},
-                {"user", user}
+                {"access_token", accessTokenString},
+                {"user", new RegisterUser(user)}
             });
         }
 

@@ -45,6 +45,14 @@ export class LoginService implements CanActivate {
     let roles = [];
     if (decodedToken) {
       roles.push(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+      //exp is expiration date in seconds from epoch
+      let expireDate = new Date(decodedToken.exp * 1000);
+      if (expireDate.valueOf() < new Date().valueOf()) {
+        user = null;
+        roles = [];
+        this.promptLogin();
+      }
+      //todo if user is null fetch user from 'sub' in token
     }
     this.rolesSubject.next(roles);
     this.currentUserSubject.next(user);
