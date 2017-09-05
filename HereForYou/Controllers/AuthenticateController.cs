@@ -43,12 +43,11 @@ namespace HereForYou.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
-            var user = new IdentityUser
+            var user = new IdentityUser().CopyFrom(registerUser);
+            if (string.IsNullOrEmpty(user.Email))
             {
-                UserName = registerUser.UserName,
-                PhoneNumber = registerUser.PhoneNumber,
-                RideProvider = registerUser.RideProvider
-            };
+                throw new Exception("user email required");
+            }
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (!result.Succeeded)
             {
@@ -135,7 +134,7 @@ namespace HereForYou.Controllers
             var queryBuilder = new QueryBuilder
             {
                 {"nonce", nonce},
-                {"email", identityUser.Email ?? string.Empty},
+                {"email", identityUser.Email},
                 {"external_id", identityUser.Id.ToString()},
                 {"username", identityUser.UserName},
                 {"name", identityUser.UserName},
