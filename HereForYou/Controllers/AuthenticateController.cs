@@ -138,6 +138,7 @@ namespace HereForYou.Controllers
                 {"external_id", identityUser.Id.ToString()},
                 {"username", identityUser.UserName},
                 {"name", identityUser.UserName},
+                {"require_activation", (!identityUser.EmailConfirmed).ToString()},
                 {"admin", User.IsInRole("admin").ToString()}
             };
             var returnPayload = queryBuilder.ToString();
