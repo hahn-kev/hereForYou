@@ -75,5 +75,13 @@ namespace HereForYou.Controllers
             if (!identityResult.Succeeded) return identityResult.Errors();
             return Accepted();
         }
+
+        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            _usersRepository.Users.Where(profile => profile.Id == id).Delete();
+            return Accepted();
+        }
     }
 }

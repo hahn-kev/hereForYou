@@ -3,6 +3,8 @@ export class User {
               public phoneNumber?: string,
               public email?: string,
               public id?: number,
-              public rideProvider = false) { }
+              public rideProvider = false,
+              public isAdmin = false) {
+  }
   // todo have range support
 }

@@ -25,7 +25,7 @@ namespace HereForYou.DataLayer
         public HereForYouConnection(RoleManager<IdentityRole<int>> roleManager)
         {
             _roleManager = roleManager;
-            
+
             var builder = MappingSchema.GetFluentMappingBuilder();
             builder.Entity<IdentityUser>().HasIdentity(user => user.Id);
             builder.Entity<IdentityUserClaim<int>>().HasIdentity(claim => claim.Id);
@@ -35,7 +35,27 @@ namespace HereForYou.DataLayer
 
         public ITable<RideRequest> RideRequests => GetTable<RideRequest>();
 
-        public IQueryable<UserProfile> UserProfiles => GetTable<UserProfile>();
+        public IQueryable<UserProfile> UserProfiles
+        {
+            get
+            {
+                return from user in GetTable<UserProfile>()
+                    from role in Roles.Where(role => role.Name == "admin").DefaultIfEmpty()
+                    from userRole in UserRoles
+                        .Where(userRole => userRole.RoleId == role.Id && userRole.UserId == user.Id)
+                        .DefaultIfEmpty()
+                    select new UserProfile
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        PhoneNumber = user.PhoneNumber,
+                        RideProvider = user.RideProvider,
+                        UserName = user.UserName,
+                        IsAdmin = userRole != null
+                    };
+            }
+        }
+
         public ITable<EditablePage> EditablePages => GetTable<EditablePage>();
 
         public async Task Setup()
@@ -50,8 +70,8 @@ namespace HereForYou.DataLayer
             TryCreateTable<IdentityRoleClaim<int>>();
             TryCreateTable<RideRequest>();
             TryCreateTable<EditablePage>();
-            
-            var roles = new[]{"admin"};
+
+            var roles = new[] {"admin"};
             foreach (var role in roles)
             {
                 if (!await _roleManager.RoleExistsAsync(role))
@@ -68,7 +88,7 @@ namespace HereForYou.DataLayer
             {
                 this.CreateTable<T>();
             }
-            catch (PostgresException e) when(e.SqlState == "42P07")//already exists code I think
+            catch (PostgresException e) when (e.SqlState == "42P07") //already exists code I think
             {
             }
         }
