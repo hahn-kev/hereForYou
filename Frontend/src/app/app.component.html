@@ -25,15 +25,15 @@
         <md-divider></md-divider>
 
         <h3 md-subheader>Believe with confidence</h3>
-        <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+        <a [href]="discourseBaseUrl + '/new-topic?category=prayer'" md-list-item>
           <md-icon md-list-icon>sentiment_very_satisfied</md-icon>
           <span md-line>Request Prayer</span>
         </a>
-        <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+        <a [href]="discourseBaseUrl + '/new-topic?category=prayer'" md-list-item>
           <md-icon md-list-icon>forum</md-icon>
           <span md-line>Share an Answered Prayer</span>
         </a>
-        <a href="http://discourse.hahn-kev.com:82/new-topic?category=prayer" md-list-item>
+        <a [href]="discourseBaseUrl + '/new-topic?category=prayer'" md-list-item>
           <md-icon md-list-icon>forum</md-icon>
           <span md-line>Encouragement</span>
         </a>
@@ -45,7 +45,7 @@
           <p md-line>Ride Share</p>
         </md-list-item>
 
-        <a href="http://discourse.hahn-kev.com:82/" md-list-item>
+        <a [href]="discourseBaseUrl" md-list-item>
           <md-icon md-list-icon>forum</md-icon>
           <span md-line>Grow</span>
         </a>
@@ -64,7 +64,7 @@
           <md-icon md-list-icon>school</md-icon>
           <a md-line>Learn</a>
         </md-list-item>
-        <a href="http://discourse.hahn-kev.com:82/c/learn" md-list-item>
+        <a [href]="discourseBaseUrl + '/c/learn'" md-list-item>
           <md-icon md-list-icon>local_library</md-icon>
           <span md-line>Class List and Signup</span>
         </a>

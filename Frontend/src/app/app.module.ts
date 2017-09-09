@@ -61,6 +61,7 @@ import { LifeLessonsComponent } from './home/static/life-lessons.component';
 import { HelpComponent } from './help/help.component';
 import { MyErrorHandlerService } from './my-error-handler.service';
 import { CmsComponent } from './cms/cms.component';
+import { SettingsService } from './services/settings.service';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { CmsComponent } from './cms/cms.component';
     {
       provide: ErrorHandler,
       useClass: MyErrorHandlerService
-    }
+    },
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })
