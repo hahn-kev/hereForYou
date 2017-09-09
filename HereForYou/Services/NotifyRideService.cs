@@ -24,12 +24,10 @@ namespace HereForYou.Services
 
         public void NotifyNewRide(RideRequest rideRequest, IUrlHelper url)
         {
-            var user = _usersRepository.UserById(2);
-            SendNotification(user.PhoneNumber, FormatNewRideMessage(rideRequest, user, url));
-//            foreach (var user in _usersRepository.Users())
-//            {
-//                SendNotification(user.PhoneNumber, FormatNewRideMessage(rideRequest, user, url));
-//            }
+            foreach (var user in _usersRepository.Users.Where(profile => profile.RideProvider))
+            {
+                SendNotification(user.PhoneNumber, FormatNewRideMessage(rideRequest, user, url));
+            }
         }
 
         public void NotifyRideAccepted(RideRequest rideRequest, IUser acceptedBy)
@@ -39,7 +37,6 @@ namespace HereForYou.Services
 
         public void NotifyRideAccepted(RideRequest rideRequest, IUser acceptedBy, IUser requestedBy)
         {
-            //todo send text to ride requester, and user providing ride
             SendNotification(acceptedBy.PhoneNumber, FormatAcceptedMessageToProvider(rideRequest, requestedBy));
             SendNotification(requestedBy.PhoneNumber, FormatAcceptedMessageToRequester(acceptedBy));
         }
