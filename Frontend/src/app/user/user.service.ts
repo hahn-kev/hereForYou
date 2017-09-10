@@ -26,4 +26,12 @@ export class UserService {
       email: user.email
     }).toPromise();
   }
+
+  grantAdmin(userName: string) {
+    return this.http.put(`/api/user/grantadmin/${userName}`, null).toPromise();
+  }
+
+  revokeAdmin(userName: string) {
+    return this.http.put(`/api/user/revokeadmin/${userName}`, null).toPromise();
+  }
 }

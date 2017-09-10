@@ -56,7 +56,7 @@ namespace HereForYou.Controllers
             return Accepted();
         }
 
-        [HttpPut("grantadmin")]
+        [HttpPut("grantadmin/{username}")]
         public async Task<IActionResult> GrantAdmin(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -66,7 +66,7 @@ namespace HereForYou.Controllers
             return Accepted();
         }
 
-        [HttpPut("revokeadmin")]
+        [HttpPut("revokeadmin/{username}")]
         public async Task<IActionResult> RevokeAdmin(string username)
         {
             var user = await _userManager.FindByNameAsync(username);

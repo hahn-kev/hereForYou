@@ -39,4 +39,14 @@ export class UserComponent implements OnInit {
     this.router.navigate(['/user/admin']);
   }
 
+  async grantAdmin() {
+    await this.userService.grantAdmin(this.user.userName);
+    this.user.isAdmin = true;
+  }
+
+  async revokeAdmin() {
+    await this.userService.revokeAdmin(this.user.userName);
+    this.user.isAdmin = false;
+  }
+
 }

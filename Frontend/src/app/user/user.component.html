@@ -31,7 +31,14 @@
       <div>
         <md-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</md-checkbox>
       </div>
-
+      <div *ngIf="!isNew">
+        <button type="button" *ngIf="!user.isAdmin" (click)="grantAdmin()" md-raised-button color="accent">Grant Admin
+          rights
+        </button>
+        <button type="button" *ngIf="user.isAdmin" (click)="revokeAdmin()" md-raised-button color="accent">Revoke Admin
+          rights
+        </button>
+      </div>
       <button type="submit" [disabled]="!userForm.form.valid" md-button>{{isNew ? 'Register' : 'Save'}}</button>
     </form>
   </md-card>
