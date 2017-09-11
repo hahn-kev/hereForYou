@@ -13,6 +13,7 @@ import { LoginService } from '../login/login.service';
 export class CmsComponent implements OnInit {
   public page: EditablePage;
   public editing = false;
+  private preEditedContent: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private loginService: LoginService) {
   }
@@ -30,6 +31,12 @@ export class CmsComponent implements OnInit {
   }
 
   edit() {
+    this.preEditedContent = this.page.content;
     this.editing = true;
+  }
+
+  revert() {
+    this.page.content = this.preEditedContent;
+    this.editing = false;
   }
 }

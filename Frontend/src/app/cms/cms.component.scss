@@ -1,10 +1,26 @@
+@media (max-width: 1000px) {
+  .cms {
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    grid-column-gap: 16px;
+    padding: 16px;
+    grid-template-areas: "edit" "card";
+  }
+}
+
+@media (min-width: 1000px) {
+  .cms {
+    grid-template-rows: 1fr;
+    grid-template-columns: auto 1fr auto;
+    grid-column-gap: 16px;
+    padding: 16px;
+    grid-template-areas: "edit card ";
+  }
+}
+
 .cms {
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: auto 1fr auto;
-  grid-column-gap: 16px;
-  padding: 16px;
-  grid-template-areas: "edit card ";
+
 
   .mat-card {
     grid-area: card;

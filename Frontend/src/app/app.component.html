@@ -1,7 +1,7 @@
 ﻿<md-progress-bar class="activity-indicator" color="accent" [hidden]="!(indicatorStatus | async)" mode="query"></md-progress-bar>
 <div class="main">
   <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.toggle()">
+    <button md-icon-button md-tooltip="Menu" (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
     </button>
     <span>Here for you</span>
