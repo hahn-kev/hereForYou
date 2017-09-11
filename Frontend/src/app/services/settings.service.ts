@@ -8,7 +8,7 @@ export class SettingsService {
   settings = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
-    http.get<any>('api/settings').subscribe(this.settings);
+    http.get<any>('api/settings').subscribe(value => this.settings.next(value));
   }
 
   getAsync<T>(name: string, defaultValue?: T): Observable<T> {
