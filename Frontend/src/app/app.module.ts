@@ -6,7 +6,6 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
 import { RideShareComponent } from './rideShare/ride-share.component';
-import { RequestDialogComponent } from './rideShare/request-dialog/request-dialog.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
@@ -68,7 +67,6 @@ import { DiscourseLinkDirective } from './directives/discourse-link.directive';
   declarations: [
     AppComponent,
     RideShareComponent,
-    RequestDialogComponent,
     PendingRidesPipe,
     MapsAutocompleteDirective,
     UserComponent,
@@ -88,7 +86,6 @@ import { DiscourseLinkDirective } from './directives/discourse-link.directive';
     DiscourseLinkDirective
   ],
   entryComponents: [
-    RequestDialogComponent
   ],
   imports: [
     LocalStorageModule.withConfig({
