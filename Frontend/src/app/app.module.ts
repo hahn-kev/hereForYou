@@ -62,6 +62,7 @@ import { HelpComponent } from './help/help.component';
 import { MyErrorHandlerService } from './my-error-handler.service';
 import { CmsComponent } from './cms/cms.component';
 import { SettingsService } from './services/settings.service';
+import { DiscourseLinkDirective } from './directives/discourse-link.directive';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SettingsService } from './services/settings.service';
     YourRightsComponent,
     LifeLessonsComponent,
     HelpComponent,
-    CmsComponent
+    CmsComponent,
+    DiscourseLinkDirective
   ],
   entryComponents: [
     RequestDialogComponent
