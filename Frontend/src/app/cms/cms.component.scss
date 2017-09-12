@@ -21,7 +21,6 @@
 .cms {
   display: grid;
 
-
   .mat-card {
     grid-area: card;
   }
@@ -29,4 +28,8 @@
     grid-area: edit;
     width: 100%;
   }
+}
+
+.footer {
+  padding: 8px;
 }

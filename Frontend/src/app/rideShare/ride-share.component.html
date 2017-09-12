@@ -25,8 +25,8 @@
           <input name="date" mdInput [min]="minDate" [(ngModel)]="date" [mdDatepicker]="picker"
                  placeholder="Pickup Date">
           <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+          <md-datepicker #picker></md-datepicker>
         </md-input-container>
-        <md-datepicker #picker></md-datepicker>
       </div>
 
       <button md-button type="submit" [disabled]="!requestForm.form.valid">Create</button>

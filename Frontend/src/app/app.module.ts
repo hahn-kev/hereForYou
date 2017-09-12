@@ -28,6 +28,7 @@ import {
   MdButtonToggleModule,
   MdCardModule,
   MdCheckboxModule,
+  MdChipsModule,
   MdDatepickerModule,
   MdDialogModule,
   MdIconModule,
@@ -115,6 +116,7 @@ import { DiscourseLinkDirective } from './directives/discourse-link.directive';
     MdTableModule,
     CdkTableModule,
     MdButtonToggleModule,
+    MdChipsModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
