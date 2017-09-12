@@ -21,7 +21,7 @@ export class HelpComponent implements OnInit {
 
   async submit() {
     let body = null;
-    await this.http.post('api/email/help', body, {params: new HttpParams().set('from', this.name).set('body', this.message).set('phoneNumber', this.phoneNumber)}).toPromise();
+    await this.http.post('/api/email/help', body, {params: new HttpParams().set('from', this.name).set('body', this.message).set('phoneNumber', this.phoneNumber)}).toPromise();
     this.snackBar.open('Request recieved', null, {duration: 2000});
     this.location.back();
   }
