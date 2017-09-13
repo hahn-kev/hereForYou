@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace HereForYou.Controllers
@@ -20,6 +23,15 @@ namespace HereForYou.Controllers
             {
                 _settings.DiscourseBaseUrl
             });
+        }
+
+        [HttpGet("setLanguage/{culture}")]
+        public IActionResult SetLanguage(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions {Expires = DateTimeOffset.UtcNow.AddYears(1)});
+            return LocalRedirect("/");
         }
     }
 }

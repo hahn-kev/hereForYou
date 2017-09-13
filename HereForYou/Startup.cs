@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using HereForYou.Controllers;
 using HereForYou.DataLayer;
-using HereForYou.Entities;
 using HereForYou.Services;
 using LinqToDB.Data;
 using LinqToDB.Identity;
@@ -16,8 +17,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -69,6 +72,16 @@ namespace HereForYou
 
             services.AddMvc(options => { options.InputFormatters.Add(new TextPlainInputFormatter()); });
             services.AddResponseCaching();
+            services.AddLocalization();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+                var localeFolders = fileProvider.GetDirectoryContents("wwwroot").Where(info => info.IsDirectory && info.Name != "en").Select(info => info.Name);
+                foreach (var localeFolder in localeFolders)
+                {
+                    options.SupportedCultures.Add(new CultureInfo(localeFolder));
+                }
+            });
             services.AddAuthorization(options =>
             {
 //                options.AddPolicy("test");
@@ -97,6 +110,7 @@ namespace HereForYou
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+            app.UseRequestLocalization();
             app.Use(async (context, next) =>
             {
                 await next();
@@ -104,7 +118,8 @@ namespace HereForYou
                     !Path.HasExtension(context.Request.Path.Value) &&
                     !context.Request.Path.Value.StartsWith("/api/"))
                 {
-                    context.Request.Path = "/index.html";
+                    var requestCulture = context.Features.Get<IRequestCultureFeature>().RequestCulture;
+                    context.Request.Path = $"/{requestCulture.Culture.TwoLetterISOLanguageName}/index.html";
                     await next();
                 }
             });
@@ -124,9 +139,9 @@ namespace HereForYou
                     ValidIssuer = jwtSettings.Issuer,
 
                     ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience,
+                    ValidAudience = jwtSettings.Audience
                 },
-                Events = new JwtBearerEvents()
+                Events = new JwtBearerEvents
                 {
                     OnMessageReceived = context =>
                     {
@@ -138,10 +153,9 @@ namespace HereForYou
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AutomaticAuthenticate = false,
-                AutomaticChallenge = false,
+                AutomaticChallenge = false
             });
             app.UseMvc();
-
             var settings = app.ApplicationServices.GetService<IOptions<Settings>>().Value;
             DataConnection.AddDataProvider(new MyPostgreSQLDataProvider("MyPostGreSQLProvider"));
             DataConnection.DefaultSettings = settings;

@@ -1,35 +1,40 @@
 <div class="ride-share">
   <md-card>
-    <h2>Request Ride</h2>
+    <h2 i18n="ride request header@@rideRequestHeader">Request Ride</h2>
     <form #requestForm="ngForm" (ngSubmit)="createRequest()">
       <div class="requestForm">
         <md-input-container>
           <input appMapsAutocomplete #sourceElement="ngModel" name="source" mdInput required
                  [(ngModel)]="request.source"
-                 placeholder="Pickup Location">
+                 placeholder="Pickup Location"
+                 i18n-placeholder="location to be picked up at@@pickupLocationInput">
           <md-error *ngIf="sourceElement.valid || sourceElement.pristine">
             Pickup location is required
           </md-error>
         </md-input-container>
         <md-input-container>
           <input appMapsAutocomplete #destinationElement="ngModel" name="destination" mdInput required
-                 [(ngModel)]="request.destination" placeholder="Destination">
+                 [(ngModel)]="request.destination" placeholder="Destination"
+                 i18n-placeholder="location driver will drop person off at@@destinationInput">
           <md-error>
             Destination is required
           </md-error>
         </md-input-container>
-        <md-select name="time" required placeholder="Pickup time" [(ngModel)]="time">
+        <md-select name="time" required placeholder="Pickup time" [(ngModel)]="time"
+                   i18n-placeholder="time for pickup@@pickupTimeInput">
           <md-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</md-option>
         </md-select>
         <md-input-container>
           <input name="date" mdInput [min]="minDate" [(ngModel)]="date" [mdDatepicker]="picker"
-                 placeholder="Pickup Date">
+                 placeholder="Pickup Date" i18n-placeholder="date for pickup@@pickupDateInput">
           <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
           <md-datepicker #picker></md-datepicker>
         </md-input-container>
       </div>
 
-      <button md-button type="submit" [disabled]="!requestForm.form.valid">Create</button>
+      <button md-button type="submit" [disabled]="!requestForm.form.valid"
+              i18n="button to submit ride request@@createButton">Create
+      </button>
     </form>
 
   </md-card>

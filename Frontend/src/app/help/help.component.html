@@ -1,11 +1,11 @@
 <div class="help">
   <md-card>
     <form #helpForm="ngForm" (ngSubmit)="submit()">
-      <h3>Need help?</h3>
+      <h3 i18n="title of help request form@@helpTitle">Need help?</h3>
       <div>
         <md-input-container>
           <input #nameElement="ngModel" name="name" mdInput required [(ngModel)]="name"
-                 placeholder="Name">
+                 placeholder="Name" i18n-placeholder="input hint for person requesting help@@helpNameInput">
           <md-error *ngIf="nameElement.valid || nameElement.pristine">
             Name required
           </md-error>
@@ -14,7 +14,7 @@
       <div>
         <md-input-container>
           <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" mdInput required [(ngModel)]="phoneNumber"
-                 placeholder="Phone Number">
+                 placeholder="Phone Number" i18n-placeholder="input hint for phone number@@phoneNumberInput">
           <md-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
             Phone Number required
           </md-error>
@@ -23,13 +23,15 @@
       <div>
         <md-input-container>
           <textarea #messageElement="ngModel" name="message" mdInput required [(ngModel)]="message"
-                    placeholder="Message"></textarea>
+                    placeholder="Message" i18n-placeholder="input hint for help message@@helpMessageInput"></textarea>
           <md-error *ngIf="messageElement.valid || messageElement.pristine">
             Message required
           </md-error>
         </md-input-container>
       </div>
-      <button md-button type="submit" [disabled]="!helpForm.form.valid">Send</button>
+      <button md-button type="submit" [disabled]="!helpForm.form.valid"
+              i18n="button to send request for help@@sendHelpButton">Send
+      </button>
     </form>
   </md-card>
 </div>
