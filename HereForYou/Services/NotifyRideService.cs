@@ -43,8 +43,9 @@ namespace HereForYou.Services
 
         private void SendNotification(string phoneNumber, string message)
         {
+            
 #if !DEBUG
-            MessageResource.Create(from: new PhoneNumber("805-538-2428"),
+            MessageResource.Create(from: new PhoneNumber(_options.TwilioPhoneNumber),
                 to: new PhoneNumber(phoneNumber),
                 body: message);
 #else

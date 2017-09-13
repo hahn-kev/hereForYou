@@ -17,6 +17,7 @@ namespace HereForYou
         public string ConnectionString { get; set; }
         public string TwilioAccountSid { get; set; }
         public string TwilioAuthToken { get; set; }
+        public string TwilioPhoneNumber { get; set; }
         
         public string MailgunApiKey { get; set; }
         public string MailgunDomain { get; set; }
