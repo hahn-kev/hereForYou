@@ -1,26 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SettingsService } from '../services/settings.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
 
-  public discourseBaseUrl: string;
-  private baseUrlSubscription: Subscription;
 
-  constructor(private settingsService: SettingsService) {
-  }
+  constructor() {
 
-  ngOnInit() {
-    this.baseUrlSubscription = this.settingsService.getAsync<string>('discourseBaseUrl').subscribe(url => this.discourseBaseUrl = url);
-  }
-
-  ngOnDestroy(): void {
-    this.baseUrlSubscription.unsubscribe();
   }
 
 }

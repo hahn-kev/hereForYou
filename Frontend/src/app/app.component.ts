@@ -1,21 +1,18 @@
-﻿import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login/login.service';
 import { User } from './user/user';
 import { MdSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 import { ActivityIndicatorService } from './activity-indicator.service';
-import { Subscription } from 'rxjs/Subscription';
 import { SettingsService } from './services/settings.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
-  public discourseBaseUrl: string;
-  private baseUrlSubscription: Subscription;
   currentUser: Observable<User>;
   indicatorStatus: Observable<boolean>;
   @ViewChild('sidenav')
@@ -28,7 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => this.sidenav.close());
-    this.baseUrlSubscription = this.settingsService.getAsync<string>('discourseBaseUrl').subscribe(url => this.discourseBaseUrl = url);
   }
 
   logout() {
@@ -36,7 +32,4 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loginService.promptLogin();
   }
 
-  ngOnDestroy(): void {
-    this.baseUrlSubscription.unsubscribe();
-  }
 }
