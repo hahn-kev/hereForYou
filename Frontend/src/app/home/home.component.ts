@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
 
-  constructor() {
+  constructor(public languageService: LanguageService) {
 
   }
 

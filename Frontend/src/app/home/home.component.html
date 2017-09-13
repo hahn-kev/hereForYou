@@ -1,3 +1,14 @@
+<ng-container *appToolbarContent>
+  <button md-button [mdMenuTriggerFor]="languageMenu">
+    <md-icon md-list-icon>translate</md-icon>
+    {{languageService.currentLanguage.name}}
+  </button>
+  <md-menu #languageMenu="mdMenu">
+    <a md-menu-item *ngFor="let language of languageService.languages"
+       [href]="'/api/settings/setLanguage/' + language.code">{{language.name}}</a>
+  </md-menu>
+</ng-container>
+
 <div class="home">
   <md-card [style.grid-area]="'believe'" class="mat-elevation-z6">
     <md-nav-list>

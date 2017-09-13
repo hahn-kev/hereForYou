@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --locale en",
     "start-es": "ng serve --proxy-config proxy.conf.json --aot --locale es --i18n-format xlf --i18n-file src/locale/messages.es.xlf",
     "build-i18n:en": "ng build --prod --aot --output-path ../HereForYou/wwwroot/en --bh /en/ --locale en",
     "build-i18n:es": "ng build --prod --aot --output-path ../HereForYou/wwwroot/es --bh /es/ --locale es --i18n-format xlf --i18n-file src/locale/messages.es.xlf",

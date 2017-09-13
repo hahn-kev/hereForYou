@@ -34,6 +34,7 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
+  MdMenuModule,
   MdNativeDateModule,
   MdOptionModule,
   MdProgressBarModule,
@@ -63,6 +64,7 @@ import { MyErrorHandlerService } from './my-error-handler.service';
 import { CmsComponent } from './cms/cms.component';
 import { SettingsService } from './services/settings.service';
 import { DiscourseLinkDirective } from './directives/discourse-link.directive';
+import { LanguageService } from './services/language.service';
 
 @NgModule({
   declarations: [
@@ -117,6 +119,7 @@ import { DiscourseLinkDirective } from './directives/discourse-link.directive';
     CdkTableModule,
     MdButtonToggleModule,
     MdChipsModule,
+    MdMenuModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
@@ -150,7 +153,8 @@ import { DiscourseLinkDirective } from './directives/discourse-link.directive';
       provide: ErrorHandler,
       useClass: MyErrorHandlerService
     },
-    SettingsService
+    SettingsService,
+    LanguageService
   ],
   bootstrap: [AppComponent]
 })

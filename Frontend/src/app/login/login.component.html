@@ -1,3 +1,14 @@
+<ng-container *appToolbarContent>
+  <button md-button [mdMenuTriggerFor]="languageMenu">
+    <md-icon md-list-icon>translate</md-icon>
+    {{languageService.currentLanguage.name}}
+  </button>
+  <md-menu #languageMenu="mdMenu">
+    <a md-menu-item *ngFor="let language of languageService.languages"
+       [href]="'/api/settings/setLanguage/' + language.code">{{language.name}}</a>
+  </md-menu>
+</ng-container>
+
 <div class="login">
   <md-card>
     <form #loginForm="ngForm" (ngSubmit)="login()">
@@ -28,9 +39,5 @@
       </md-error>
       <button md-button type="submit" [disabled]="!loginForm.form.valid" i18n="login button@@loginButton">Login</button>
     </form>
-    <md-card-footer>
-      <a href="/api/settings/setLanguage/en" md-raised-button color="accent">English</a>
-      <a href="/api/settings/setLanguage/es" md-raised-button color="accent">Español</a>
-    </md-card-footer>
   </md-card>
 </div>
