@@ -21,8 +21,8 @@ export class CmsService {
     return this.http.post('/api/editablePage/' + pageName, pageContent).toPromise();
   }
 
-  uploadImage(category: string, file: File) {
-    return this.http.request(new HttpRequest('POST', `/api/image/${category}/${file.name}?type=${file.type}`, file, {reportProgress: true}));
+  uploadImage(category: string, name: string, file: File) {
+    return this.http.request(new HttpRequest('POST', `/api/image/${category}/${name}`, file, {reportProgress: true}));
   }
 
   images() {

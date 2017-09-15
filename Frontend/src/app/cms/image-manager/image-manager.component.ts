@@ -38,7 +38,7 @@ export class ImageManagerComponent implements OnInit {
     let fileInput: HTMLInputElement = this.fileInput.nativeElement;
     this.uploadProgress = 0;
     this.uploading = true;
-    this.cmsService.uploadImage(this.category, fileInput.files[0])
+    this.cmsService.uploadImage(this.category, this.selectedFile, fileInput.files[0])
       .subscribe(event => {
         if (event.type == HttpEventType.UploadProgress) {
           this.uploadProgress = (event.loaded / event.total) * 100;

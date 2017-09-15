@@ -2,7 +2,10 @@
 <button md-icon-button (click)="fileInput.click()" md-tooltip="Select Image to upload" mdTooltipPosition="after">
   <md-icon>attach_file</md-icon>
 </button>
-<span>{{selectedFile}}</span>
+<md-input-container>
+  <input mdInput [disabled]="!selectedFile" [(ngModel)]="selectedFile"
+         placeholder="Name">
+</md-input-container>
 <button md-icon-button (click)="selectedFile = null" [hidden]="!selectedFile" md-tooltip="Clear image">
   <md-icon>close</md-icon>
 </button>

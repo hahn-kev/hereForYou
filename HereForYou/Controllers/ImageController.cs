@@ -18,13 +18,13 @@ namespace HereForYou.Controllers
         }
 
         [HttpPost("{category}/{name}")]
-        public async Task<IActionResult> Upload(string category, string name, string type)
+        public async Task<IActionResult> Upload(string category, string name)
         {
             var imageInfo = new ImageInfo
             {
                 Category = category,
                 Name = name,
-                Type = type
+                Type = Request.ContentType
             };
             imageInfo = await _imageRepository.InsertImage(imageInfo, Request.Body);
 
