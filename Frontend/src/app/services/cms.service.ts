@@ -13,12 +13,17 @@ export class CmsService {
   }
 
   getPage(pageName: string) {
-    return this.http.get<EditablePage>(`/api/editablePage/${this.localeId}:${pageName}`)
-      .map(page => page || new EditablePage(`${this.localeId}:${pageName}`, this.loginService.currentUser().userName));
+    return this.http.get<EditablePage>(`/api/editablePage/${this.pageNameWithLocale(pageName)}`)
+      .map(page => page || new EditablePage(this.pageNameWithLocale(pageName), this.loginService.currentUser().userName));
+  }
+
+  pageNameWithLocale(pageName: string) {
+    if (pageName.indexOf(this.localeId) == 0) return pageName;
+    return `${this.localeId}-${pageName}`;
   }
 
   savePage(pageName: string, pageContent: string) {
-    return this.http.post('/api/editablePage/' + pageName, pageContent).toPromise();
+    return this.http.post('/api/editablePage/' + this.pageNameWithLocale(pageName), pageContent).toPromise();
   }
 
   uploadImage(category: string, name: string, file: File) {
