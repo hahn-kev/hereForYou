@@ -1,0 +1,23 @@
+<input type="file" hidden #fileInput accept="image/*" (change)="selectedFile = fileInput.files[0].name"/>
+<button md-icon-button (click)="fileInput.click()" md-tooltip="Select Image to upload" mdTooltipPosition="after">
+  <md-icon>attach_file</md-icon>
+</button>
+<span>{{selectedFile}}</span>
+<button md-icon-button (click)="selectedFile = null" [hidden]="!selectedFile" md-tooltip="Clear image">
+  <md-icon>close</md-icon>
+</button>
+<button md-icon-button [disabled]="!selectedFile" (click)="upload()" md-tooltip="Upload image">
+  <md-icon>file_upload</md-icon>
+</button>
+
+
+<md-progress-bar [hidden]="!uploading" mode="determinate" [value]="uploadProgress"></md-progress-bar>
+
+<md-nav-list>
+  <md-list-item *ngFor="let image of images | async" ngxClipboard
+                [cbContent]="'!['+image.name+']' + '(/api/image/'+image.id+' \'Hover text:100%x100%\')'">
+    <h4 md-line>{{image.name}}</h4>
+    <md-icon md-tooltip="Delete Image" (click)="deleteImage(image)">delete</md-icon>
+    <md-icon md-tooltip="Copy embed link">content_copy</md-icon>
+  </md-list-item>
+</md-nav-list>

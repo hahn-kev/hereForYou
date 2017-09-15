@@ -34,6 +34,7 @@ namespace HereForYou.DataLayer
         }
 
         public ITable<RideRequest> RideRequests => GetTable<RideRequest>();
+        public ITable<ImageInfo> Images => GetTable<ImageInfo>();
 
         public IQueryable<UserProfile> UserProfiles
         {
@@ -70,6 +71,7 @@ namespace HereForYou.DataLayer
             TryCreateTable<IdentityRoleClaim<int>>();
             TryCreateTable<RideRequest>();
             TryCreateTable<EditablePage>();
+            TryCreateTable<ImageInfo>();
 
             var roles = new[] {"admin"};
             foreach (var role in roles)

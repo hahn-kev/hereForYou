@@ -1,20 +1,20 @@
 @media (max-width: 1000px) {
   .cms {
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-columns: 1fr;
     grid-column-gap: 16px;
     padding: 16px;
-    grid-template-areas: "edit" "card";
+    grid-template-areas: "upload" "edit" "card";
   }
 }
 
 @media (min-width: 1000px) {
   .cms {
-    grid-template-rows: 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr auto;
     grid-column-gap: 16px;
     padding: 16px;
-    grid-template-areas: "edit card ";
+    grid-template-areas: "edit card" "upload card";
   }
 }
 

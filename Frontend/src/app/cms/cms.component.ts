@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { EditablePage } from './editable-page';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { LoginService } from '../login/login.service';
+import { MarkdownService } from 'angular2-markdown';
+import { CmsService } from '../services/cms.service';
 
 @Component({
   selector: 'app-cms',
@@ -15,19 +15,32 @@ export class CmsComponent implements OnInit {
   public editing = false;
   private preEditedContent: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private loginService: LoginService) {
+  constructor(private route: ActivatedRoute,
+              private cmsService: CmsService,
+              private markdown: MarkdownService,) {
   }
 
   async ngOnInit() {
     this.route.params.switchMap((data: { pageName: string }) => {
-      return this.http.get<EditablePage>('/api/editablePage/' + data.pageName)
-        .map(page => page || new EditablePage(data.pageName, this.loginService.currentUser().userName))
-    })
-      .subscribe(page => this.page = page);
+      return this.cmsService.getPage(data.pageName);
+    }).subscribe(page => this.page = page);
+
+    this.markdown.renderer.image = (href: string, title: string, text: string) => {
+      let regex = /(.*):\s*([\d%]+)\s*x\s*([\d%]+)/;
+      let result = regex.exec(title);
+      let style = '';
+      if (result) {
+        title = result[1];
+        style = `width:${result[2]}; height:${result[3]}`;
+      }
+      return `<img style="${style}" src="${href}" alt="${text}" title="${title || ''}" />`
+    };
   }
 
-  saveChanges() {
-    this.http.post('/api/editablePage/' + this.page.name, this.page.content).subscribe(() => this.editing = false);
+
+  async saveChanges() {
+    await this.cmsService.savePage(this.page.name, this.page.content);
+    this.editing = false;
   }
 
   edit() {

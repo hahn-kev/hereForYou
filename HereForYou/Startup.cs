@@ -24,6 +24,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using Twilio;
 using IdentityUser = HereForYou.Entities.IdentityUser;
 
@@ -90,8 +91,10 @@ namespace HereForYou
             services.AddScoped<UsersRepository>();
             services.AddScoped<NotifyRideService>();
             services.AddScoped<EditablePageRepository>();
+            services.AddScoped<ImageRepository>();
             services.AddScoped<EmailService>();
             services.AddScoped<HereForYouConnection>();
+            services.AddScoped(provider => new NpgsqlLargeObjectManager((NpgsqlConnection) provider.GetRequiredService<HereForYouConnection>().Connection));
         }
 
         public IConfigurationRoot Configuration { get; set; }

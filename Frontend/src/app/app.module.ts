@@ -65,6 +65,10 @@ import { CmsComponent } from './cms/cms.component';
 import { SettingsService } from './services/settings.service';
 import { DiscourseLinkDirective } from './directives/discourse-link.directive';
 import { LanguageService } from './services/language.service';
+import { CmsService } from './services/cms.service';
+import { ClipboardModule } from 'ngx-clipboard/dist';
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { ImageManagerComponent } from './cms/image-manager/image-manager.component';
 
 @NgModule({
   declarations: [
@@ -86,9 +90,12 @@ import { LanguageService } from './services/language.service';
     LifeLessonsComponent,
     HelpComponent,
     CmsComponent,
-    DiscourseLinkDirective
+    DiscourseLinkDirective,
+    ConfirmDialogComponent,
+    ImageManagerComponent
   ],
   entryComponents: [
+    ConfirmDialogComponent
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -126,7 +133,8 @@ import { LanguageService } from './services/language.service';
       apiKey: 'AIzaSyDWCN-g9qVWAdVsMmgiefEB9fcFdb4JKeA',
       libraries: ['places']
     }),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    ClipboardModule
   ],
   providers: [
     RideShareService,
@@ -154,7 +162,8 @@ import { LanguageService } from './services/language.service';
       useClass: MyErrorHandlerService
     },
     SettingsService,
-    LanguageService
+    LanguageService,
+    CmsService
   ],
   bootstrap: [AppComponent]
 })

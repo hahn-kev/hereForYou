@@ -7,25 +7,28 @@
        href="https://help.github.com/articles/basic-writing-and-formatting-syntax/" target="_blank">
       <md-icon>help</md-icon>
     </a>
-    <button md-icon-button [hidden]="!editing" md-tooltip="Discard changes" (click)="revert()">
-      <md-icon>close</md-icon>
-    </button>
     <button md-icon-button [hidden]="!editing" md-tooltip="Save" (click)="saveChanges()">
       <md-icon>save</md-icon>
+    </button>
+    <button md-icon-button [hidden]="!editing" md-tooltip="Discard changes" (click)="revert()">
+      <md-icon>close</md-icon>
     </button>
   </ng-container>
 </ng-container>
 
 <div *ngIf="page" class="cms">
-  <md-form-field *ngIf="editing">
+  <md-form-field [style.grid-area]="'edit'" *ngIf="editing">
     <textarea rows="10" cols="80" mdInput [(ngModel)]="page.content" placeholder="Markdown"></textarea>
   </md-form-field>
+  <div *ngIf="editing" [style.grid-area]="'upload'">
+    <app-image-manager [category]="page.name"></app-image-manager>
+  </div>
   <md-card>
     <markdown [data]="page.content"></markdown>
     <md-card-footer class="footer">
       <md-chip-list>
-        <md-chip color="accent" selected="true">{{'edited by ' + page.updatedBy + ' ' + ((page.lastUpdated | date:
-          'short') || 'never')}}
+        <md-chip color="accent" selected="true">
+          {{'edited by ' + page.updatedBy + ' ' + ((page.lastUpdated | date: 'short') || 'never')}}
         </md-chip>
       </md-chip-list>
     </md-card-footer>

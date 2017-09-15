@@ -1,0 +1,5 @@
+<h2 md-dialog-title>{{data.title}}</h2>
+<div md-dialog-actions>
+  <button (click)="reject()" md-button>{{data.rejectText}}</button>
+  <button [md-dialog-close]="'accept'" md-button>{{data.acceptText}}</button>
+</div>
