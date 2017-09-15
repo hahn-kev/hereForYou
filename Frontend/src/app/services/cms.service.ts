@@ -14,7 +14,7 @@ export class CmsService {
 
   getPage(pageName: string) {
     return this.http.get<EditablePage>(`/api/editablePage/${this.localeId}:${pageName}`)
-      .map(page => page || new EditablePage(pageName, this.loginService.currentUser().userName));
+      .map(page => page || new EditablePage(`${this.localeId}:${pageName}`, this.loginService.currentUser().userName));
   }
 
   savePage(pageName: string, pageContent: string) {
