@@ -19,27 +19,26 @@ namespace HereForYou.DataLayer
             return _connection.EditablePages.SingleOrDefault(page => page.Name == name);
         }
 
-        public void SavePage(string name, string content, string currentUser)
+        public EditablePage SavePage(string name, string content, string currentUser)
         {
-            var existing = _connection.EditablePages.Any(page => page.Name == name);
-            if (existing)
+            var existing = _connection.EditablePages.FirstOrDefault(page => page.Name == name);
+            if (existing != null)
             {
-                _connection.EditablePages.Where(page => page.Name == name)
-                    .Set(page => page.Content, content)
-                    .Set(page => page.LastUpdated, DateTime.Now)
-                    .Set(page => page.UpdatedBy, currentUser)
-                    .Update();
+                existing.Content = content;
+                existing.UpdatedBy = currentUser;
+                existing.LastUpdated = DateTime.Now;
+                _connection.Update(existing);
+                return existing;
             }
-            else
+            var editablePage = new EditablePage
             {
-                _connection.Insert(new EditablePage
-                {
-                    Name = name,
-                    Content = content,
-                    LastUpdated = DateTime.Now,
-                    UpdatedBy = currentUser
-                });
-            }
+                Name = name,
+                Content = content,
+                LastUpdated = DateTime.Now,
+                UpdatedBy = currentUser
+            };
+            _connection.Insert(editablePage);
+            return editablePage;
         }
     }
 }

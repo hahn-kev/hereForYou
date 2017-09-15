@@ -39,7 +39,7 @@ export class CmsComponent implements OnInit {
 
 
   async saveChanges() {
-    await this.cmsService.savePage(this.page.name, this.page.content);
+    this.page = await this.cmsService.savePage(this.page.name, this.page.content);
     this.editing = false;
   }
 

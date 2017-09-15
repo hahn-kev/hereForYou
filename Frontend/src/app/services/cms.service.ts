@@ -23,7 +23,7 @@ export class CmsService {
   }
 
   savePage(pageName: string, pageContent: string) {
-    return this.http.post('/api/editablePage/' + this.pageNameWithLocale(pageName), pageContent).toPromise();
+    return this.http.post<EditablePage>('/api/editablePage/' + this.pageNameWithLocale(pageName), pageContent).toPromise();
   }
 
   uploadImage(category: string, name: string, file: File) {

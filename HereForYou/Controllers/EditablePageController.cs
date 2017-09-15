@@ -24,9 +24,9 @@ namespace HereForYou.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("{name}")]
-        public void Save(string name, [FromBody] string content)
+        public EditablePage Save(string name, [FromBody] string content)
         {
-            _editablePageRepository.SavePage(name, content, User.Identity.Name);
+            return _editablePageRepository.SavePage(name, content, User.Identity.Name);
         }
     }
 }
