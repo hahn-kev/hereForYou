@@ -50,9 +50,10 @@ namespace HereForYou.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id, uint? oid)
+        public IActionResult Delete(int id, uint? oid)
         {
             _imageRepository.Delete(id, oid);
+            return Accepted();
         }
     }
 }
