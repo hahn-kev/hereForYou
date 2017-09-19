@@ -80,7 +80,7 @@ namespace HereForYou.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            _usersRepository.Users.Where(profile => profile.Id == id).Delete();
+            _usersRepository.DeleteUser(id);
             return Accepted();
         }
     }

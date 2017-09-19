@@ -3,7 +3,8 @@ import { User } from './user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './user.service';
 import { AuthenticateService } from '../login/authenticate.service';
-import { MdSnackBar } from '@angular/material';
+import { MdDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -14,12 +15,13 @@ export class UserComponent implements OnInit {
   public user: User;
   public isNew: boolean;
   public password: string;
+  public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private router: Router,
               private authenticateService: AuthenticateService,
-              private snackBar: MdSnackBar) {
+              private dialog: MdDialog) {
 
   }
 
@@ -30,9 +32,15 @@ export class UserComponent implements OnInit {
     });
   }
 
+
   async save() {
     if (this.isNew) {
-      await this.authenticateService.registerUser(this.user, this.password);
+      try {
+        await this.authenticateService.registerUser(this.user, this.password);
+      } catch (e) {
+        this.errorMessage = e.error.join('\n');
+        return;
+      }
     } else {
       await this.userService.saveUser(this.user, this.password);
     }
@@ -47,6 +55,17 @@ export class UserComponent implements OnInit {
   async revokeAdmin() {
     await this.userService.revokeAdmin(this.user.userName);
     this.user.isAdmin = false;
+  }
+
+  deleteUser() {
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {data: ConfirmDialogComponent.Options(`Delete User ${this.user.userName}?`, 'Delete', 'Cancel')});
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        await this.userService.deleteUser(this.user.id);
+
+        this.router.navigate(['/user/admin']);
+      }
+    });
   }
 
 }

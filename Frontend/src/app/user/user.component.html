@@ -24,8 +24,12 @@
                  placeholder="Password">
         </md-input-container>
         <md-input-container *ngIf="isNew">
-          <input mdInput required name="password" autocomplete="off" [(ngModel)]="password" type="password"
+          <input mdInput required #passwordElement="ngModel" name="password" minlength="8" autocomplete="off"
+                 [(ngModel)]="password" type="password"
                  placeholder="Password">
+          <md-error *ngIf="passwordElement.valid || passwordElement.pristine">
+            Password must be at least 8 characters long
+          </md-error>
         </md-input-container>
       </div>
       <div>
@@ -38,7 +42,12 @@
         <button type="button" *ngIf="user.isAdmin" (click)="revokeAdmin()" md-raised-button color="accent">Revoke Admin
           rights
         </button>
+        <button type="button" (click)="deleteUser()" md-raised-button color="accent">Delete</button>
       </div>
+
+      <md-error *ngIf="errorMessage">
+        {{errorMessage}}
+      </md-error>
       <button type="submit" [disabled]="!userForm.form.valid" md-button>{{isNew ? 'Register' : 'Save'}}</button>
     </form>
   </md-card>

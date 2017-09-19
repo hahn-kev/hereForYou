@@ -34,4 +34,8 @@ export class UserService {
   revokeAdmin(userName: string) {
     return this.http.put(`/api/user/revokeadmin/${userName}`, null).toPromise();
   }
+
+  deleteUser(userId: number) {
+    return this.http.delete(`/api/user/${userId}`).toPromise();
+  }
 }
