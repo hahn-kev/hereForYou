@@ -24,18 +24,18 @@ export class UserService {
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
       email: user.email
-    }).toPromise();
+    }, {responseType: 'text'}).toPromise();
   }
 
   grantAdmin(userName: string) {
-    return this.http.put(`/api/user/grantadmin/${userName}`, null).toPromise();
+    return this.http.put(`/api/user/grantadmin/${userName}`, null, {responseType: 'text'}).toPromise();
   }
 
   revokeAdmin(userName: string) {
-    return this.http.put(`/api/user/revokeadmin/${userName}`, null).toPromise();
+    return this.http.put(`/api/user/revokeadmin/${userName}`, null, {responseType: 'text'}).toPromise();
   }
 
   deleteUser(userId: number) {
-    return this.http.delete(`/api/user/${userId}`).toPromise();
+    return this.http.delete(`/api/user/${userId}`, {responseType: 'text'}).toPromise();
   }
 }

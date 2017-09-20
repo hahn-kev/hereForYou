@@ -35,6 +35,6 @@ export class CmsService {
   }
 
   deleteImage(imageInfo: ImageInfo) {
-    return this.http.delete(`/api/image/${imageInfo.id}?oid=${imageInfo.imageId}`).toPromise();
+    return this.http.delete(`/api/image/${imageInfo.id}?oid=${imageInfo.imageId}`, {responseType: 'text'}).toPromise();
   }
 }
