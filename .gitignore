@@ -262,3 +262,5 @@ __pycache__/
 HereForYou/wwwroot/
 deploy/
 HereForYou/appsettings.json
+
+HereForYou/Logs/

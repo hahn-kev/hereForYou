@@ -102,9 +102,7 @@ namespace HereForYou
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            var telemetryConfiguration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-            telemetryConfiguration.DisableTelemetry = true;
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole().AddFile("Logs/log-{Date}.txt", LogLevel.Warning);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
