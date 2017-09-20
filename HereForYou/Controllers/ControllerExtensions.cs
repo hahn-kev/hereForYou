@@ -11,7 +11,7 @@ namespace HereForYou.Controllers
             var items = result.Errors
                 .Select(x => x.Description)
                 .ToArray();
-            return new JsonResult(items) {StatusCode = 400};
+            return new JsonResult(items) {StatusCode = 500};
         }
     }
 }

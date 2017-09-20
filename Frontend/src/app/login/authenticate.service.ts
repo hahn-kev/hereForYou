@@ -26,6 +26,6 @@ export class AuthenticateService {
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
       email: user.email
-    }).toPromise();
+    }, {responseType: 'text'}).toPromise();
   }
 }
