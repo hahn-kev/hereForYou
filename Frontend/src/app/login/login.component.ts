@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     try {
       await this.authenticateService.login(this.username, this.password);
     } catch (errorResponse) {
-      this.errorMessage = errorResponse.error.status;
+      this.errorMessage = errorResponse.error.message;
     }
   }
 }

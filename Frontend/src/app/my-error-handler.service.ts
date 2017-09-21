@@ -1,5 +1,6 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class MyErrorHandlerService implements ErrorHandler {
@@ -7,17 +8,26 @@ export class MyErrorHandlerService implements ErrorHandler {
     const snackBarService = this.injector.get(MdSnackBar);
 
     let message: string;
-    if (error.rejection) message = error.rejection.message;
+    if (error.rejection) {
+      if (error.rejection instanceof HttpErrorResponse) {
+        message = error.rejection.error.message;
+      } else {
+        message = error.rejection.message;
+      }
+    }
     else if (error.message) {
       message = error.message;
     } else {
       message = error.toString();
     }
     snackBarService.open(message, 'Dismiss');
-    throw error;
+    this.original.handleError(error);
   }
 
+  private original = new ErrorHandler();
+
   constructor(private injector: Injector) {
+
   }
 
 }

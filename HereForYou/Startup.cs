@@ -70,6 +70,8 @@ namespace HereForYou
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 8;
+                    if (!options.User.AllowedUserNameCharacters.Contains(' '))
+                        options.User.AllowedUserNameCharacters += " ";
                 })
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
@@ -78,13 +80,15 @@ namespace HereForYou
                 options.InputFormatters.Add(new TextPlainInputFormatter());
                 options.Filters.Add(
                     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                options.Filters.Add(typeof(GlobalExceptionHandler));
             });
             services.AddResponseCaching();
             services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
-                var localeFolders = fileProvider.GetDirectoryContents("wwwroot").Where(info => info.IsDirectory && info.Name != "en").Select(info => info.Name);
+                var localeFolders = fileProvider.GetDirectoryContents("wwwroot")
+                    .Where(info => info.IsDirectory && info.Name != "en").Select(info => info.Name);
                 foreach (var localeFolder in localeFolders)
                 {
                     options.SupportedCultures.Add(new CultureInfo(localeFolder));
@@ -101,7 +105,9 @@ namespace HereForYou
             services.AddScoped<ImageRepository>();
             services.AddScoped<EmailService>();
             services.AddScoped<HereForYouConnection>();
-            services.AddScoped(provider => new NpgsqlLargeObjectManager((NpgsqlConnection) provider.GetRequiredService<HereForYouConnection>().Connection));
+            services.AddScoped(provider =>
+                new NpgsqlLargeObjectManager(
+                    (NpgsqlConnection) provider.GetRequiredService<HereForYouConnection>().Connection));
         }
 
         public IConfigurationRoot Configuration { get; set; }

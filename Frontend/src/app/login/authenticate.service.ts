@@ -20,12 +20,12 @@ export class AuthenticateService {
   }
 
   registerUser(user: User, password: string) {
-    return this.http.post('/api/authenticate/register', {
+    return this.http.post<any>('/api/authenticate/register', {
       password: password,
       userName: user.userName,
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
       email: user.email
-    }, {responseType: 'text'}).toPromise();
+    }).toPromise();
   }
 }

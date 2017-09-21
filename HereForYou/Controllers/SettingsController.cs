@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Options;
 namespace HereForYou.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class SettingsController : Controller
     {
         private readonly Settings _settings;

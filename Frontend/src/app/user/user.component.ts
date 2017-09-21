@@ -5,7 +5,6 @@ import { UserService } from './user.service';
 import { AuthenticateService } from '../login/authenticate.service';
 import { MdDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
-import { isArray } from 'util';
 
 @Component({
   selector: 'app-user',
@@ -39,13 +38,7 @@ export class UserComponent implements OnInit {
       try {
         await this.authenticateService.registerUser(this.user, this.password);
       } catch (e) {
-        if (isArray(e)) {
-          this.errorMessage = e.join('\n');
-        } else if (isArray(e.error)) {
-          this.errorMessage = e.error.join('\n');
-        } else {
-          this.errorMessage = e;
-        }
+        this.errorMessage = e.error.message;
         return;
       }
     } else {

@@ -46,7 +46,7 @@ namespace HereForYou.Controllers
             var user = new IdentityUser().CopyFrom(registerUser);
             if (string.IsNullOrEmpty(user.Email))
             {
-                throw new Exception("user email required");
+                throw new ArgumentException("user email required");
             }
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (!result.Succeeded)
@@ -55,10 +55,9 @@ namespace HereForYou.Controllers
             }
             if (user.Id <= 0)
             {
-                throw new Exception("user id not generated error");
+                throw new ArgumentException("user id not generated error");
             }
-
-            return Accepted();
+            return Json(new {Status = "Success"});
         }
 
         [HttpPost("signin")]
@@ -69,24 +68,18 @@ namespace HereForYou.Controllers
                 await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, false);
             if (signInResult.IsLockedOut)
             {
-                return new JsonResult(new Dictionary<string, object>
-                {
-                    {"status", "Account Locked, please contact an administrator"}
-                }) {StatusCode = 401};
+                throw new ArgumentException("Account Locked, please contact an administrator");
             }
             if (!signInResult.Succeeded)
             {
-                return new JsonResult(new Dictionary<string, object>
-                {
-                    {"status", "Invalid UserName or Password"}
-                }) {StatusCode = 401};
+                throw new ArgumentException("Invalid UserName or Password");
             }
             Response.Cookies.Delete(".AspNetCore.Identity.Application");
             var user = await _userManager.FindByNameAsync(credentials.Username);
             var token = await GetJwtSecurityToken(user);
             var accessTokenString = _securityTokenHandler.WriteToken(token);
             Response.Cookies.Append(JwtCookieName, accessTokenString);
-            return new JsonResult(new Dictionary<string, object>
+            return Json(new Dictionary<string, object>
             {
                 {"access_token", accessTokenString},
                 {"user", new UserProfile(user)}

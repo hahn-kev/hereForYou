@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,12 +7,11 @@ namespace HereForYou.Controllers
 {
     public static class ControllerExtensions
     {
-        public static JsonResult Errors(this IdentityResult result)
+        public static IActionResult Errors(this IdentityResult result)
         {
-            var items = result.Errors
-                .Select(x => x.Description)
-                .ToArray();
-            return new JsonResult(items) {StatusCode = 500};
+            throw new ArgumentException(string.Join(Environment.NewLine, result.Errors
+                .Select(x => x.Description)));
+            return new BadRequestResult();
         }
     }
 }
