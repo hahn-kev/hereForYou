@@ -14,10 +14,12 @@ using LinqToDB.Identity;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -71,7 +73,12 @@ namespace HereForYou
                 })
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
-            services.AddMvc(options => { options.InputFormatters.Add(new TextPlainInputFormatter()); });
+            services.AddMvc(options =>
+            {
+                options.InputFormatters.Add(new TextPlainInputFormatter());
+                options.Filters.Add(
+                    new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+            });
             services.AddResponseCaching();
             services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(options =>

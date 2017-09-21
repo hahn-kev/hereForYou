@@ -27,7 +27,7 @@ namespace HereForYou.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SecurityTokenHandler _securityTokenHandler;
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public AuthenticateController(IOptions<JWTSettings> jwtOptions, SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager, IOptions<Settings> options)
@@ -62,6 +62,7 @@ namespace HereForYou.Controllers
         }
 
         [HttpPost("signin")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] Credentials credentials)
         {
             var signInResult =
@@ -116,6 +117,7 @@ namespace HereForYou.Controllers
         }
 
         [HttpGet("sso")]
+        [AllowAnonymous]
         public async Task<IActionResult> Sso(string sso, string sig)
         {
             if (GetHash(sso, _settings.DiscourseSsoSecret) != sig)

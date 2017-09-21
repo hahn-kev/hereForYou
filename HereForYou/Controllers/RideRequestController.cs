@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HereForYou.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class RideRequestController : Controller
     {

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HereForYou.Controllers
@@ -18,6 +19,7 @@ namespace HereForYou.Controllers
         }
 
         [HttpPost("{category}/{name}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Upload(string category, string name)
         {
             var imageInfo = new ImageInfo
@@ -44,12 +46,14 @@ namespace HereForYou.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IEnumerable<ImageInfo> Images()
         {
             return _imageRepository.Images();
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id, uint? oid)
         {
             _imageRepository.Delete(id, oid);
