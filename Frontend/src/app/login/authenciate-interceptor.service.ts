@@ -19,7 +19,7 @@ export class AuthenciateInterceptorService implements HttpInterceptor {
         let err: HttpErrorResponse = e;
         if (err.status == 401 && !err.url.endsWith('signin')) {
           this.loginService.promptLogin();
-        } else if (err.headers.get('content-type').indexOf('application/json') == 0) {
+        } else if (err.headers.has('content-type') && err.headers.get('content-type').indexOf('application/json') == 0) {
           //error is json, parse to json
           this.setError(err);
         }
