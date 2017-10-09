@@ -60,7 +60,7 @@ namespace HereForYou
                         OnRedirectToLogin = ctx =>
                         {
                             ctx.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-                            return Task.FromResult(0);
+                            return Task.CompletedTask;
                         }
                     };
                     options.SignIn.RequireConfirmedEmail = false;
