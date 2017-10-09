@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CmsService } from '../../services/cms.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HttpEventType } from '@angular/common/http';
 import { ImageInfo } from '../image-info';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog/confirm-dialog.component';
@@ -18,7 +18,7 @@ export class ImageManagerComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   @Input() category: string;
 
-  constructor(private cmsService: CmsService, private dialog: MdDialog) {
+  constructor(private cmsService: CmsService, private dialog: MatDialog) {
   }
 
   ngOnInit() {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { RideRequestUsers } from '../ride-request';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/debounceTime';
 import { User } from '../../user/user';
@@ -21,7 +21,7 @@ export class RidesListComponent implements OnInit {
   userView: string;
   users: Observable<User[]>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private snackService: MdSnackBar, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private router: Router, private snackService: MatSnackBar, private userService: UserService) {
   }
 
   ngOnInit() {

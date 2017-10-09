@@ -1,95 +1,97 @@
-﻿<md-progress-bar class="activity-indicator" color="accent" [hidden]="!(indicatorStatus | async)" mode="query"></md-progress-bar>
+﻿<mat-progress-bar class="activity-indicator" color="accent" [hidden]="!(indicatorStatus | async)"
+                  mode="query"></mat-progress-bar>
 <div class="main">
-  <md-toolbar color="primary">
-    <button md-icon-button i18n-md-tooltip="menu button tooltip" md-tooltip="Menu" (click)="sidenav.toggle()">
-      <md-icon>menu</md-icon>
+  <mat-toolbar color="primary">
+    <button mat-icon-button i18n-mat-tooltip="menu button tooltip" mat-tooltip="Menu" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
     </button>
     <span i18n="site title@@appTitle">Here for you</span>
     <span class="example-spacer"></span>
     <ng-container appToolbarTemplate></ng-container>
-  </md-toolbar>
-  <md-sidenav-container>
-    <md-sidenav #sidenav id="sidenav">
-      <md-nav-list>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav id="sidenav">
+      <mat-nav-list>
         <h2 *ngIf="currentUser | async as user" id="user">
           <ng-container i18n="welcome user@@welcomeUser">Welcome {{user.userName}}</ng-container>
-          <button md-icon-button (click)="logout()" i18n-md-tooltip="logout button@@logoutTooltip" md-tooltip="Logout">
-            <md-icon>exit_to_app</md-icon>
+          <button mat-icon-button (click)="logout()" i18n-mat-tooltip="logout button@@logoutTooltip"
+                  mat-tooltip="Logout">
+            <mat-icon>exit_to_app</mat-icon>
           </button>
         </h2>
 
-        <md-list-item routerLink="/home" routerLinkActive="active-link">
-          <md-icon md-list-icon>home</md-icon>
-          <a md-line i18n="take user to home page link@@homeLink">Home</a>
-        </md-list-item>
+        <mat-list-item routerLink="/home" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <a mat-line i18n="take user to home page link@@homeLink">Home</a>
+        </mat-list-item>
 
-        <md-divider></md-divider>
+        <mat-divider></mat-divider>
 
-        <h3 md-subheader i18n="title above belive group@@believeTagline">Believe with confidence</h3>
-        <a discourseLink="/new-topic?category=prayer" md-list-item>
-          <md-icon md-list-icon>sentiment_very_satisfied</md-icon>
-          <span md-line i18n="a clickable link@@RequestPrayer">Request Prayer</span>
+        <h3 mat-subheader i18n="title above belive group@@believeTagline">Believe with confidence</h3>
+        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+          <mat-icon mat-list-icon>sentiment_very_satisfied</mat-icon>
+          <span mat-line i18n="a clickable link@@RequestPrayer">Request Prayer</span>
         </a>
-        <a discourseLink="/new-topic?category=prayer" md-list-item>
-          <md-icon md-list-icon>forum</md-icon>
-          <span md-line i18n="a clickable link@@sharePrayer">Share an Answered Prayer</span>
+        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+          <mat-icon mat-list-icon>forum</mat-icon>
+          <span mat-line i18n="a clickable link@@sharePrayer">Share an Answered Prayer</span>
         </a>
-        <a discourseLink="/new-topic?category=prayer" md-list-item>
-          <md-icon md-list-icon>forum</md-icon>
-          <span md-line i18n="a clickable link@@shareEncouragement">Encouragement</span>
+        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+          <mat-icon mat-list-icon>forum</mat-icon>
+          <span mat-line i18n="a clickable link@@shareEncouragement">Encouragement</span>
         </a>
 
-        <md-divider></md-divider>
-        <h3 md-subheader i18n="title above live group@@liveTagline">Live with confidence</h3>
-        <md-list-item routerLink="/ride-share">
-          <md-icon md-list-icon>directions car</md-icon>
-          <p md-line i18n="a clickable link@@rideShareLink">Ride Share</p>
-        </md-list-item>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader i18n="title above live group@@liveTagline">Live with confidence</h3>
+        <mat-list-item routerLink="/ride-share">
+          <mat-icon mat-list-icon>directions car</mat-icon>
+          <p mat-line i18n="a clickable link@@rideShareLink">Ride Share</p>
+        </mat-list-item>
 
-        <a discourseLink="" md-list-item>
-          <md-icon md-list-icon>forum</md-icon>
-          <span md-line i18n="link to forum@@growLink">Grow</span>
+        <a discourseLink="" mat-list-item>
+          <mat-icon mat-list-icon>forum</mat-icon>
+          <span mat-line i18n="link to forum@@growLink">Grow</span>
         </a>
-        <md-list-item routerLink="/your-rights">
-          <md-icon md-list-icon>security</md-icon>
-          <p md-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
-        </md-list-item>
-        <md-list-item routerLink="/life-lessons">
-          <md-icon md-list-icon>local_library</md-icon>
-          <p md-line i18n="link to life lessons page@@lifeLessonsLink">Life Lessons</p>
-        </md-list-item>
+        <mat-list-item routerLink="/your-rights">
+          <mat-icon mat-list-icon>security</mat-icon>
+          <p mat-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
+        </mat-list-item>
+        <mat-list-item routerLink="/life-lessons">
+          <mat-icon mat-list-icon>local_library</mat-icon>
+          <p mat-line i18n="link to life lessons page@@lifeLessonsLink">Life Lessons</p>
+        </mat-list-item>
 
-        <md-divider></md-divider>
-        <h3 md-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
-        <md-list-item routerLink="/learn" routerLinkActive="active-link">
-          <md-icon md-list-icon>school</md-icon>
-          <a md-line i18n="link to learn page@@learnLink">Learn</a>
-        </md-list-item>
-        <a discourseLink="/c/learn" md-list-item>
-          <md-icon md-list-icon>local_library</md-icon>
-          <span md-line i18n="link to class list on forum@@classListLink">Class List and Signup</span>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
+        <mat-list-item routerLink="/learn" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>school</mat-icon>
+          <a mat-line i18n="link to learn page@@learnLink">Learn</a>
+        </mat-list-item>
+        <a discourseLink="/c/learn" mat-list-item>
+          <mat-icon mat-list-icon>local_library</mat-icon>
+          <span mat-line i18n="link to class list on forum@@classListLink">Class List and Signup</span>
         </a>
-        <a md-list-item routerLink="/help" routerLinkActive="active-link">
-          <md-icon md-list-icon>help</md-icon>
-          <a md-line i18n="link to send an email asking for help@@helpLink">Ask for Help</a>
+        <a mat-list-item routerLink="/help" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>help</mat-icon>
+          <a mat-line i18n="link to send an email asking for help@@helpLink">Ask for Help</a>
         </a>
 
         <ng-container *requireRole="'admin'">
-          <md-divider></md-divider>
-          <h3 md-subheader>Admin</h3>
-          <md-list-item routerLink="/user/admin" routerLinkActive="active-link">
-            <md-icon md-list-icon>face</md-icon>
-            <a md-line>User Managment</a>
-          </md-list-item>
-          <md-list-item routerLink="/ride-share/admin" routerLinkActive="active-link">
-            <md-icon md-list-icon>directions car</md-icon>
-            <a md-line>Ride Share aduit</a>
-          </md-list-item>
+          <mat-divider></mat-divider>
+          <h3 mat-subheader>Admin</h3>
+          <mat-list-item routerLink="/user/admin" routerLinkActive="active-link">
+            <mat-icon mat-list-icon>face</mat-icon>
+            <a mat-line>User Managment</a>
+          </mat-list-item>
+          <mat-list-item routerLink="/ride-share/admin" routerLinkActive="active-link">
+            <mat-icon mat-list-icon>directions car</mat-icon>
+            <a mat-line>Ride Share aduit</a>
+          </mat-list-item>
         </ng-container>
 
-      </md-nav-list>
-    </md-sidenav>
+      </mat-nav-list>
+    </mat-sidenav>
     <router-outlet></router-outlet>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 
 </div>

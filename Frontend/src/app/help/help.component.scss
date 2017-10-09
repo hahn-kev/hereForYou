@@ -6,10 +6,10 @@
   grid-template-areas: '. . .' '. help .' '. . . ';
 }
 
-md-card {
+.mat-card {
   grid-area: help;
 }
 
-md-input-container {
+.mat-input-container {
   width: 100%;
 }

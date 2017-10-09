@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class RoleGuardService implements CanActivate {
@@ -20,7 +20,7 @@ export class RoleGuardService implements CanActivate {
     });
   }
 
-  constructor(private loginService: LoginService, private snackBarService: MdSnackBar) {
+  constructor(private loginService: LoginService, private snackBarService: MatSnackBar) {
   }
 
 }

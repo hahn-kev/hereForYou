@@ -1,42 +1,42 @@
 <div class="ride-share">
-  <md-card>
+  <mat-card>
     <h2 i18n="ride request header@@rideRequestHeader">Request Ride</h2>
     <form #requestForm="ngForm" (ngSubmit)="createRequest()">
       <div class="requestForm">
-        <md-input-container>
-          <input appMapsAutocomplete #sourceElement="ngModel" name="source" mdInput required
+        <mat-input-container>
+          <input appMapsAutocomplete #sourceElement="ngModel" name="source" matInput required
                  [(ngModel)]="request.source"
                  placeholder="Pickup Location"
                  i18n-placeholder="location to be picked up at@@pickupLocationInput">
-          <md-error *ngIf="sourceElement.valid || sourceElement.pristine">
+          <mat-error *ngIf="sourceElement.valid || sourceElement.pristine">
             Pickup location is required
-          </md-error>
-        </md-input-container>
-        <md-input-container>
-          <input appMapsAutocomplete #destinationElement="ngModel" name="destination" mdInput required
+          </mat-error>
+        </mat-input-container>
+        <mat-input-container>
+          <input appMapsAutocomplete #destinationElement="ngModel" name="destination" matInput required
                  [(ngModel)]="request.destination" placeholder="Destination"
                  i18n-placeholder="location driver will drop person off at@@destinationInput">
-          <md-error>
+          <mat-error>
             Destination is required
-          </md-error>
-        </md-input-container>
-        <md-select name="time" required placeholder="Pickup time" [(ngModel)]="time"
+          </mat-error>
+        </mat-input-container>
+        <mat-select name="time" required placeholder="Pickup time" [(ngModel)]="time"
                    i18n-placeholder="time for pickup@@pickupTimeInput">
-          <md-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</md-option>
-        </md-select>
-        <md-input-container>
-          <input name="date" mdInput [min]="minDate" [(ngModel)]="date" [mdDatepicker]="picker"
+          <mat-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</mat-option>
+        </mat-select>
+        <mat-input-container>
+          <input name="date" matInput [min]="minDate" [(ngModel)]="date" [matDatepicker]="picker"
                  placeholder="Pickup Date" i18n-placeholder="date for pickup@@pickupDateInput">
-          <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-          <md-datepicker #picker></md-datepicker>
-        </md-input-container>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-input-container>
       </div>
 
-      <button md-button type="submit" [disabled]="!requestForm.form.valid"
+      <button mat-button type="submit" [disabled]="!requestForm.form.valid"
               i18n="button to submit ride request@@createButton">Create
       </button>
     </form>
 
-  </md-card>
+  </mat-card>
 </div>
 

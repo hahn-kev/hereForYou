@@ -1,43 +1,44 @@
 <ng-container *appToolbarContent>
-  <button md-button [mdMenuTriggerFor]="languageMenu">
-    <md-icon md-list-icon>translate</md-icon>
+  <button mat-button [matMenuTriggerFor]="languageMenu">
+    <mat-icon mat-list-icon>translate</mat-icon>
     {{languageService.currentLanguage.name}}
   </button>
-  <md-menu #languageMenu="mdMenu">
-    <a md-menu-item *ngFor="let language of languageService.languages"
+  <mat-menu #languageMenu="matMenu">
+    <a mat-menu-item *ngFor="let language of languageService.languages"
        [href]="'/api/settings/setLanguage/' + language.code">{{language.name}}</a>
-  </md-menu>
+  </mat-menu>
 </ng-container>
 
 <div class="login">
-  <md-card>
+  <mat-card>
     <form #loginForm="ngForm" (ngSubmit)="login()">
       <h1 i18n="login page welcome@@welcomeLogin">Welcome to Here for you</h1>
       <h3 i18n="label above login form@@loginLabel">Please login</h3>
       <div>
-        <md-input-container>
-          <input #usernameElement="ngModel" name="username" mdInput required [(ngModel)]="username"
+        <mat-input-container>
+          <input #usernameElement="ngModel" name="username" matInput required [(ngModel)]="username"
                  placeholder="Username" i18n-placeholder="input hint for username at login@usernameLoginInput">
-          <md-error *ngIf="usernameElement.valid || usernameElement.pristine"
-                    i18n="message telling user that the username is required@@usernameRequiredError">
+          <mat-error *ngIf="usernameElement.valid || usernameElement.pristine"
+                     i18n="message telling user that the username is required@@usernameRequiredError">
             Username required
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container>
-          <input #passwordElement="ngModel" type="password" name="password" mdInput required [(ngModel)]="password"
+        <mat-input-container>
+          <input #passwordElement="ngModel" type="password" name="password" matInput required [(ngModel)]="password"
                  placeholder="Password" i18n-placeholder="input hint for password at login@passwordLoginInput">
-          <md-error *ngIf="passwordElement.valid || passwordElement.pristine"
-                    i18n="message telling user that the password is required@@passRequiredError">
+          <mat-error *ngIf="passwordElement.valid || passwordElement.pristine"
+                     i18n="message telling user that the password is required@@passRequiredError">
             Password required
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
-      <md-error *ngIf="errorMessage">
+      <mat-error *ngIf="errorMessage">
         {{errorMessage}}
-      </md-error>
-      <button md-button type="submit" [disabled]="!loginForm.form.valid" i18n="login button@@loginButton">Login</button>
+      </mat-error>
+      <button mat-button type="submit" [disabled]="!loginForm.form.valid" i18n="login button@@loginButton">Login
+      </button>
     </form>
-  </md-card>
+  </mat-card>
 </div>

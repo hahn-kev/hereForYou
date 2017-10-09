@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
 
 @Component({
@@ -13,7 +13,7 @@ export class HelpComponent implements OnInit {
   public message: string;
   public phoneNumber: string;
 
-  constructor(private http: HttpClient, private snackBar: MdSnackBar, private location: Location) {
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private location: Location) {
   }
 
   ngOnInit() {

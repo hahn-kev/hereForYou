@@ -3,7 +3,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { RideRequest } from './ride-request';
 import { RideShareService } from './ride-share.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class RideShareComponent {
   date: Date;
   minDate = new Date();
 
-  constructor(private rideShareService: RideShareService, private snackBar: MdSnackBar, private route: Router) {
+  constructor(private rideShareService: RideShareService, private snackBar: MatSnackBar, private route: Router) {
     //create a list of dates to display in the drop down, currently in 30 minute increments
     this.times = new Array(24 * 2).fill(0).map((value, index) => {
       const date = new Date();

@@ -1,11 +1,11 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class MyErrorHandlerService implements ErrorHandler {
   handleError(error: any): void {
-    const snackBarService = this.injector.get(MdSnackBar);
+    const snackBarService = this.injector.get(MatSnackBar);
 
     let message: string;
     if (error.rejection) {

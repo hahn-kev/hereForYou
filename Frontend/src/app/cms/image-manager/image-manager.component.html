@@ -1,26 +1,26 @@
 <input type="file" hidden #fileInput accept="image/*" (change)="selectedFile = fileInput.files[0].name"/>
-<button md-icon-button (click)="fileInput.click()" md-tooltip="Select Image to upload" mdTooltipPosition="after">
-  <md-icon>attach_file</md-icon>
+<button mat-icon-button (click)="fileInput.click()" mat-tooltip="Select Image to upload" matTooltipPosition="after">
+  <mat-icon>attach_file</mat-icon>
 </button>
-<md-input-container>
-  <input mdInput [disabled]="!selectedFile" [(ngModel)]="selectedFile"
+<mat-input-container>
+  <input matInput [disabled]="!selectedFile" [(ngModel)]="selectedFile"
          placeholder="Name">
-</md-input-container>
-<button md-icon-button (click)="selectedFile = null" [hidden]="!selectedFile" md-tooltip="Clear image">
-  <md-icon>close</md-icon>
+</mat-input-container>
+<button mat-icon-button (click)="selectedFile = null" [hidden]="!selectedFile" mat-tooltip="Clear image">
+  <mat-icon>close</mat-icon>
 </button>
-<button md-icon-button [disabled]="!selectedFile" (click)="upload()" md-tooltip="Upload image">
-  <md-icon>file_upload</md-icon>
+<button mat-icon-button [disabled]="!selectedFile" (click)="upload()" mat-tooltip="Upload image">
+  <mat-icon>file_upload</mat-icon>
 </button>
 
 
-<md-progress-bar [hidden]="!uploading" mode="determinate" [value]="uploadProgress"></md-progress-bar>
+<mat-progress-bar [hidden]="!uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
-<md-nav-list>
-  <md-list-item *ngFor="let image of images | async" ngxClipboard
+<mat-nav-list>
+  <mat-list-item *ngFor="let image of images | async" ngxClipboard
                 [cbContent]="'!['+image.name+']' + '(/api/image/'+image.id+' \'Hover text:100%x100%\')'">
-    <h4 md-line>{{image.name}}</h4>
-    <md-icon md-tooltip="Delete Image" (click)="deleteImage(image)">delete</md-icon>
-    <md-icon md-tooltip="Copy embed link">content_copy</md-icon>
-  </md-list-item>
-</md-nav-list>
+    <h4 mat-line>{{image.name}}</h4>
+    <mat-icon mat-tooltip="Delete Image" (click)="deleteImage(image)">delete</mat-icon>
+    <mat-icon mat-tooltip="Copy embed link">content_copy</mat-icon>
+  </mat-list-item>
+</mat-nav-list>

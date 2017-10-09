@@ -1,56 +1,56 @@
 <div class="user">
-  <md-card>
+  <mat-card>
     <form #userForm="ngForm" (ngSubmit)="save()">
       <div>
-        <md-input-container>
-          <input mdInput required name="name" [(ngModel)]="user.userName" placeholder="Username">
-        </md-input-container>
+        <mat-input-container>
+          <input matInput required name="name" [(ngModel)]="user.userName" placeholder="Username">
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container>
-          <input mdInput required name="email" [(ngModel)]="user.email" type="email"
+        <mat-input-container>
+          <input matInput required name="email" [(ngModel)]="user.email" type="email"
                  placeholder="Email">
-        </md-input-container>
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container>
-          <input mdInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
+        <mat-input-container>
+          <input matInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
                  placeholder="Phone Number">
-        </md-input-container>
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container *ngIf="!isNew">
-          <input mdInput name="password" autocomplete="off" [(ngModel)]="password" type="password"
+        <mat-input-container *ngIf="!isNew">
+          <input matInput name="password" autocomplete="off" [(ngModel)]="password" type="password"
                  placeholder="Password">
-        </md-input-container>
-        <md-input-container *ngIf="isNew">
-          <input mdInput required #passwordElement="ngModel" name="password" minlength="8" autocomplete="off"
+        </mat-input-container>
+        <mat-input-container *ngIf="isNew">
+          <input matInput required #passwordElement="ngModel" name="password" minlength="8" autocomplete="off"
                  [(ngModel)]="password" type="password"
                  placeholder="Password">
-          <md-error *ngIf="passwordElement.valid || passwordElement.pristine">
+          <mat-error *ngIf="passwordElement.valid || passwordElement.pristine">
             Password must be at least 8 characters long
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
       <div>
-        <md-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</md-checkbox>
+        <mat-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</mat-checkbox>
       </div>
       <div *ngIf="!isNew">
-        <button type="button" *ngIf="!user.isAdmin" (click)="grantAdmin()" md-raised-button color="accent">Grant Admin
+        <button type="button" *ngIf="!user.isAdmin" (click)="grantAdmin()" mat-raised-button color="accent">Grant Admin
           rights
         </button>
-        <button type="button" *ngIf="user.isAdmin" (click)="revokeAdmin()" md-raised-button color="accent">Revoke Admin
+        <button type="button" *ngIf="user.isAdmin" (click)="revokeAdmin()" mat-raised-button color="accent">Revoke Admin
           rights
         </button>
-        <button type="button" (click)="deleteUser()" md-raised-button color="accent">Delete</button>
+        <button type="button" (click)="deleteUser()" mat-raised-button color="accent">Delete</button>
       </div>
 
-      <md-error *ngIf="errorMessage">
+      <mat-error *ngIf="errorMessage">
         {{errorMessage}}
-      </md-error>
-      <button type="submit" [disabled]="!userForm.form.valid" md-button>{{isNew ? 'Register' : 'Save'}}</button>
+      </mat-error>
+      <button type="submit" [disabled]="!userForm.form.valid" mat-button>{{isNew ? 'Register' : 'Save'}}</button>
     </form>
-  </md-card>
+  </mat-card>
 </div>
 
 

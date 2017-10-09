@@ -1,69 +1,69 @@
 <ng-container *appToolbarContent>
-  <button md-button [mdMenuTriggerFor]="languageMenu">
-    <md-icon md-list-icon>translate</md-icon>
+  <button mat-button [matMenuTriggerFor]="languageMenu">
+    <mat-icon mat-list-icon>translate</mat-icon>
     {{languageService.currentLanguage.name}}
   </button>
-  <md-menu #languageMenu="mdMenu">
-    <a md-menu-item *ngFor="let language of languageService.languages"
+  <mat-menu #languageMenu="matMenu">
+    <a mat-menu-item *ngFor="let language of languageService.languages"
        [href]="'/api/settings/setLanguage/' + language.code">{{language.name}}</a>
-  </md-menu>
+  </mat-menu>
 </ng-container>
 
 <div class="home">
-  <md-card [style.grid-area]="'believe'" class="mat-elevation-z6">
-    <md-nav-list>
-      <h3 md-subheader i18n="title above belive group@@believeTagline">Believe with confidence</h3>
-      <a md-list-item discourseLink="/new-topic?category=prayer">
-        <md-icon md-list-icon>sentiment_very_satisfied</md-icon>
-        <span md-line i18n="a clickable link@@RequestPrayer">Request Prayer</span>
+  <mat-card [style.grid-area]="'believe'" class="mat-elevation-z6">
+    <mat-nav-list>
+      <h3 mat-subheader i18n="title above belive group@@believeTagline">Believe with confidence</h3>
+      <a mat-list-item discourseLink="/new-topic?category=prayer">
+        <mat-icon mat-list-icon>sentiment_very_satisfied</mat-icon>
+        <span mat-line i18n="a clickable link@@RequestPrayer">Request Prayer</span>
       </a>
-      <a md-list-item discourseLink="/new-topic?category=prayer">
-        <md-icon md-list-icon>forum</md-icon>
-        <span md-line i18n="a clickable link@@sharePrayer">Share an Answered Prayer</span>
+      <a mat-list-item discourseLink="/new-topic?category=prayer">
+        <mat-icon mat-list-icon>forum</mat-icon>
+        <span mat-line i18n="a clickable link@@sharePrayer">Share an Answered Prayer</span>
       </a>
-      <a md-list-item discourseLink="/new-topic?category=prayer">
-        <md-icon md-list-icon>forum</md-icon>
-        <span md-line i18n="a clickable link@@shareEncouragement">Encouragement</span>
+      <a mat-list-item discourseLink="/new-topic?category=prayer">
+        <mat-icon mat-list-icon>forum</mat-icon>
+        <span mat-line i18n="a clickable link@@shareEncouragement">Encouragement</span>
       </a>
-    </md-nav-list>
-  </md-card>
-  <md-card [style.grid-area]="'live'" class="mat-elevation-z6">
-    <md-nav-list>
-      <h3 md-subheader i18n="title above live group@@liveTagline">Live with confidence</h3>
-      <a md-list-item routerLink="/ride-share">
-        <md-icon md-list-icon>directions car</md-icon>
-        <p md-line i18n="a clickable link@@rideShareLink">Ride Share</p>
+    </mat-nav-list>
+  </mat-card>
+  <mat-card [style.grid-area]="'live'" class="mat-elevation-z6">
+    <mat-nav-list>
+      <h3 mat-subheader i18n="title above live group@@liveTagline">Live with confidence</h3>
+      <a mat-list-item routerLink="/ride-share">
+        <mat-icon mat-list-icon>directions car</mat-icon>
+        <p mat-line i18n="a clickable link@@rideShareLink">Ride Share</p>
       </a>
 
-      <a md-list-item discourseLink="">
-        <md-icon md-list-icon>forum</md-icon>
-        <span md-line i18n="link to forum@@growLink">Grow</span>
+      <a mat-list-item discourseLink="">
+        <mat-icon mat-list-icon>forum</mat-icon>
+        <span mat-line i18n="link to forum@@growLink">Grow</span>
       </a>
-      <a md-list-item routerLink="/your-rights">
-        <md-icon md-list-icon>security</md-icon>
-        <p md-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
+      <a mat-list-item routerLink="/your-rights">
+        <mat-icon mat-list-icon>security</mat-icon>
+        <p mat-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
       </a>
-      <a md-list-item routerLink="/life-lessons">
-        <md-icon md-list-icon>local_library</md-icon>
-        <p md-line i18n="link to life lessons page@@lifeLessonsLink">Life Lessons</p>
+      <a mat-list-item routerLink="/life-lessons">
+        <mat-icon mat-list-icon>local_library</mat-icon>
+        <p mat-line i18n="link to life lessons page@@lifeLessonsLink">Life Lessons</p>
       </a>
-    </md-nav-list>
-  </md-card>
-  <md-card [style.grid-area]="'speak'" class="mat-elevation-z6">
-    <md-nav-list>
-      <h3 md-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
-      <a md-list-item routerLink="/learn" routerLinkActive="active-link">
-        <md-icon md-list-icon>school</md-icon>
-        <a md-line i18n="link to learn page@@learnLink">Learn</a>
+    </mat-nav-list>
+  </mat-card>
+  <mat-card [style.grid-area]="'speak'" class="mat-elevation-z6">
+    <mat-nav-list>
+      <h3 mat-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
+      <a mat-list-item routerLink="/learn" routerLinkActive="active-link">
+        <mat-icon mat-list-icon>school</mat-icon>
+        <a mat-line i18n="link to learn page@@learnLink">Learn</a>
       </a>
-      <a md-list-item discourseLink="/c/learn">
-        <md-icon md-list-icon>local_library</md-icon>
-        <span md-line i18n="link to class list on forum@@classListLink">Class List and Signup</span>
+      <a mat-list-item discourseLink="/c/learn">
+        <mat-icon mat-list-icon>local_library</mat-icon>
+        <span mat-line i18n="link to class list on forum@@classListLink">Class List and Signup</span>
       </a>
-      <a md-list-item routerLink="/help" routerLinkActive="active-link">
-        <md-icon md-list-icon>help</md-icon>
-        <a md-line i18n="link to send an email asking for help@@helpLink">Ask for Help</a>
+      <a mat-list-item routerLink="/help" routerLinkActive="active-link">
+        <mat-icon mat-list-icon>help</mat-icon>
+        <a mat-line i18n="link to send an email asking for help@@helpLink">Ask for Help</a>
       </a>
-    </md-nav-list>
-  </md-card>
+    </mat-nav-list>
+  </mat-card>
 </div>

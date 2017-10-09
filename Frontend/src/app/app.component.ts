@@ -2,10 +2,11 @@
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login/login.service';
 import { User } from './user/user';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 import { ActivityIndicatorService } from './activity-indicator.service';
 import { SettingsService } from './services/settings.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
   currentUser: Observable<User>;
   indicatorStatus: Observable<boolean>;
   @ViewChild('sidenav')
-  private sidenav: MdSidenav;
+  private sidenav: MatSidenav;
 
   constructor(private loginService: LoginService, private router: Router, activityIndicatorService: ActivityIndicatorService, private settingsService: SettingsService) {
     this.currentUser = loginService.observeCurrentUser();

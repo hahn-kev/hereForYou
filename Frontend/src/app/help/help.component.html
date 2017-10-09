@@ -1,37 +1,37 @@
 <div class="help">
-  <md-card>
+  <mat-card>
     <form #helpForm="ngForm" (ngSubmit)="submit()">
       <h3 i18n="title of help request form@@helpTitle">Need help?</h3>
       <div>
-        <md-input-container>
-          <input #nameElement="ngModel" name="name" mdInput required [(ngModel)]="name"
+        <mat-input-container>
+          <input #nameElement="ngModel" name="name" matInput required [(ngModel)]="name"
                  placeholder="Name" i18n-placeholder="input hint for person requesting help@@helpNameInput">
-          <md-error *ngIf="nameElement.valid || nameElement.pristine">
+          <mat-error *ngIf="nameElement.valid || nameElement.pristine">
             Name required
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container>
-          <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" mdInput required [(ngModel)]="phoneNumber"
+        <mat-input-container>
+          <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" matInput required [(ngModel)]="phoneNumber"
                  placeholder="Phone Number" i18n-placeholder="input hint for phone number@@phoneNumberInput">
-          <md-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
+          <mat-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
             Phone Number required
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
       <div>
-        <md-input-container>
-          <textarea #messageElement="ngModel" name="message" mdInput required [(ngModel)]="message"
+        <mat-input-container>
+          <textarea #messageElement="ngModel" name="message" matInput required [(ngModel)]="message"
                     placeholder="Message" i18n-placeholder="input hint for help message@@helpMessageInput"></textarea>
-          <md-error *ngIf="messageElement.valid || messageElement.pristine">
+          <mat-error *ngIf="messageElement.valid || messageElement.pristine">
             Message required
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-input-container>
       </div>
-      <button md-button type="submit" [disabled]="!helpForm.form.valid"
+      <button mat-button type="submit" [disabled]="!helpForm.form.valid"
               i18n="button to send request for help@@sendHelpButton">Send
       </button>
     </form>
-  </md-card>
+  </mat-card>
 </div>

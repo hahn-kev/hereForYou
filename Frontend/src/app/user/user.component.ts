@@ -3,7 +3,7 @@ import { User } from './user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './user.service';
 import { AuthenticateService } from '../login/authenticate.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
               private userService: UserService,
               private router: Router,
               private authenticateService: AuthenticateService,
-              private dialog: MdDialog) {
+              private dialog: MatDialog) {
 
   }
 
