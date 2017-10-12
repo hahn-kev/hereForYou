@@ -16,12 +16,21 @@ namespace HereForYou.Controllers
         }
 
         [HttpPost("help")]
-        public async Task<IActionResult> Help(string from, string body, string phoneNumber)
+        public async Task<IActionResult> Help(string from, string body, string phoneNumber, string type)
+        {
+            body = $"{from} would like help, their phone number is {phoneNumber}.{Environment.NewLine} Message Type: {type} {Environment.NewLine}Here is their request: " + Environment.NewLine + body;
+            
+            await _emailService.SendEmail("info@freedomcalling.org", "Help request " + from, body);
+            return Accepted();
+        }
+        
+        [HttpPost("classRequest")]
+        public async Task<IActionResult> ClassRequest(string from, string location, string contact)
         {
             //todo resolve support email address
-            body = $"{from} would like help, their phone number is {phoneNumber}. here is their request: " + Environment.NewLine + body;
+            string body = $"{from} would like an english lesson at {location}, their contact info is {contact}.";
             
-            await _emailService.SendEmail("tbd", "Help request", body);
+//            await _emailService.SendEmail("info@freedomcalling.org", "1 on 1 Class request " + from, body);
             return Accepted();
         }
     }

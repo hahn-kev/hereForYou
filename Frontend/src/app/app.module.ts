@@ -69,6 +69,7 @@ import { CmsService } from './services/cms.service';
 import { ClipboardModule } from 'ngx-clipboard/dist';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { ImageManagerComponent } from './cms/image-manager/image-manager.component';
+import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ImageManagerComponent } from './cms/image-manager/image-manager.compone
     CmsComponent,
     DiscourseLinkDirective,
     ConfirmDialogComponent,
-    ImageManagerComponent
+    ImageManagerComponent,
+    ClassRequestComponent
   ],
   entryComponents: [
     ConfirmDialogComponent

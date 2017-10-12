@@ -14,6 +14,7 @@ import { RidesListComponent } from './rideShare/rides-list/rides-list.component'
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';
 import { HelpComponent } from './help/help.component';
 import { CmsComponent } from './cms/cms.component';
+import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
       {
         path: 'learn',
         component: LearnComponent
+      },
+      {
+        path: 'class-request',
+        component: ClassRequestComponent
       },
       {
         path: 'home',
