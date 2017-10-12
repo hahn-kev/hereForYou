@@ -10,7 +10,7 @@ export class MyErrorHandlerService implements ErrorHandler {
     let message: string;
     if (error.rejection) {
       if (error.rejection instanceof HttpErrorResponse) {
-        message = error.rejection.error.message;
+        message = error.rejection.error.message || error.rejection.error.error.message;
       } else {
         message = error.rejection.message;
       }
