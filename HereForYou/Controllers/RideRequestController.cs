@@ -27,31 +27,31 @@ namespace HereForYou.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IEnumerable<RideRequest> ListRides()
+        public IList<RideRequest> ListRides()
         {
-            return _rideRequestRepository.RideRequests();
+            return _rideRequestRepository.RideRequests().ToList();
         }
 
         [Authorize(Roles = "admin")]
         [HttpGet("ridesWUsers")]
-        public IEnumerable<RideRequestUsers> RidesWithUsernames()
+        public IList<RideRequestUsers> RidesWithUsernames()
         {
-            return _rideRequestRepository.RidesWithUsernames();
+            return _rideRequestRepository.RidesWithUsernames().ToList();
         }
 
         [Authorize(Roles = "admin")]
         [HttpGet("ridesByUser/{type}/{userName}")]
-        public IEnumerable<RideRequestUsers> RiddenRides(string type, string userName)
+        public IList<RideRequestUsers> RiddenRides(string type, string userName)
         {
             if (type == "rider")
             {
-                return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedByUser == userName);
+                return _rideRequestRepository.RidesWithUsernames().Where(user => user.RequestedByUser == userName).ToList();
             }
             if (type == "driver")
             {
-                return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName);
+                return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName).ToList();
             }
-            return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName || user.RequestedByUser == userName);
+            return _rideRequestRepository.RidesWithUsernames().Where(user => user.AcceptedByUser == userName || user.RequestedByUser == userName).ToList();
         }
 
         [HttpPut]

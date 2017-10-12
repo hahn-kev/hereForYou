@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
@@ -47,9 +48,9 @@ namespace HereForYou.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IEnumerable<ImageInfo> Images()
+        public IList<ImageInfo> Images()
         {
-            return _imageRepository.Images();
+            return _imageRepository.Images().ToList();
         }
 
         [HttpDelete("{id}")]

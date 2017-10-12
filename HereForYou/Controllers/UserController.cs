@@ -28,9 +28,9 @@ namespace HereForYou.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<IUser> Users()
+        public IReadOnlyCollection<IUser> Users()
         {
-            return _usersRepository.Users;
+            return _usersRepository.Users.ToList();
         }
 
         [HttpGet("{name}")]
