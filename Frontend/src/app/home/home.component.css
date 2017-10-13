@@ -21,6 +21,30 @@
   }
 }
 
+.believe {
+  grid-area: believe;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+}
+
+.live {
+  grid-area: live;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+}
+
+.speak {
+  grid-area: speak;
+  -ms-grid-column: 6;
+  -ms-grid-column-span: 1;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+}
+
 .mat-card-title {
   text-align: center;
   font-weight: bolder;

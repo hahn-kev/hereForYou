@@ -6,6 +6,10 @@
   grid-template-areas: '. . .' '. card .' '. . . ';
   .mat-card {
     grid-area: card;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
   }
 }
 
