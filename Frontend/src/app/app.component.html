@@ -28,52 +28,51 @@
         <mat-divider></mat-divider>
 
         <h3 mat-subheader i18n="title above belive group@@believeTagline">Believe with confidence</h3>
-        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+        <a mat-list-item href="/cms/about-faith">
+          <mat-icon mat-list-icon>forum</mat-icon>
+          <span mat-line i18n="a clickable link@@aboutOurFaith">About our Faith</span>
+        </a>
+        <a mat-list-item discourseLink="/new-topic?category=prayer">
           <mat-icon mat-list-icon>sentiment_very_satisfied</mat-icon>
           <span mat-line i18n="a clickable link@@RequestPrayer">Request Prayer</span>
         </a>
-        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+        <a mat-list-item discourseLink="/new-topic?category=prayer">
           <mat-icon mat-list-icon>forum</mat-icon>
-          <span mat-line i18n="a clickable link@@sharePrayer">Share an Answered Prayer</span>
+          <span mat-line i18n="a clickable link@@testimonies">Testimonies</span>
         </a>
-        <a discourseLink="/new-topic?category=prayer" mat-list-item>
+        <a mat-list-item href="/cms/encouragement">
           <mat-icon mat-list-icon>forum</mat-icon>
-          <span mat-line i18n="a clickable link@@shareEncouragement">Encouragement</span>
+          <span mat-line i18n="a clickable link@@weeklyEncouragement">Weekly Encouragement</span>
         </a>
 
         <mat-divider></mat-divider>
         <h3 mat-subheader i18n="title above live group@@liveTagline">Live with confidence</h3>
-        <mat-list-item routerLink="/ride-share">
+        <a mat-list-item routerLink="/ride-share">
           <mat-icon mat-list-icon>directions car</mat-icon>
-          <p mat-line i18n="a clickable link@@rideShareLink">Ride Share</p>
-        </mat-list-item>
-
-        <a discourseLink="" mat-list-item>
-          <mat-icon mat-list-icon>forum</mat-icon>
-          <span mat-line i18n="link to forum@@growLink">Grow</span>
+          <p mat-line i18n="a clickable link@@rideShareLink">Get a Ride</p>
         </a>
-        <mat-list-item routerLink="/your-rights">
-          <mat-icon mat-list-icon>security</mat-icon>
-          <p mat-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
-        </mat-list-item>
-        <mat-list-item routerLink="/life-lessons">
+        <a mat-list-item discourseLink="/c/life-lesson">
           <mat-icon mat-list-icon>local_library</mat-icon>
           <p mat-line i18n="link to life lessons page@@lifeLessonsLink">Life Lessons</p>
-        </mat-list-item>
-
-        <mat-divider></mat-divider>
-        <h3 mat-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
-        <mat-list-item routerLink="/learn" routerLinkActive="active-link">
-          <mat-icon mat-list-icon>school</mat-icon>
-          <a mat-line i18n="link to learn page@@learnLink">Learn</a>
-        </mat-list-item>
-        <a discourseLink="/c/learn" mat-list-item>
-          <mat-icon mat-list-icon>local_library</mat-icon>
-          <span mat-line i18n="link to class list on forum@@classListLink">Class List and Signup</span>
+        </a>
+        <a mat-list-item routerLink="/your-rights">
+          <mat-icon mat-list-icon>security</mat-icon>
+          <p mat-line i18n="link to your rights page@@yourRightsLink">Your Rights</p>
         </a>
         <a mat-list-item routerLink="/help" routerLinkActive="active-link">
           <mat-icon mat-list-icon>help</mat-icon>
           <a mat-line i18n="link to send an email asking for help@@helpLink">Ask for Help</a>
+        </a>
+
+        <mat-divider></mat-divider>
+        <h3 mat-subheader i18n="title above speak group@@speakTagLine">Speak with confidence</h3>
+        <a mat-list-item discourseLink="/c/learn" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>school</mat-icon>
+          <a mat-line i18n="link to learn page@@learnLink">Practice your English</a>
+        </a>
+        <a mat-list-item routerLink="/class-request">
+          <mat-icon mat-list-icon>local_library</mat-icon>
+          <span mat-line i18n="link to class list on forum@@classListLink">Request a tutor</span>
         </a>
 
         <ng-container *requireRole="'admin'">
