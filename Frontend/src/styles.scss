@@ -15,23 +15,6 @@ $theme: mat-light-theme($primary, $accent);
 
 @import 'app/app.component.scss';
 @include active-link($theme);
-.mat-select {
-    /* fix padding on hint on top */
-    padding-top: 20px;
-}
-
-.mat-select:not(:first-child) {
-    margin-top: 16px;
-}
-
-.mat-input-container:not(:first-child) {
-    margin-top: 16px;
-}
-
-.mat-input-container {
-    /* fix padding on error text */
-    padding-bottom: 5px;
-}
 
 html, body {
   width: 100%;

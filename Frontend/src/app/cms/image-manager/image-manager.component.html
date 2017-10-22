@@ -2,10 +2,10 @@
 <button mat-icon-button (click)="fileInput.click()" mat-tooltip="Select Image to upload" matTooltipPosition="after">
   <mat-icon>attach_file</mat-icon>
 </button>
-<mat-input-container>
+<mat-form-field>
   <input matInput [disabled]="!selectedFile" [(ngModel)]="selectedFile"
          placeholder="Name">
-</mat-input-container>
+</mat-form-field>
 <button mat-icon-button (click)="selectedFile = null" [hidden]="!selectedFile" mat-tooltip="Clear image">
   <mat-icon>close</mat-icon>
 </button>

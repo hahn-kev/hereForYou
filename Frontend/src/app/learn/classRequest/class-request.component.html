@@ -3,32 +3,32 @@
     <form #classForm="ngForm" (ngSubmit)="submit()">
       <h3 i18n="title of class request form@@classRequestTitle">Would you like 1 on 1 English lessons?</h3>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #nameElement="ngModel" name="name" matInput required [(ngModel)]="name"
                  placeholder="Name" i18n-placeholder="input hint for person requesting help@@helpNameInput">
           <mat-error *ngIf="nameElement.valid || nameElement.pristine">
             Name required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #contactElement="ngModel" name="contact" matInput required [(ngModel)]="contact"
                  placeholder="Contact" i18n-placeholder="input hint for contact@@contact input">
           <mat-error *ngIf="contactElement.valid || contactElement.pristine">
             Contact required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <textarea #locationElement="ngModel" name="location" matInput required [(ngModel)]="userLocation"
                     placeholder="Location"
                     i18n-placeholder="input hint for location@@classRequestLocationInput"></textarea>
           <mat-error *ngIf="locationElement.valid || locationElement.pristine">
             Location required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <button mat-button type="submit" [disabled]="!classForm.form.valid"
               i18n="button to send request for help@@sendHelpButton">Request

@@ -3,41 +3,44 @@
     <form #helpForm="ngForm" (ngSubmit)="submit()">
       <h3 i18n="title of help request form@@helpTitle">Need help?</h3>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #nameElement="ngModel" name="name" matInput required [(ngModel)]="name"
                  placeholder="Name" i18n-placeholder="input hint for person requesting help@@helpNameInput">
           <mat-error *ngIf="nameElement.valid || nameElement.pristine">
             Name required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" matInput required [(ngModel)]="phoneNumber"
                  placeholder="Phone Number" i18n-placeholder="input hint for phone number@@phoneNumberInput">
           <mat-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
             Phone Number required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-select class="select" [(ngModel)]="messageType" name="request" placeholder="Request">
-          <mat-option>Finance Managment</mat-option>
-          <mat-option>Food</mat-option>
-          <mat-option>Language</mat-option>
-          <mat-option>Legal Advice</mat-option>
-          <mat-option>Personal Items</mat-option>
-          <mat-option>Other</mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-select [(ngModel)]="messageType" name="request" placeholder="Request">
+            <mat-option value="Finance Managment">Finance Managment</mat-option>
+            <mat-option value="Food">Food</mat-option>
+            <mat-option value="">Language</mat-option>
+            <mat-option value="Legal Advice">Legal Advice</mat-option>
+            <mat-option value="Personal Items">Personal Items</mat-option>
+            <mat-option value="Othe">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <textarea #messageElement="ngModel" name="message" matInput required [(ngModel)]="message"
                     placeholder="Details" i18n-placeholder="input hint for help message@@helpMessageInput"></textarea>
           <mat-error *ngIf="messageElement.valid || messageElement.pristine">
             Message required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <button mat-button type="submit" [disabled]="!helpForm.form.valid"
               i18n="button to send request for help@@sendHelpButton">Send

@@ -15,24 +15,24 @@
       <h1 i18n="login page welcome@@welcomeLogin">Welcome to Here for you</h1>
       <h3 i18n="label above login form@@loginLabel">Please login</h3>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #usernameElement="ngModel" name="username" matInput required [(ngModel)]="username"
                  placeholder="Username" i18n-placeholder="input hint for username at login@@usernameLoginInput">
           <mat-error *ngIf="usernameElement.valid || usernameElement.pristine"
                      i18n="message telling user that the username is required@@usernameRequiredError">
             Username required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input #passwordElement="ngModel" type="password" name="password" matInput required [(ngModel)]="password"
                  placeholder="Password" i18n-placeholder="input hint for password at login@@passwordLoginInput">
           <mat-error *ngIf="passwordElement.valid || passwordElement.pristine"
                      i18n="message telling user that the password is required@@passRequiredError">
             Password required
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <mat-error *ngIf="errorMessage">
         {{errorMessage}}

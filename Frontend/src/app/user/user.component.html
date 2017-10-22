@@ -2,35 +2,35 @@
   <mat-card>
     <form #userForm="ngForm" (ngSubmit)="save()">
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input matInput required name="name" [(ngModel)]="user.userName" placeholder="Username">
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input matInput required name="email" [(ngModel)]="user.email" type="email"
                  placeholder="Email">
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container>
+        <mat-form-field>
           <input matInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
                  placeholder="Phone Number">
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
-        <mat-input-container *ngIf="!isNew">
+        <mat-form-field *ngIf="!isNew">
           <input matInput name="password" autocomplete="off" [(ngModel)]="password" type="password"
                  placeholder="Password">
-        </mat-input-container>
-        <mat-input-container *ngIf="isNew">
+        </mat-form-field>
+        <mat-form-field *ngIf="isNew">
           <input matInput required #passwordElement="ngModel" name="password" minlength="8" autocomplete="off"
                  [(ngModel)]="password" type="password"
                  placeholder="Password">
           <mat-error *ngIf="passwordElement.valid || passwordElement.pristine">
             Password must be at least 8 characters long
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <div>
         <mat-checkbox [(ngModel)]="user.rideProvider" name="rideprovider">Ride Provider</mat-checkbox>
