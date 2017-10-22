@@ -8,10 +8,13 @@
       <mat-button-toggle value="rider">Rider</mat-button-toggle>
       <mat-button-toggle value="any">Any</mat-button-toggle>
     </mat-button-toggle-group>
-    <mat-select class="select" [ngModel]="userName" placeholder="User" (ngModelChange)="setUserName($event)">
-      <mat-option value="all">All</mat-option>
-      <mat-option *ngFor="let user of users | async" [value]="user.userName">{{user.userName}}</mat-option>
-    </mat-select>
+    <mat-form-field class="select">
+      <mat-select [ngModel]="userName" placeholder="User" (ngModelChange)="setUserName($event)">
+        <mat-option value="all">All</mat-option>
+        <mat-option *ngFor="let user of users | async" [value]="user.userName">{{user.userName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
   </div>
   <mat-table [dataSource]="dataSource">
     <ng-container cdkColumnDef="createdTime">
