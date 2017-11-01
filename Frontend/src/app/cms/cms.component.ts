@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EditablePage } from './editable-page';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 import { MarkdownService } from 'angular2-markdown';
 import { CmsService } from '../services/cms.service';
 
@@ -21,9 +21,9 @@ export class CmsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.route.params.switchMap((data: { pageName: string }) => {
+    this.route.params.pipe(switchMap((data: { pageName: string }) => {
       return this.cmsService.getPage(data.pageName);
-    }).subscribe(page => this.page = page);
+    })).subscribe(page => this.page = page);
 
     this.markdown.renderer.image = (href: string, title: string, text: string) => {
       let regex = /(.*):\s*([\d%]+)\s*x\s*([\d%]+)/;

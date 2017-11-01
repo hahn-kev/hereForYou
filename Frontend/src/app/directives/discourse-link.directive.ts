@@ -1,17 +1,17 @@
 import { Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/combineLatest';
 import { Subscription } from 'rxjs/Subscription';
+import { combineLatest } from 'rxjs/operators';
 
 @Directive({
   selector: '[discourseLink]'
 })
 export class DiscourseLinkDirective implements OnDestroy, OnInit {
   ngOnInit(): void {
-    this.subscription = this.link.combineLatest(this.settingsService.getAsync<string>('discourseBaseUrl'), (link, baseUrl) => {
+    this.subscription = this.link.pipe(combineLatest(this.settingsService.getAsync<string>('discourseBaseUrl'), (link, baseUrl) => {
       return baseUrl + link;
-    })
+    }))
       .subscribe(link => {
         this.href = link
       });

@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
-
 import { RideRequest } from './ride-request';
 import { RideShareService } from './ride-share.service';
 import { MatSnackBar } from '@angular/material';

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
 import { LoginService } from './login.service';
-import 'rxjs/add/operator/do';
 
 @Injectable()
 export class AuthenciateInterceptorService implements HttpInterceptor {
@@ -13,7 +13,7 @@ export class AuthenciateInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.loginService.accessToken)
       req = req.clone({setHeaders: {Authorization: 'Bearer ' + this.loginService.accessToken}});
-    return next.handle(req).do(event => {
+    return next.handle(req).pipe(tap(event => {
     }, e => {
       if (e instanceof HttpErrorResponse) {
         let err: HttpErrorResponse = e;
@@ -25,7 +25,7 @@ export class AuthenciateInterceptorService implements HttpInterceptor {
         }
       }
 
-    });
+    }));
   }
 
   setError(e: any) {

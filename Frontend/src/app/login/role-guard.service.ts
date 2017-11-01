@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login.service';
 import { MatSnackBar } from '@angular/material';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class RoleGuardService implements CanActivate {
@@ -13,11 +14,11 @@ export class RoleGuardService implements CanActivate {
       return true;
     }
 
-    return this.loginService.hasRole(role).do(hasRole => {
+    return this.loginService.hasRole(role).pipe(tap(hasRole => {
       if (!hasRole) {
         this.snackBarService.open(`Access denied, missing role [${role}]`, 'dismiss', {duration: 2000});
       }
-    });
+    }));
   }
 
   constructor(private loginService: LoginService, private snackBarService: MatSnackBar) {

@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/skip';
-import 'rxjs/add/operator/do';
 import { User } from '../user/user';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { JwtHelperService } from './jwt-helper.service';
+import { map, skip } from 'rxjs/operators';
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -22,7 +18,7 @@ export class LoginService implements CanActivate {
     this.redirectTo = router.routerState.snapshot.url;
     this.setLoggedIn(localStorage.get<User>('user'), localStorage.get<string>('accessToken'));
 
-    this.loggedIn().skip(1).subscribe((loggedIn) => {
+    this.loggedIn().pipe(skip(1)).subscribe((loggedIn) => {
       if (loggedIn) {
         if (this.redirectTo.endsWith('login')) this.redirectTo = 'home';
         this.router.navigate([this.redirectTo || 'home']);
@@ -59,7 +55,7 @@ export class LoginService implements CanActivate {
   }
 
   loggedIn(): Observable<boolean> {
-    return this.currentUserSubject.map((user) => user != null && this.accessToken != null);
+    return this.currentUserSubject.pipe(map((user) => user != null && this.accessToken != null));
   }
 
   observeCurrentUser() {

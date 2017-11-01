@@ -5,10 +5,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { RideRequestUsers } from '../ride-request';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/debounceTime';
 import { User } from '../../user/user';
 import { UserService } from '../../user/user.service';
+import { combineLatest, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rides-list',
@@ -26,7 +25,7 @@ export class RidesListComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new RidesDataSource();
-    this.route.data.combineLatest(this.route.params).debounceTime(5).subscribe(values => {
+    this.route.data.pipe(combineLatest(this.route.params), debounceTime(5)).subscribe(values => {
       let rides: RideRequestUsers[] = values[0]['rides'];
       this.userName = values[1]['userName'] || 'all';
       this.userView = values[1]['type'] || 'any';
