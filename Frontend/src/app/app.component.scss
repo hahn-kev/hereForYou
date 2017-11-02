@@ -22,17 +22,6 @@
 }
 
 
-@import '~@angular/material/theming';
-
-@mixin active-link($theme) {
-  $accent: map-get($theme, accent);
-
-  .active-link {
-    color: mat-color($accent) !important;
-  }
-
-}
-
 .activity-indicator {
   position: absolute;
 }
