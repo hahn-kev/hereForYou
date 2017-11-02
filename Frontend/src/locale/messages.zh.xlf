@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="zh-CN">
+    <body>
+      <trans-unit id="menu" datatype="html">
+        <source>Menu</source>
+        <target xml:lang="zh-CN">菜单</target>
+<note from="description" annotates="1">menu button tooltip</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="appTitle" datatype="html">
+        <source>Here for you</source>
+        <target xml:lang="zh-CN">我们为您在这里</target>
+<note from="description" annotates="1">site title</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="welcomeUser" datatype="html">
+        <source>Welcome <x id="INTERPOLATION"/></source>
+        <target xml:lang="zh-CN">欢迎 <x id="INTERPOLATION"/></target>
+<note from="description" annotates="1">welcome user</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="logoutTooltip" datatype="html">
+        <source>Logout</source>
+        <target xml:lang="zh-CN">退出</target>
+<note from="description" annotates="1">logout button</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="homeLink" datatype="html">
+        <source>Home</source>
+        <target xml:lang="zh-CN">首页</target>
+<note from="description" annotates="1">take user to home page link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="believeTagline" datatype="html">
+        <source>Believe with confidence</source>
+        <target xml:lang="zh-CN">自信地相信</target>
+<note from="description" annotates="1">title above belive group</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="aboutOurFaith" datatype="html">
+        <source>About our Faith</source>
+        <target xml:lang="zh-CN">关于我们的信仰</target>
+<note from="description" annotates="1">a clickable link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="RequestPrayer" datatype="html">
+        <source>Request Prayer</source>
+        <target xml:lang="zh-CN">请求祷告</target>
+<note from="description" annotates="1">a clickable link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="testimonies" datatype="html">
+        <source>Testimonies</source>
+        <target xml:lang="zh-CN">见证</target>
+<note from="description" annotates="1">a clickable link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="weeklyEncouragement" datatype="html">
+        <source>Weekly Encouragement</source>
+        <target xml:lang="zh-CN">每周鼓励</target>
+<note from="description" annotates="1">a clickable link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="liveTagline" datatype="html">
+        <source>Live with confidence</source>
+        <target xml:lang="zh-CN">自信地生活</target>
+<note from="description" annotates="1">title above live group</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="rideShareLink" datatype="html">
+        <source>Get a Ride</source>
+        <target xml:lang="zh-CN">搭车</target>
+<note from="description" annotates="1">a clickable link</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="lifeLessonsLink" datatype="html">
+        <source>Life Lessons</source>
+        <target xml:lang="zh-CN">人生功课</target>
+<note from="description" annotates="1">link to life lessons page</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="yourRightsLink" datatype="html">
+        <source>Your Rights</source>
+        <target xml:lang="zh-CN">您的权利</target>
+<note from="description" annotates="1">link to your rights page</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="helpLink" datatype="html">
+        <source>Ask for Help</source>
+        <target xml:lang="zh-CN">寻求帮助</target>
+<note from="description" annotates="1">link to send an email asking for help</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="speakTagLine" datatype="html">
+        <source>Speak with confidence</source>
+        <target xml:lang="zh-CN">自信地说话</target>
+<note from="description" annotates="1">title above speak group</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="learnLink" datatype="html">
+        <source>Practice your English</source>
+        <target xml:lang="zh-CN">练习您的英语</target>
+<note from="description" annotates="1">link to learn page</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="classListLink" datatype="html">
+        <source>Request a tutor</source>
+        <target xml:lang="zh-CN">请求教师</target>
+<note from="description" annotates="1">link to class list on forum</note><context-group purpose="location">
+          <context context-type="sourcefile">app\app.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\home\home.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="rideRequestHeader" datatype="html">
+        <source>Request Ride</source>
+        <target xml:lang="zh-CN">搭车</target>
+<note from="description" annotates="1">ride request header</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="pickupLocationInput" datatype="html">
+        <source>Pickup Location</source>
+        <target xml:lang="zh-CN">在哪里接您？</target>
+<note from="description" annotates="1">location to be picked up at</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="destinationInput" datatype="html">
+        <source>Destination</source>
+        <target xml:lang="zh-CN">目的地</target>
+<note from="description" annotates="1">location driver will drop person off at</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="pickupTimeInput" datatype="html">
+        <source>Pickup time</source>
+        <target xml:lang="zh-CN">几点接您？</target>
+<note from="description" annotates="1">time for pickup</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="pickupDateInput" datatype="html">
+        <source>Pickup Date</source>
+        <target xml:lang="zh-CN">接您的日期</target>
+<note from="description" annotates="1">date for pickup</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="createButton" datatype="html">
+        <source>Create</source>
+        <target xml:lang="zh-CN">创造</target>
+<note from="description" annotates="1">button to submit ride request</note><context-group purpose="location">
+          <context context-type="sourcefile">app\rideShare\ride-share.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="welcomeLogin" datatype="html">
+        <source>Welcome to Here for you</source>
+        <target xml:lang="zh-CN">欢迎来到“我们为您在这里”</target>
+<note from="description" annotates="1">login page welcome</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="loginLabel" datatype="html">
+        <source>Please login</source>
+        <target xml:lang="zh-CN">请登录</target>
+<note from="description" annotates="1">label above login form</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="usernameLoginInput" datatype="html">
+        <source>Username</source>
+        <target xml:lang="zh-CN">用户</target>
+<note from="description" annotates="1">input hint for username at login</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="usernameRequiredError" datatype="html">
+        <source>Username required</source>
+        <target xml:lang="zh-CN">需要输入用户名</target>
+<note from="description" annotates="1">message telling user that the username is required</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="passwordLoginInput" datatype="html">
+        <source>Password</source>
+        <target xml:lang="zh-CN">密码</target>
+<note from="description" annotates="1">input hint for password at login</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="passRequiredError" datatype="html">
+        <source>Password required</source>
+        <target xml:lang="zh-CN">需要密码</target>
+<note from="description" annotates="1">message telling user that the password is required</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="loginButton" datatype="html">
+        <source>Login</source>
+        <target xml:lang="zh-CN">登录</target>
+<note from="description" annotates="1">login button</note><context-group purpose="location">
+          <context context-type="sourcefile">app\login\login.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="helpTitle" datatype="html">
+        <source>Need help?</source>
+        <target xml:lang="zh-CN">需要帮助吗?</target>
+<note from="description" annotates="1">title of help request form</note><context-group purpose="location">
+          <context context-type="sourcefile">app\help\help.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="helpNameInput" datatype="html">
+        <source>Name</source>
+        <target xml:lang="zh-CN">名称</target>
+<note from="description" annotates="1">input hint for person requesting help</note><context-group purpose="location">
+          <context context-type="sourcefile">app\help\help.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\learn\classRequest\class-request.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="phoneNumberInput" datatype="html">
+        <source>Phone Number</source>
+        <target xml:lang="zh-CN">电话号码</target>
+<note from="description" annotates="1">input hint for phone number</note><context-group purpose="location">
+          <context context-type="sourcefile">app\help\help.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="helpMessageInput" datatype="html">
+        <source>Details</source>
+        <target xml:lang="zh-CN">详细信息</target>
+<note from="description" annotates="1">input hint for help message</note><context-group purpose="location">
+          <context context-type="sourcefile">app\help\help.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="sendHelpButton" datatype="html">
+        <source>Send</source>
+        <target xml:lang="zh-CN">发送</target>
+<note from="description" annotates="1">button to send request for help</note><context-group purpose="location">
+          <context context-type="sourcefile">app\help\help.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app\learn\classRequest\class-request.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="classRequestTitle" datatype="html">
+        <source>Would you like 1 on 1 English lessons?</source>
+        <target xml:lang="zh-CN">您想要1对1英语课吗？</target>
+<note from="description" annotates="1">title of class request form</note><context-group purpose="location">
+          <context context-type="sourcefile">app\learn\classRequest\class-request.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="contact input" datatype="html">
+        <source>Contact</source>
+        <target xml:lang="zh-CN">联系</target>
+<note from="description" annotates="1">input hint for contact</note><context-group purpose="location">
+          <context context-type="sourcefile">app\learn\classRequest\class-request.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="classRequestLocationInput" datatype="html">
+        <source>Location</source>
+        <target xml:lang="zh-CN">位置</target>
+<note from="description" annotates="1">input hint for location</note><context-group purpose="location">
+          <context context-type="sourcefile">app\learn\classRequest\class-request.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

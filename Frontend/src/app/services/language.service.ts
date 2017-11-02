@@ -15,7 +15,8 @@ export class LanguageService {
 
   public readonly languages = [
     new Language('English', 'en'),
-    new Language('Español', 'es')
+    new Language('Español', 'es'),
+    new Language('中文(简体)', 'zh')
   ];
 
   public currentLanguage: Language;
