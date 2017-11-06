@@ -70,8 +70,6 @@ namespace HereForYou
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 8;
-                    if (!options.User.AllowedUserNameCharacters.Contains(' '))
-                        options.User.AllowedUserNameCharacters += " ";
                 })
                 .AddLinqToDBStores<int>(new DefaultConnectionFactory());
 
