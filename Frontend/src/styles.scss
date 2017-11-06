@@ -45,3 +45,9 @@ html, body {
 .main-card > .mat-card {
   grid-area: main-card;
 }
+
+.fab-bottom-right {
+  position: fixed !important;
+  bottom: 23px;
+  right: 23px;
+}

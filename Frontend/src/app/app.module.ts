@@ -70,6 +70,9 @@ import { ClipboardModule } from 'ngx-clipboard/dist';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { ImageManagerComponent } from './cms/image-manager/image-manager.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
+import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
+import { SitesService } from 'app/sites/sites.service';
+import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +97,9 @@ import { ClassRequestComponent } from './learn/classRequest/class-request.compon
     DiscourseLinkDirective,
     ConfirmDialogComponent,
     ImageManagerComponent,
-    ClassRequestComponent
+    ClassRequestComponent,
+    SitesDashboardComponent,
+    SitesEditComponent
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -165,7 +170,8 @@ import { ClassRequestComponent } from './learn/classRequest/class-request.compon
     },
     SettingsService,
     LanguageService,
-    CmsService
+    CmsService,
+    SitesService
   ],
   bootstrap: [AppComponent]
 })

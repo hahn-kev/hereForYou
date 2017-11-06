@@ -1,0 +1,14 @@
+<mat-nav-list>
+  <ng-container *ngFor="let site of sites | async; last as isLast">
+    <mat-list-item routerLink="/site/edit/{{site.name}}">
+      <span mat-line>{{site.name}}</span>
+      <span mat-line>Last visit {{site.lastVisit | date:'shortDate'}}</span>
+    </mat-list-item>
+    <mat-divider *ngIf="!isLast"></mat-divider>
+  </ng-container>
+
+</mat-nav-list>
+
+<a routerLink="/site/edit/new" class="fab-bottom-right" mat-fab matTooltip="Add new Site" matTooltipPosition="left">
+  <mat-icon>add</mat-icon>
+</a>

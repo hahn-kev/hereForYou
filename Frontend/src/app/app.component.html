@@ -78,6 +78,11 @@
         <ng-container *requireRole="'admin'">
           <mat-divider></mat-divider>
           <h3 mat-subheader>Admin</h3>
+
+          <mat-list-item routerLink="/site" routerLinkActive="active-link">
+            <mat-icon mat-list-icon>business</mat-icon>
+            <a mat-line>Site Managment</a>
+          </mat-list-item>
           <mat-list-item routerLink="/user/admin" routerLinkActive="active-link">
             <mat-icon mat-list-icon>face</mat-icon>
             <a mat-line>User Managment</a>

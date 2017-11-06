@@ -15,6 +15,8 @@ import { RidesResolveService } from './rideShare/rides-list/rides-resolve.servic
 import { HelpComponent } from './help/help.component';
 import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
+import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
+import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
 
 const routes: Routes = [
   {
@@ -96,6 +98,24 @@ const routes: Routes = [
         component: ClassRequestComponent
       },
       {
+        path: 'site',
+        canActivate: [RoleGuardService],
+        data: {
+          requireRole: 'admin'
+        },
+        children: [
+          {
+            path: 'edit/:name',
+            component: SitesEditComponent
+          },
+          {
+            path: '',
+            component: SitesDashboardComponent
+          }
+        ]
+      },
+
+      {
         path: 'home',
         component: HomeComponent
       },
@@ -116,6 +136,7 @@ const routes: Routes = [
     pathMatch: 'full'
   }
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
