@@ -17,6 +17,8 @@ import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
 import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
+import { SiteResolveByNameService } from './sites/sites-edit/site-resolve-by-name.service';
+import { SiteVisitResolveByNameService } from './sites/sites-edit/site-visit-resolve-by-name.service';
 
 const routes: Routes = [
   {
@@ -106,7 +108,11 @@ const routes: Routes = [
         children: [
           {
             path: 'edit/:name',
-            component: SitesEditComponent
+            component: SitesEditComponent,
+            resolve: {
+              site: SiteResolveByNameService,
+              siteVisits: SiteVisitResolveByNameService
+            }
           },
           {
             path: '',
@@ -140,7 +146,12 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [UserResolveService, IsNewResolverService]
+  providers: [
+    UserResolveService,
+    IsNewResolverService,
+    SiteResolveByNameService,
+    SiteVisitResolveByNameService
+  ]
 })
 export class AppRoutingModule {
 }

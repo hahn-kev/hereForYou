@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+.edit-site {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: '. card .' '. accordion .';
+  grid-row-gap: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.mat-card {
+  grid-area: card;
+}
+
+.mat-accordion {
+  grid-area: accordion;
+}

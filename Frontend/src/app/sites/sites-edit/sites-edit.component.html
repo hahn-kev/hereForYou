@@ -1,3 +1,66 @@
-<p>
-  sites-edit works!
-</p>
+<div class="edit-site">
+  <mat-card>
+    <form>
+      <mat-form-field>
+        <input matInput name="name" required [(ngModel)]="site.name" placeholder="Name">
+      </mat-form-field>
+      <mat-input-container>
+        <input matInput [value]="site.lastVisit |date:'shortDate'"
+               disabled
+               placeholder="Last visit">
+      </mat-input-container>
+    </form>
+  </mat-card>
+
+  <mat-accordion>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Add new visit</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-input-container>
+        <input matInput [(ngModel)]="newVisit.date"
+               [matDatepicker]="picker"
+               required
+               name="date"
+               placeholder="Visit date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-input-container>
+      <mat-checkbox [(ngModel)]="newVisit.BiblesGiven" name="bibleGiven">Bible given</mat-checkbox>
+      <mat-input-container>
+        <input matInput [(ngModel)]="newVisit.WorkerNames"
+               type="text"
+               required
+               placeholder="Worker Names">
+      </mat-input-container>
+      <mat-action-row>
+        <button mat-button>Check in</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngFor="let visit of siteVisits">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Visit Date: {{visit.date | date: 'shortDate'}}</mat-panel-title>
+        <mat-panel-description>some more info, not sure what?</mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-input-container>
+        <input matInput [(ngModel)]="visit.date"
+               [matDatepicker]="picker"
+               required
+               name="date"
+               placeholder="Visit date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-input-container>
+      <mat-checkbox [(ngModel)]="visit.BiblesGiven" name="bibleGiven">Bible given</mat-checkbox>
+      <mat-input-container>
+        <input matInput [(ngModel)]="visit.WorkerNames"
+               type="text"
+               required
+               placeholder="Worker Names">
+      </mat-input-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>

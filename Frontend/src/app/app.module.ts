@@ -31,6 +31,7 @@ import {
   MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -134,6 +135,7 @@ import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
     MatButtonToggleModule,
     MatChipsModule,
     MatMenuModule,
+    MatExpansionModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
