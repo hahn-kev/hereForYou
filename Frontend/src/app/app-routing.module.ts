@@ -15,6 +15,7 @@ import { RidesResolveService } from './rideShare/rides-list/rides-resolve.servic
 import { HelpComponent } from './help/help.component';
 import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   {
@@ -111,11 +112,16 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'message',
+    component: MessageComponent
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

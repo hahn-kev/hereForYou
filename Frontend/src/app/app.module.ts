@@ -70,6 +70,7 @@ import { ClipboardModule } from 'ngx-clipboard/dist';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { ImageManagerComponent } from './cms/image-manager/image-manager.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ClassRequestComponent } from './learn/classRequest/class-request.compon
     DiscourseLinkDirective,
     ConfirmDialogComponent,
     ImageManagerComponent,
-    ClassRequestComponent
+    ClassRequestComponent,
+    MessageComponent
   ],
   entryComponents: [
     ConfirmDialogComponent

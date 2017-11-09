@@ -89,7 +89,7 @@ namespace HereForYou.Controllers
                 rideRequest = _rideRequestRepository.GetById(rideRequestId);
                 if (rideRequest == null) throw new NullReferenceException("No ride found matching ID");
                 if (rideRequest.AuthId != authGuid) return Unauthorized();
-                if (rideRequest.AcceptedById > 0) throw new Exception("Ride has already been accepted by another user");
+                if (rideRequest.AcceptedById > 0) return this.ShowFrontendMessage("Ride has already been accepted by another user");
                 identityUser = _usersRepository.UserByName(username);
                 if (identityUser == null) throw new NullReferenceException("User not found");
                 rideRequest.AcceptedById = identityUser.Id;

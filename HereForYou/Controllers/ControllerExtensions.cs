@@ -13,5 +13,15 @@ namespace HereForYou.Controllers
                 .Select(x => x.Description)));
             return new BadRequestResult();
         }
+
+        public static IActionResult ShowFrontendMessage(this Controller controller, string message)
+        {
+            return controller.Redirect(RedirectFrontendPath(message));
+        }
+
+        public static string RedirectFrontendPath(string message)
+        {
+            return $"~/message?text={Uri.EscapeDataString(message)}";
+        }
     }
 }
