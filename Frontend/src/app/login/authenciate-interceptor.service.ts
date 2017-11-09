@@ -29,6 +29,6 @@ export class AuthenciateInterceptorService implements HttpInterceptor {
   }
 
   setError(e: any) {
-    e.error = JSON.parse(e.error);
+    if (typeof e.error === 'string') e.error = JSON.parse(e.error);
   }
 }

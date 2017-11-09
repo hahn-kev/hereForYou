@@ -2,7 +2,7 @@
 
 namespace HereForYou.Entities
 {
-    [Table("imageInfo2", IsColumnAttributeRequired = false)]
+    [Table("ImageInfo", IsColumnAttributeRequired = false)]
     public class ImageInfo
     {
         [PrimaryKey, Identity]

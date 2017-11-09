@@ -5,7 +5,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Injectable()
 export class MyErrorHandlerService implements ErrorHandler {
   handleError(error: any): void {
-    const snackBarService = this.injector.get(MatSnackBar);
+    if (!this.snackBarService) {
+      //this error handeler gets created very early, so we must inject services here
+      this.snackBarService = this.injector.get(MatSnackBar);
+    }
 
     let message: string;
     if (error.rejection) {
@@ -14,18 +17,19 @@ export class MyErrorHandlerService implements ErrorHandler {
       } else {
         message = error.rejection.message;
       }
-    }
-    else if (error.message) {
+    } else if (error.error && error.error.message) {
+      message = error.error.message;
+    } else if (error.message) {
       message = error.message;
     } else {
       message = error.toString();
     }
-    snackBarService.open(message, 'Dismiss');
+    let bar = this.snackBarService.open(message, 'Dismiss');
     this.original.handleError(error);
   }
 
   private original = new ErrorHandler();
-
+  private snackBarService: MatSnackBar;
   constructor(private injector: Injector) {
 
   }
