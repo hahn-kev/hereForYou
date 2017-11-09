@@ -35,6 +35,26 @@ export class CmsComponent implements OnInit {
       }
       return `<img style="${style}" src="${href}" alt="${text}" title="${title || ''}" />`
     };
+    this.markdown.renderer.link = (href: string, title: string, text: string) => {
+      if (this.markdown.renderer.options.sanitize) {
+        try {
+          var prot = decodeURIComponent(this.markdown.renderer.unescape(href))
+            .replace(/[^\w:]/g, '')
+            .toLowerCase();
+        } catch (e) {
+          return '';
+        }
+        if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
+          return '';
+        }
+      }
+      var out = '<a class="md-link" href="' + href + '"';
+      if (title) {
+        out += ' title="' + title + '"';
+      }
+      out += '>' + text + '</a>';
+      return out;
+    };
   }
 
 

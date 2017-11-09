@@ -45,3 +45,7 @@ html, body {
 .main-card > .mat-card {
   grid-area: main-card;
 }
+
+.md-link {
+  color: mat-color($primary);
+}
