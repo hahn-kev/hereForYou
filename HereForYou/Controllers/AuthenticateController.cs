@@ -120,12 +120,16 @@ namespace HereForYou.Controllers
             var ssoBody = QueryHelpers.ParseQuery(Encoding.UTF8.GetString(Convert.FromBase64String(sso)));
             string nonce = ssoBody["nonce"];
 
-            if (User == null)
+            if (User.Identity.IsAuthenticated)
             {
                 //todo redirect to login and handel there
-                throw new NotImplementedException();
+                throw new NotImplementedException("Please login before trying to access Discourse");
             }
             var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null)
+            {
+                throw new NullReferenceException("User not found");
+            }
             var queryBuilder = new QueryBuilder
             {
                 {"nonce", nonce},
