@@ -51,8 +51,10 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div *requireRole="'admin'">
-        <mat-checkbox [(ngModel)]="user.rideProvider" name="rideprovider"
+      <div>
+        <mat-checkbox [(ngModel)]="user.rideProvider"
+                      [disabled]="isSelf"
+                      name="rideprovider"
                       i18n="checkbox is ride provider@@rideProvider">Ride Provider
         </mat-checkbox>
       </div>
