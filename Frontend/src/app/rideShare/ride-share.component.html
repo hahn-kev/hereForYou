@@ -8,7 +8,8 @@
                  [(ngModel)]="request.source"
                  placeholder="Pickup Location"
                  i18n-placeholder="location to be picked up at@@pickupLocationInput">
-          <mat-error *ngIf="sourceElement.valid || sourceElement.pristine">
+          <mat-error *ngIf="sourceElement.valid || sourceElement.pristine"
+                     i18n="pickup location validation error@@pickupError">
             Pickup location is required
           </mat-error>
         </mat-form-field>
@@ -16,7 +17,7 @@
           <input appMapsAutocomplete #destinationElement="ngModel" name="destination" matInput required
                  [(ngModel)]="request.destination" placeholder="Destination"
                  i18n-placeholder="location driver will drop person off at@@destinationInput">
-          <mat-error>
+          <mat-error i18n="destination validation error@@destinationError">
             Destination is required
           </mat-error>
         </mat-form-field>
