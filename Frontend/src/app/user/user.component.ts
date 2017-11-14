@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './user.service';
-import { AuthenticateService } from '../login/authenticate.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.component';
 
@@ -14,37 +13,28 @@ import { ConfirmDialogComponent } from '../dialog/confirm-dialog/confirm-dialog.
 export class UserComponent implements OnInit {
   public user: User;
   public isNew: boolean;
+  public isSelf: boolean;
   public password: string;
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private router: Router,
-              private authenticateService: AuthenticateService,
               private dialog: MatDialog) {
-
   }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { user: User, isNew: boolean }) => {
+    this.route.data.subscribe((data: { user: User, isNew: boolean, isSelf: boolean }) => {
       this.user = data.user;
       this.isNew = data.isNew;
+      this.isSelf = data.isSelf;
     });
   }
 
 
   async save() {
-    if (this.isNew) {
-      try {
-        await this.authenticateService.registerUser(this.user, this.password);
-      } catch (e) {
-        this.errorMessage = e.error.message;
-        return;
-      }
-    } else {
-      await this.userService.saveUser(this.user, this.password);
-    }
-    this.router.navigate(['/user/admin']);
+    await this.userService.saveUser(this.user, this.password, this.isNew, this.isSelf);
+    this.router.navigate([this.isSelf ? '/home' : '/user/admin']);
   }
 
   async grantAdmin() {
@@ -62,7 +52,6 @@ export class UserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         await this.userService.deleteUser(this.user.id);
-
         this.router.navigate(['/user/admin']);
       }
     });

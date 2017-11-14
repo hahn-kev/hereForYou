@@ -13,6 +13,8 @@ export class UserResolveService implements Resolve<User> {
     const username = route.params['name'];
     if (username === 'new') {
       return new User();
+    } else if (username == 'self') {
+      return this.userService.getSelf();
     }
     return this.userService.getUser(username);
   }

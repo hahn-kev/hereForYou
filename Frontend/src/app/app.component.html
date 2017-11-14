@@ -12,13 +12,21 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav id="sidenav">
       <mat-nav-list>
-        <h2 *ngIf="currentUser | async as user" id="user">
-          <ng-container i18n="welcome user@@welcomeUser">Welcome {{user.userName}}</ng-container>
-          <button mat-icon-button (click)="logout()" i18n-mat-tooltip="logout button@@logoutTooltip"
-                  mat-tooltip="Logout">
-            <mat-icon>exit_to_app</mat-icon>
-          </button>
-        </h2>
+        <div id="user">
+          <h2 *ngIf="currentUser | async as user">
+            <ng-container i18n="welcome user@@welcomeUser">Welcome {{user.userName}}</ng-container>
+            <button mat-icon-button (click)="logout()" i18n-mat-tooltip="logout button@@logoutTooltip"
+                    mat-tooltip="Logout">
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+          </h2>
+          <a mat-button routerLink="/user/edit/self">
+            <mat-icon mat-list-icon>edit</mat-icon>
+            <ng-container i18n="let user change password and contact info@@editProfileLink">
+              Edit profile
+            </ng-container>
+          </a>
+        </div>
 
         <mat-list-item routerLink="/home" routerLinkActive="active-link">
           <mat-icon mat-list-icon>home</mat-icon>
