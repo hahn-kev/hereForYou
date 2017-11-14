@@ -58,7 +58,7 @@ namespace HereForYou.Controllers
         public IActionResult Delete(int id, uint? oid)
         {
             _imageRepository.Delete(id, oid);
-            return Accepted();
+            return Ok();
         }
     }
 }

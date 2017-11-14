@@ -76,6 +76,7 @@ namespace HereForYou
             services.AddMvc(options =>
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
+                //require auth on every controller by default
                 options.Filters.Add(
                     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
                 options.Filters.Add(typeof(GlobalExceptionHandler));
