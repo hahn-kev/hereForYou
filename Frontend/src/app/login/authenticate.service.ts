@@ -18,14 +18,4 @@ export class AuthenticateService {
     this.loginService.setLoggedIn(user, json.access_token);
     return json;
   }
-
-  registerUser(user: User, password: string) {
-    return this.http.post<any>('/api/authenticate/register', {
-      password: password,
-      userName: user.userName,
-      phoneNumber: user.phoneNumber,
-      rideProvider: user.rideProvider,
-      email: user.email
-    }).toPromise();
-  }
 }

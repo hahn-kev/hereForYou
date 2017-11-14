@@ -16,6 +16,7 @@ import { HelpComponent } from './help/help.component';
 import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { MessageComponent } from './message/message.component';
+import { IsSelfResolverService } from './user/is-self-resolver.service';
 
 const routes: Routes = [
   {
@@ -81,7 +82,8 @@ const routes: Routes = [
         component: UserComponent,
         resolve: {
           user: UserResolveService,
-          isNew: IsNewResolverService
+          isNew: IsNewResolverService,
+          isSelf: IsSelfResolverService
         }
       },
       {
@@ -125,7 +127,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [UserResolveService, IsNewResolverService]
+  providers: [UserResolveService, IsNewResolverService, IsSelfResolverService]
 })
 export class AppRoutingModule {
 }
