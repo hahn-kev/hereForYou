@@ -5,7 +5,7 @@ import { User } from '../user/user';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { JwtHelperService } from './jwt-helper.service';
-import { map, skip } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -17,13 +17,6 @@ export class LoginService implements CanActivate {
   constructor(private router: Router, private localStorage: LocalStorageService) {
     this.redirectTo = router.routerState.snapshot.url;
     this.setLoggedIn(localStorage.get<User>('user'), localStorage.get<string>('accessToken'));
-
-    this.loggedIn().pipe(skip(1)).subscribe((loggedIn) => {
-      if (loggedIn) {
-        if (this.redirectTo.endsWith('login')) this.redirectTo = 'home';
-        this.router.navigate([this.redirectTo || 'home']);
-      }
-    });
   }
 
   promptLogin(redirectTo?: string) {
@@ -47,11 +40,13 @@ export class LoginService implements CanActivate {
         user = null;
         roles = [];
         this.promptLogin();
+        return false;
       }
       //todo if user is null fetch user from 'sub' in token
     }
     this.rolesSubject.next(roles);
     this.currentUserSubject.next(user);
+    return true;
   }
 
   loggedIn(): Observable<boolean> {
@@ -62,7 +57,7 @@ export class LoginService implements CanActivate {
     return this.currentUserSubject.asObservable();
   }
 
-  currentUser() {
+  currentUser(): User {
     return this.currentUserSubject.getValue();
   }
 

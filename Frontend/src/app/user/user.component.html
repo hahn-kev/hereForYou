@@ -1,6 +1,6 @@
 <div class="user">
   <mat-card>
-    <form #userForm="ngForm" (ngSubmit)="save()">
+    <form #userForm="ngForm" (ngSubmit)="saveUser()">
       <div>
         <mat-form-field>
           <input matInput required [disabled]="isSelf" name="name" [(ngModel)]="user.userName" placeholder="Username"

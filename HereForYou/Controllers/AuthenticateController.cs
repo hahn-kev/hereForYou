@@ -44,6 +44,7 @@ namespace HereForYou.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
             var user = new IdentityUser().CopyFrom(registerUser);
+            user.ResetPassword = true;
             if (string.IsNullOrEmpty(user.Email))
             {
                 throw new ArgumentException("user email required");
@@ -64,18 +65,51 @@ namespace HereForYou.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] Credentials credentials)
         {
-            var signInResult =
-                await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, false);
+            var identityUser = await _userManager.FindByNameAsync(credentials.Username);
+            if (identityUser == null) throw ThrowLoginFailed();
+            return await SignIn(identityUser, credentials.Password);
+        }
+
+        [HttpPost("reset")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetSignIn([FromBody] CredentialsReset credentials)
+        {
+            var identityUser = await _userManager.FindByNameAsync(credentials.Username);
+            if (identityUser == null) throw ThrowLoginFailed();
+            var identityResult = await _userManager.ChangePasswordAsync(identityUser, credentials.Password, credentials.NewPassword);
+            if (!identityResult.Succeeded)
+            {
+                return identityResult.Errors();
+            }
+            identityUser.ResetPassword = false;
+            await _userManager.UpdateAsync(identityUser);
+            return await JsonLoginResult(identityUser);
+        }
+
+        private async Task<IActionResult> SignIn(IdentityUser user, string password)
+        {
+            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (signInResult.IsLockedOut)
             {
                 throw new ArgumentException("Account Locked, please contact an administrator");
             }
             if (!signInResult.Succeeded)
             {
-                throw new ArgumentException("Invalid UserName or Password");
+                throw ThrowLoginFailed();
             }
-            Response.Cookies.Delete(".AspNetCore.Identity.Application");
-            var user = await _userManager.FindByNameAsync(credentials.Username);
+            return await JsonLoginResult(user);
+        }
+
+        private async Task<IActionResult> JsonLoginResult(IdentityUser user)
+        {
+            if (user.ResetPassword)
+            {
+                //don't generate and return an access token if the reset password flag is set
+                return Json(new Dictionary<string, object>
+                {
+                    {"user", new UserProfile(user)}
+                });
+            }
             var token = await GetJwtSecurityToken(user);
             var accessTokenString = _securityTokenHandler.WriteToken(token);
             Response.Cookies.Append(JwtCookieName, accessTokenString);
@@ -107,6 +141,11 @@ namespace HereForYou.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+        }
+
+        private Exception ThrowLoginFailed()
+        {
+            return new ArgumentException("Invalid UserName or Password");
         }
 
         [HttpGet("sso")]

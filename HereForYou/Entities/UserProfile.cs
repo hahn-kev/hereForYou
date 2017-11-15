@@ -20,6 +20,7 @@ namespace HereForYou.Entities
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool RideProvider { get; set; }
+        public bool ResetPassword { get; set; }
         public bool IsAdmin { get; set; }
     }
 
@@ -30,6 +31,7 @@ namespace HereForYou.Entities
         string Email { get; set; }
         string PhoneNumber { get; set; }
         bool RideProvider { get; set; }
+        bool ResetPassword { get; set; }
     }
 
     public static class UserExtensions
@@ -42,6 +44,7 @@ namespace HereForYou.Entities
             user.Email = from.Email;
             user.PhoneNumber = from.PhoneNumber;
             user.RideProvider = from.RideProvider;
+            user.ResetPassword = from.ResetPassword;
             return user;
         }
     }

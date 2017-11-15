@@ -5,7 +5,7 @@ import { User } from './user/user';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 import { ActivityIndicatorService } from './activity-indicator.service';
-import { SettingsService } from './services/settings.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,10 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav')
   private sidenav: MatSidenav;
 
-  constructor(private loginService: LoginService, private router: Router, activityIndicatorService: ActivityIndicatorService, private settingsService: SettingsService) {
+  constructor(private loginService: LoginService,
+              private router: Router,
+              private cookieService: CookieService,
+              activityIndicatorService: ActivityIndicatorService) {
     this.currentUser = loginService.observeCurrentUser();
     this.indicatorStatus = activityIndicatorService.observeIndicator();
   }
@@ -30,6 +33,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.loginService.setLoggedIn(null, null);
+    this.cookieService.remove('.JwtAccessToken');
     this.loginService.promptLogin();
   }
 

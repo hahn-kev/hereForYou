@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
   }
 
 
-  async save() {
+  async saveUser() {
     await this.userService.saveUser(this.user, this.password, this.isNew, this.isSelf);
     this.router.navigate([this.isSelf ? '/home' : '/user/admin']);
   }

@@ -34,6 +34,47 @@
           </mat-error>
         </mat-form-field>
       </div>
+      <ng-container *ngIf="passwordReset">
+        <div>
+          <mat-form-field>
+            <input matInput
+                   required
+                   #newPasswordElement="ngModel"
+                   name="newPassword"
+                   minlength="8"
+                   autocomplete="off"
+                   [(ngModel)]="newPassword"
+                   type="password"
+                   placeholder="New Password"
+                   i18n-placeholder="user password@@NewPassword">
+            <mat-error *ngIf="newPasswordElement.invalid && (newPasswordElement.dirty || newPasswordElement.touched)"
+                       i18n="password error@@passwordLengthWrong">
+              Password must be at least 8 characters long
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput
+                   required
+                   #newPasswordElement2="ngModel"
+                   name="newPassword2"
+                   minlength="8"
+                   autocomplete="off"
+                   ngModel
+                   [pattern]="newPasswordElement.value"
+                   type="password"
+                   placeholder="Confirm new Password"
+                   i18n-placeholder="user password confirm@@newPasswordConfirm">
+            <mat-error
+              *ngIf="newPasswordElement2.invalid && (newPasswordElement2.dirty || newPasswordElement2.touched || newPasswordElement.touched)"
+              i18n="password matching error@@passwordsMustMatch">
+              Passwords must match
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
       <mat-error *ngIf="errorMessage">
         {{errorMessage}}
       </mat-error>
