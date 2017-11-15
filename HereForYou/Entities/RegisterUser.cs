@@ -10,5 +10,6 @@ namespace HereForYou.Entities
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool RideProvider { get; set; }
+        public bool ResetPassword { get; set; }
     }
 }

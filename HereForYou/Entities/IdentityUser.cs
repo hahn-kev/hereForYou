@@ -7,5 +7,6 @@ namespace HereForYou.Entities
     public class IdentityUser: IdentityUser<int>, IUser
     {
         public bool RideProvider { get; set; }
+        public bool ResetPassword { get; set; }
     }
 }
