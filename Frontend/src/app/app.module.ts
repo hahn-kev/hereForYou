@@ -71,6 +71,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import { ImageManagerComponent } from './cms/image-manager/image-manager.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { MessageComponent } from './message/message.component';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { MessageComponent } from './message/message.component';
       libraries: ['places']
     }),
     MarkdownModule.forRoot(),
-    ClipboardModule
+    ClipboardModule,
+    CookieModule.forRoot()
   ],
   providers: [
     RideShareService,
