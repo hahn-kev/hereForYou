@@ -16,7 +16,7 @@ namespace HereForYou.DataLayer
 
         public EditablePage GetPage(string name)
         {
-            return _connection.EditablePages.SingleOrDefault(page => page.Name == name);
+            return _connection.EditablePages.FirstOrDefault(page => page.Name == name);
         }
 
         public EditablePage SavePage(string name, string content, string currentUser)
