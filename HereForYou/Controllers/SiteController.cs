@@ -31,5 +31,11 @@ namespace HereForYou.Controllers
            return Json (_siteRepository.GetSite(id));
             
         }
+        [HttpPut]
+        public IActionResult Save([FromBody] Site site)
+        {
+            _siteRepository.Save(site);
+            return Json(site);
+        }
     } 
 }
