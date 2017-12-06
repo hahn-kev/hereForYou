@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HereForYou.Entities;
 using LinqToDB;
@@ -10,20 +11,26 @@ namespace HereForYou.DataLayer
         private readonly HereForYouConnection _connection;
         public SiteRepository(HereForYouConnection connection)
         {
-             _connection = connection;
+            _connection = connection;
         }
-        public Site GetSite(int id)
+        public SiteExtended GetSite(int id)
         {
-            return _connection.Sites.FirstOrDefault(site => site.Id == id);
-        
+            return _connection.SitesExteneded.FirstOrDefault(site => site.Id == id);
+
         }
         public void Save(Site site)
         {
             if (site.Id <= 0) Add(site);
             else
             {
-               _connection.Update(site); 
-             }
+                _connection.Update(site);
+            }
+        }
+
+        public List<Site> ListSites()
+        {
+         return _connection.Sites.ToList();
+         
         }
 
         private Site Add(Site site)
@@ -31,5 +38,19 @@ namespace HereForYou.DataLayer
             site.Id = _connection.InsertId(site);
             return site;
         }
-    }   
+
+        public void Delete(int id)
+        {
+            int deletedsites = _connection.Sites.Delete(site => site.Id == id);
+            if (deletedsites == 0)
+            {
+                throw new Exception("No sites deleted");
+            }
+            else if (deletedsites > 1)
+            {
+                throw new Exception(deletedsites + " sites have been deleted");
+            }
+            
+        }
+    }
 }

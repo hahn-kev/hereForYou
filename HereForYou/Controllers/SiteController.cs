@@ -11,15 +11,18 @@ namespace HereForYou.Controllers
     public class SiteController : Controller
     {
         private readonly SiteRepository _siteRepository;
-        public SiteController(SiteRepository siteRepository)
+          private readonly SiteVisitRepository _siteVisitRepository;
+        public SiteController(SiteRepository siteRepository, SiteVisitRepository siteVisitRepository)
         {
             _siteRepository = siteRepository;
+            _siteVisitRepository = siteVisitRepository;
         }
+      
 
         [HttpGet]
         public IActionResult Sites()
         {
-            return Json ("Templeton");
+            return Json (_siteRepository.ListSites());
         }
 
         [HttpGet("{id}")]
@@ -28,8 +31,9 @@ namespace HereForYou.Controllers
             if (id == 0){
                 return Json ("Site number invalid");
             }
-           return Json (_siteRepository.GetSite(id));
-            
+           SiteExtended site = (_siteRepository.GetSite(id));
+            site.Visits = _siteVisitRepository.GetSiteVisits(id);
+            return Json (site);
         }
         [HttpPut]
         public IActionResult Save([FromBody] Site site)
@@ -37,5 +41,27 @@ namespace HereForYou.Controllers
             _siteRepository.Save(site);
             return Json(site);
         }
-    } 
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _siteRepository.Delete(id);
+            return Ok();
+        }
+
+        [HttpPut("visit")]
+        public IActionResult Save([FromBody] SiteVisit visit)
+        {
+            _siteVisitRepository.Save(visit);
+            return Json(visit);
+
+        }
+        [HttpDelete("visit/{id}")]
+        public IActionResult DeleteVisit(int id)
+        {
+            _siteVisitRepository.Delete(id);
+            return Ok();
+        }
+    }   
+
 }

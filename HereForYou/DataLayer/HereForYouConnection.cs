@@ -59,6 +59,8 @@ namespace HereForYou.DataLayer
 
         public ITable<EditablePage> EditablePages => GetTable<EditablePage>();
         public ITable<Site> Sites => GetTable<Site>();
+        public ITable<SiteExtended> SitesExteneded => GetTable<SiteExtended>();
+        public ITable<SiteVisit> SiteVisits => GetTable<SiteVisit>();
 
         public async Task Setup()
         {
@@ -73,6 +75,7 @@ namespace HereForYou.DataLayer
             TryCreateTable<RideRequest>();
             TryCreateTable<EditablePage>();
             TryCreateTable<Site>();
+            TryCreateTable<SiteVisit>();
             TryCreateTable<ImageInfo>();
 
             var roles = new[] {"admin"};

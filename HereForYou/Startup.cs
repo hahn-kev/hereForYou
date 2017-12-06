@@ -78,8 +78,9 @@ namespace HereForYou
             services.AddMvc(options =>
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
-                options.Filters.Add(
-                    new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                // options.Filters.Add(
+                //     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                options.Filters.Add(typeof(AllowAnonymousFilter));
                 options.Filters.Add(typeof(GlobalExceptionHandler));
             });
             services.AddResponseCaching();
@@ -102,6 +103,7 @@ namespace HereForYou
             services.AddScoped<UsersRepository>();
             services.AddScoped<NotifyRideService>();
             services.AddScoped<SiteRepository>();
+            services.AddScoped<SiteVisitRepository>();
             services.AddScoped<EditablePageRepository>();
             services.AddScoped<ImageRepository>();
             services.AddScoped<EmailService>();
