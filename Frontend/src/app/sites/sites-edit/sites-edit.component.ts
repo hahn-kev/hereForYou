@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Site } from '../site';
+import { SiteExtended } from '../site';
 import { ActivatedRoute } from '@angular/router';
 import { SiteVisit } from '../site-visit';
+import { SitesService } from '../sites.service';
 
 @Component({
   selector: 'app-sites-edit',
@@ -9,18 +10,27 @@ import { SiteVisit } from '../site-visit';
   styleUrls: ['./sites-edit.component.scss']
 })
 export class SitesEditComponent implements OnInit {
-  public site: Site;
-  public siteVisits: SiteVisit[];
+  public site: SiteExtended;
   public newVisit = new SiteVisit();
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private siteService: SitesService) {
   }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { site: Site, siteVisits: SiteVisit[] }) => {
+    this.route.data.subscribe((data: { site: SiteExtended }) => {
       this.site = data.site;
-      this.siteVisits = data.siteVisits;
     });
   }
 
+  async saveSite() {
+    await this.siteService.saveSite(this.site).toPromise();
+  }
+
+  async saveVisit(siteVisit: SiteVisit, isNew = false) {
+    await this.siteService.saveVisit(siteVisit).toPromise();
+    if (isNew) {
+      this.site.visits = [this.newVisit, ...this.site.visits];
+      this.newVisit = new SiteVisit();
+    }
+  }
 }

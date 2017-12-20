@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Site } from './site';
-import 'rxjs/add/observable/of';
+import { Site, SiteExtended } from './site';
+import { HttpClient } from '@angular/common/http';
 import { SiteVisit } from './site-visit';
 
 @Injectable()
 export class SitesService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   getSites() {
-    return Observable.of([new Site('Cook st', new Date()), new Site('Broadway', new Date())]);
+    return this.http.get<Site[]>('/api/site');
   }
 
-  getSite(name: string) {
-    return Observable.of(new Site('Cook st', new Date()));
+  getSite(id: number) {
+    return this.http.get<SiteExtended>('/api/site/' + id);
   }
 
-  getVisits(siteName: string) {
-    return Observable.of([new SiteVisit(new Date(), 'sally', true), new SiteVisit(new Date(), 'april', false)]);
+  saveSite(site: Site) {
+    return this.http.put<Site>('/api/site/', site);
+  }
+
+  saveVisit(siteVisit: SiteVisit) {
+    return this.http.put<SiteVisit>('api/site/visit', siteVisit);
   }
 }

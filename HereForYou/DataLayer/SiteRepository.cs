@@ -9,15 +9,17 @@ namespace HereForYou.DataLayer
     public class SiteRepository
     {
         private readonly HereForYouConnection _connection;
+
         public SiteRepository(HereForYouConnection connection)
         {
             _connection = connection;
         }
+
         public SiteExtended GetSite(int id)
         {
             return _connection.SitesExteneded.FirstOrDefault(site => site.Id == id);
-
         }
+
         public void Save(Site site)
         {
             if (site.Id <= 0) Add(site);
@@ -29,8 +31,7 @@ namespace HereForYou.DataLayer
 
         public List<Site> ListSites()
         {
-         return _connection.Sites.ToList();
-         
+            return _connection.Sites.ToList();
         }
 
         private Site Add(Site site)
@@ -41,16 +42,17 @@ namespace HereForYou.DataLayer
 
         public void Delete(int id)
         {
+            _connection.SiteVisits.Delete(visit => visit.SiteId == id);
             int deletedsites = _connection.Sites.Delete(site => site.Id == id);
             if (deletedsites == 0)
             {
                 throw new Exception("No sites deleted");
             }
-            else if (deletedsites > 1)
+
+            if (deletedsites > 1)
             {
                 throw new Exception(deletedsites + " sites have been deleted");
             }
-            
         }
     }
 }

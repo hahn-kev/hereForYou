@@ -17,8 +17,7 @@ import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
 import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
-import { SiteResolveByNameService } from './sites/sites-edit/site-resolve-by-name.service';
-import { SiteVisitResolveByNameService } from './sites/sites-edit/site-visit-resolve-by-name.service';
+import { SiteResolveByIdService } from './sites/sites-edit/site-resolve-by-id.service';
 
 const routes: Routes = [
   {
@@ -107,11 +106,10 @@ const routes: Routes = [
         },
         children: [
           {
-            path: 'edit/:name',
+            path: 'edit/:id',
             component: SitesEditComponent,
             resolve: {
-              site: SiteResolveByNameService,
-              siteVisits: SiteVisitResolveByNameService
+              site: SiteResolveByIdService
             }
           },
           {
@@ -149,8 +147,7 @@ const routes: Routes = [
   providers: [
     UserResolveService,
     IsNewResolverService,
-    SiteResolveByNameService,
-    SiteVisitResolveByNameService
+    SiteResolveByIdService
   ]
 })
 export class AppRoutingModule {

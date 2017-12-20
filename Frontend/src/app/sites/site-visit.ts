@@ -1,5 +1,8 @@
 export class SiteVisit {
 
-  constructor(public date?: Date, public WorkerNames?: string, public BiblesGiven?: boolean) {
-  }
+  public id: string;
+  public siteId: string;
+  public visitDate: Date;
+  public workerName: string;
+  public bibleGiven: boolean;
 }
