@@ -8,9 +8,9 @@ import { SitesService } from '../sites.service';
 export class SiteResolveByIdService implements Resolve<SiteExtended> {
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<SiteExtended> | Promise<SiteExtended> | SiteExtended {
+    if (route.params['id'] == 'new') return new SiteExtended();
     return this.sitesService.getSite(route.params['id']);
   }
-
   constructor(private sitesService: SitesService) {
   }
 

@@ -1,7 +1,6 @@
 export class SiteVisit {
-
-  public id: string;
-  public siteId: string;
+  public id: number;
+  public siteId: number;
   public visitDate: Date;
   public workerName: string;
   public bibleGiven: boolean;

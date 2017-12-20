@@ -29,9 +29,20 @@ namespace HereForYou.DataLayer
             }
         }
 
+        public void UpdateLastVisitDate(int siteId)
+        {
+            _connection.Sites.Where(site => site.Id == siteId)
+                .Set(site => site.LastVisit,
+                    () => _connection.SiteVisits
+                        .Where(visit => visit.SiteId == siteId)
+                        .Select(visit => Sql.Ext.Max(visit.VisitDate).ToValue())
+                        .First())
+                .Update();
+        }
+
         public List<Site> ListSites()
         {
-            return _connection.Sites.ToList();
+            return _connection.Sites.OrderByDescending(site => site.LastVisit).ToList();
         }
 
         private Site Add(Site site)

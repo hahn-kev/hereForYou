@@ -22,6 +22,15 @@ export class SitesService {
   }
 
   saveVisit(siteVisit: SiteVisit) {
-    return this.http.put<SiteVisit>('api/site/visit', siteVisit);
+    return this.http.put<SiteVisit>('/api/site/visit', siteVisit);
+  }
+
+  deleteSite(id: number) {
+    return this.http.delete('/api/site/' + id, {responseType: 'text'});
+  }
+
+  deleteVisit(id: number) {
+    return this.http.delete('/api/site/visit/' + id, {responseType: 'text'});
+
   }
 }

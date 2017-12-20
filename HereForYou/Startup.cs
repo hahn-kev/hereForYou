@@ -107,6 +107,7 @@ namespace HereForYou
             services.AddScoped<NotifyRideService>();
             services.AddScoped<SiteRepository>();
             services.AddScoped<SiteVisitRepository>();
+            services.AddScoped<SiteService>();
             services.AddScoped<EditablePageRepository>();
             services.AddScoped<ImageRepository>();
             services.AddScoped<EmailService>();
