@@ -78,9 +78,12 @@ namespace HereForYou
             services.AddMvc(options =>
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
-                // options.Filters.Add(
-                //     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+#if DEBUG
                 options.Filters.Add(typeof(AllowAnonymousFilter));
+#else
+                options.Filters.Add(
+                    new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+#endif
                 options.Filters.Add(typeof(GlobalExceptionHandler));
             });
             services.AddResponseCaching();
