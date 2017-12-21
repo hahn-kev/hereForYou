@@ -77,8 +77,12 @@ namespace HereForYou
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
                 //require auth on every controller by default
+#if DEBUG
+                options.Filters.Add(typeof(AllowAnonymousFilter));
+#else
                 options.Filters.Add(
                     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+#endif
                 options.Filters.Add(typeof(GlobalExceptionHandler));
             });
             services.AddResponseCaching();
@@ -100,6 +104,9 @@ namespace HereForYou
             services.AddScoped<RideRequestRepository>();
             services.AddScoped<UsersRepository>();
             services.AddScoped<NotifyRideService>();
+            services.AddScoped<SiteRepository>();
+            services.AddScoped<SiteVisitRepository>();
+            services.AddScoped<SiteService>();
             services.AddScoped<EditablePageRepository>();
             services.AddScoped<ImageRepository>();
             services.AddScoped<EmailService>();

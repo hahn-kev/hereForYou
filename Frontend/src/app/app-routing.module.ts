@@ -17,6 +17,9 @@ import { CmsComponent } from './cms/cms.component';
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { MessageComponent } from './message/message.component';
 import { IsSelfResolverService } from './user/is-self-resolver.service';
+import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
+import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
+import { SiteResolveByIdService } from './sites/sites-edit/site-resolve-by-id.service';
 
 const routes: Routes = [
   {
@@ -99,6 +102,27 @@ const routes: Routes = [
         component: ClassRequestComponent
       },
       {
+        path: 'site',
+        canActivate: [RoleGuardService],
+        data: {
+          requireRole: 'admin'
+        },
+        children: [
+          {
+            path: 'edit/:id',
+            component: SitesEditComponent,
+            resolve: {
+              site: SiteResolveByIdService
+            }
+          },
+          {
+            path: '',
+            component: SitesDashboardComponent
+          }
+        ]
+      },
+
+      {
         path: 'home',
         component: HomeComponent
       },
@@ -127,7 +151,11 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [UserResolveService, IsNewResolverService, IsSelfResolverService]
+  providers: [
+    UserResolveService,
+    IsNewResolverService,
+    SiteResolveByIdService
+  ]
 })
 export class AppRoutingModule {
 }

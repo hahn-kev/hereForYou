@@ -20,15 +20,18 @@ export class RidesListComponent implements OnInit {
   userView: string;
   users: Observable<User[]>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private snackService: MatSnackBar, private userService: UserService) {
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private snackService: MatSnackBar,
+    private userService: UserService) {
   }
 
   ngOnInit() {
     this.dataSource = new RidesDataSource();
-    this.route.data.pipe(combineLatest(this.route.params), debounceTime(5)).subscribe(values => {
-      let rides: RideRequestUsers[] = values[0]['rides'];
-      this.userName = values[1]['userName'] || 'all';
-      this.userView = values[1]['type'] || 'any';
+    this.route.data.pipe(combineLatest(this.route.params), debounceTime(5)).subscribe(([data, params]) => {
+      let rides: RideRequestUsers[] = data['rides'];
+      this.userName = params['userName'] || 'all';
+      this.userView = params['type'] || 'any';
       this.dataSource.ObserverData.next(rides);
     });
     this.users = this.userService.getUsers();

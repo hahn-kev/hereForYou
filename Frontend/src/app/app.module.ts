@@ -31,6 +31,7 @@ import {
   MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -72,6 +73,9 @@ import { ImageManagerComponent } from './cms/image-manager/image-manager.compone
 import { ClassRequestComponent } from './learn/classRequest/class-request.component';
 import { MessageComponent } from './message/message.component';
 import { CookieModule } from 'ngx-cookie';
+import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
+import { SitesService } from 'app/sites/sites.service';
+import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +101,9 @@ import { CookieModule } from 'ngx-cookie';
     ConfirmDialogComponent,
     ImageManagerComponent,
     ClassRequestComponent,
-    MessageComponent
+    MessageComponent,
+    SitesDashboardComponent,
+    SitesEditComponent
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -132,6 +138,7 @@ import { CookieModule } from 'ngx-cookie';
     MatButtonToggleModule,
     MatChipsModule,
     MatMenuModule,
+    MatExpansionModule,
     FormsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
@@ -169,7 +176,8 @@ import { CookieModule } from 'ngx-cookie';
     },
     SettingsService,
     LanguageService,
-    CmsService
+    CmsService,
+    SitesService
   ],
   bootstrap: [AppComponent]
 })

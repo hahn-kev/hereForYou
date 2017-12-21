@@ -1,0 +1,92 @@
+<div class="edit-site">
+  <mat-card>
+    <form id="siteForm" (submit)="saveSite()">
+      <mat-form-field>
+        <input matInput name="name" required [(ngModel)]="site.name" placeholder="Name">
+      </mat-form-field>
+      <mat-input-container>
+        <input matInput [value]="site.lastVisit |date:'shortDate'"
+               disabled
+               placeholder="Last visit">
+      </mat-input-container>
+    </form>
+    <mat-card-actions>
+      <button mat-button form="siteForm">
+        <mat-icon mat-list-icon>save</mat-icon>
+        Save
+      </button>
+      <button mat-button (click)="deleteSite()">
+        <mat-icon mat-list-icon>delete</mat-icon>
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-accordion>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Add new visit</mat-panel-title>
+      </mat-expansion-panel-header>
+      <form id="newForm" (submit)="saveVisit(newVisit, true)">
+        <mat-input-container>
+          <input matInput [(ngModel)]="newVisit.visitDate"
+                 [matDatepicker]="picker"
+                 required
+                 name="date"
+                 placeholder="Visit date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-input-container>
+        <mat-checkbox [(ngModel)]="newVisit.bibleGiven" name="bibleGiven">Bible given</mat-checkbox>
+        <mat-input-container>
+          <input matInput [(ngModel)]="newVisit.workerName"
+                 type="text"
+                 required
+                 name="workerName"
+                 placeholder="Worker Names">
+        </mat-input-container>
+      </form>
+      <mat-action-row>
+        <button mat-button form="newForm">Check in</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngFor="let visit of site.visits; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Visit Date: {{visit.visitDate | date: 'shortDate'}}</mat-panel-title>
+        <mat-panel-description>some more info, not sure what?</mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [id]="'visit_' + i" (submit)="saveVisit(visit)">
+        <mat-input-container>
+          <input matInput [(ngModel)]="visit.visitDate"
+                 [matDatepicker]="picker"
+                 required
+                 name="date"
+                 placeholder="Visit date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-input-container>
+        <mat-checkbox [(ngModel)]="visit.bibleGiven" name="bibleGiven">Bible given</mat-checkbox>
+        <mat-input-container>
+          <input matInput [(ngModel)]="visit.workerName"
+                 required
+                 name="workerName"
+                 placeholder="Worker Names">
+        </mat-input-container>
+      </form>
+
+      <mat-action-row>
+        <button mat-button [attr.form]="'visit_' + i">
+          <mat-icon mat-list-icon>save</mat-icon>
+          Update
+        </button>
+        <button mat-button (click)="deleteVisit(visit, i)">
+          <mat-icon mat-list-icon>delete</mat-icon>
+          Delete
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
