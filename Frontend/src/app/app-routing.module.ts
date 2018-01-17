@@ -154,7 +154,8 @@ const routes: Routes = [
   providers: [
     UserResolveService,
     IsNewResolverService,
-    SiteResolveByIdService
+    SiteResolveByIdService,
+    IsSelfResolverService
   ]
 })
 export class AppRoutingModule {
