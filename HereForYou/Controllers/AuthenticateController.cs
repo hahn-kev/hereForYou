@@ -177,7 +177,8 @@ namespace HereForYou.Controllers
                 {"username", identityUser.UserName},
                 {"name", identityUser.UserName},
                 {"require_activation", (!identityUser.EmailConfirmed).ToString()},
-                {"admin", User.IsInRole("admin").ToString()}
+                {"admin", User.IsInRole("admin").ToString()},
+                {"moderator", identityUser.RideProvider.ToString()}
             };
             var returnPayload = queryBuilder.ToString();
             if (returnPayload[0] == '?') returnPayload = returnPayload.Substring(1);
