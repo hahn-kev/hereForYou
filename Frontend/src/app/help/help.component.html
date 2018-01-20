@@ -6,7 +6,7 @@
         <mat-form-field>
           <input #nameElement="ngModel" name="name" matInput required [(ngModel)]="name"
                  placeholder="Name" i18n-placeholder="input hint for person requesting help@@helpNameInput">
-          <mat-error *ngIf="nameElement.valid || nameElement.pristine">
+          <mat-error *ngIf="nameElement.valid || nameElement.pristine" i18n="name required error@@nameRequired">
             Name required
           </mat-error>
         </mat-form-field>
@@ -15,7 +15,8 @@
         <mat-form-field>
           <input #phoneNumberElement="ngModel" type="tel" name="phoneNumber" matInput required [(ngModel)]="phoneNumber"
                  placeholder="Phone Number" i18n-placeholder="input hint for phone number@@phoneNumberInput">
-          <mat-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine">
+          <mat-error *ngIf="phoneNumberElement.valid || phoneNumberElement.pristine"
+                     i18n="phone number required error@@phoneRequired">
             Phone Number required
           </mat-error>
         </mat-form-field>
@@ -23,11 +24,11 @@
       <div>
         <mat-form-field>
           <mat-select [(ngModel)]="messageType" name="request" placeholder="Request">
-            <mat-option value="Financial Managment" i18n>Financial Managment</mat-option>
-            <mat-option value="Food" i18n>Food</mat-option>
-            <mat-option value="Legal Advice" i18n>Legal Advice</mat-option>
-            <mat-option value="Personal Items" i18n>Personal Items</mat-option>
-            <mat-option value="Othe" i18n>Other</mat-option>
+            <mat-option value="Financial Managment" i18n="@@financeManagment">Financial Managment</mat-option>
+            <mat-option value="Food" i18n="@@food">Food</mat-option>
+            <mat-option value="Legal Advice" i18n="@@legalAdvice">Legal Advice</mat-option>
+            <mat-option value="Personal Items" i18n="@@personalItems">Personal Items</mat-option>
+            <mat-option value="Othe" i18n="@@other">Other</mat-option>
           </mat-select>
         </mat-form-field>
 
