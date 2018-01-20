@@ -66,11 +66,10 @@ namespace HereForYou.Services
 
         private string FormatAcceptedMessageToRequester(IUser acceptedBy)
         {
-            //todo fill in placeholder
             return
                 $"{acceptedBy.UserName} has agreed to give you a ride, you can contact them on their number at {acceptedBy.PhoneNumber}" +
                 Environment.NewLine +
-                $"Please contact [placeholder] if you have any problems or feel unsafe";
+                $"Please contact 1 (888)-373-7888 if you have any problems or feel unsafe";
         }
 
         private string FormatAcceptedMessageToProvider(RideRequest rideRequest, IUser requestedBy)
