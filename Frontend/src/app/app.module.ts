@@ -24,34 +24,17 @@ import { AuthenciateInterceptorService } from './login/authenciate-interceptor.s
 import { AuthenticateService } from './login/authenticate.service';
 import { LearnComponent } from './learn/learn.component';
 import {
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatOptionModule,
-  MatProgressBarModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSnackBarModule,
-  MatTableModule,
-  MatToolbarModule,
-  MatTooltipModule
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
+  MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatNativeDateModule, MatOptionModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
+  MatTableModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { FlipCardComponent } from './home/flip-card/flip-card.component';
 import { ActivityIndicatorService } from './activity-indicator.service';
 import { ActivityIndicatorInterceptorService } from './activity-indicator-interceptor.service';
 import { RoleGuardService } from './login/role-guard.service';
 import { RequireRoleDirective } from './login/require-role.directive';
-import { MarkdownModule } from 'angular2-markdown';
+import { MarkdownModule } from 'ngx-md';
 import { RidesListComponent } from './rideShare/rides-list/rides-list.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RidesResolveService } from './rideShare/rides-list/rides-resolve.service';

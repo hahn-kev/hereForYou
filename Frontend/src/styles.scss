@@ -54,3 +54,14 @@ html, body {
   bottom: 23px;
   right: 23px;
 }
+
+markdown {
+  a {
+    color: mat-color($primary);
+  }
+  del {
+    text-decoration: none;
+    color: mat-color($accent);
+  }
+}
+

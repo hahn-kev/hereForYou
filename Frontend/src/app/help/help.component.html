@@ -23,7 +23,8 @@
       </div>
       <div>
         <mat-form-field>
-          <mat-select [(ngModel)]="messageType" name="request" placeholder="Request">
+          <mat-select [(ngModel)]="messageType" name="request" placeholder="Request"
+                      i18n-placeholder="request field title@@requestTypeInput">
             <mat-option value="Financial Managment" i18n="@@financeManagment">Financial Managment</mat-option>
             <mat-option value="Food" i18n="@@food">Food</mat-option>
             <mat-option value="Legal Advice" i18n="@@legalAdvice">Legal Advice</mat-option>

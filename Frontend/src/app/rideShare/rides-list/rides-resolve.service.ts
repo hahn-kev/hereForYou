@@ -6,7 +6,8 @@ import { RideShareService } from '../ride-share.service';
 
 @Injectable()
 export class RidesResolveService implements Resolve<RideRequestUsers[]> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RideRequestUsers[]> | Promise<RideRequestUsers[]> | RideRequestUsers[] {
+  resolve(route: ActivatedRouteSnapshot,
+          state: RouterStateSnapshot): Observable<RideRequestUsers[]> | Promise<RideRequestUsers[]> | RideRequestUsers[] {
     let userName: string = route.params['userName'];
     let type: string = route.params['type'];
     if (userName && userName !== 'all') {

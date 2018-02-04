@@ -3,6 +3,7 @@ import { RideRequest, RideRequestUsers } from './ride-request';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -25,15 +26,17 @@ export class RideShareService {
     ).toPromise<RideRequest>();
   }
 
-  rideRequestsByUser(type: string, userName: string) {
-    return this.http.get<RideRequestUsers[]>(`/api/riderequest/ridesByUser/${type}/${userName}`).pipe(tap(this.processRides));
+  rideRequestsByUser(type: string, userName: string): Observable<RideRequestUsers[]> {
+    return this.http.get<RideRequestUsers[]>(`/api/riderequest/ridesByUser/${type}/${userName}`)
+      .pipe(tap<RideRequestUsers[]>(this.processRides));
   }
 
-  rideRequestsWithUsers() {
-    return this.http.get<RideRequestUsers[]>('/api/riderequest/rideswusers/').pipe(tap(this.processRides));
+  rideRequestsWithUsers(): Observable<RideRequestUsers[]> {
+    return this.http.get<RideRequestUsers[]>('/api/riderequest/rideswusers/')
+      .pipe(tap<RideRequestUsers[]>(this.processRides));
   }
 
-  processRides(rides: RideRequest[]) {
+  processRides(rides: RideRequest[] | RideRequestUsers[]) {
     for (const ride of rides) {
       ride.pickupTime = new Date(ride.pickupTime);
     }
