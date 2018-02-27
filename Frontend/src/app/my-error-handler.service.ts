@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -24,13 +24,19 @@ export class MyErrorHandlerService implements ErrorHandler {
     } else {
       message = error.toString();
     }
-    let bar = this.snackBarService.open(message, 'Dismiss');
+    if (NgZone.isInAngularZone()) {
+      this.snackBarService.open(message, 'Dismiss');
+    } else {
+      this.ngZone.run(() => {
+        this.snackBarService.open(message, 'Dismiss');
+      });
+    }
     this.original.handleError(error);
   }
 
   private original = new ErrorHandler();
   private snackBarService: MatSnackBar;
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private ngZone: NgZone) {
 
   }
 
