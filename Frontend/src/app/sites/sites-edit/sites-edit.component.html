@@ -1,12 +1,15 @@
 <div class="edit-site">
   <mat-card>
-    <form id="siteForm" (submit)="saveSite()">
+    <form id="siteForm" class="site" (submit)="saveSite()">
       <mat-form-field>
         <input matInput name="name" required [(ngModel)]="site.name" placeholder="Name">
       </mat-form-field>
+      <mat-form-field>
+        <input matInput name="address" [(ngModel)]="site.address" placeholder="Address">
+      </mat-form-field>
       <mat-input-container>
-        <input matInput [value]="site.lastVisit |date:'shortDate'"
-               disabled
+        <input matInput [value]="site.lastVisit |date:'mediumDate'"
+               readonly
                placeholder="Last visit">
       </mat-input-container>
     </form>
@@ -15,10 +18,14 @@
         <mat-icon mat-list-icon>save</mat-icon>
         Save
       </button>
-      <button mat-button (click)="deleteSite()">
+      <button type="button" mat-button (click)="deleteSite()">
         <mat-icon mat-list-icon>delete</mat-icon>
         Delete
       </button>
+      <a mat-button [href]="mapsUrl(site.address)">
+        <mat-icon>map</mat-icon>
+        Navigate
+      </a>
     </mat-card-actions>
   </mat-card>
 
@@ -28,65 +35,110 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Add new visit</mat-panel-title>
       </mat-expansion-panel-header>
-      <form id="newForm" (submit)="saveVisit(newVisit, true)">
-        <mat-input-container>
-          <input matInput [(ngModel)]="newVisit.visitDate"
-                 [matDatepicker]="picker"
-                 required
-                 name="date"
-                 placeholder="Visit date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-input-container>
-        <mat-checkbox [(ngModel)]="newVisit.bibleGiven" name="bibleGiven">Bible given</mat-checkbox>
-        <mat-input-container>
-          <input matInput [(ngModel)]="newVisit.workerName"
-                 type="text"
-                 required
-                 name="workerName"
-                 placeholder="Worker Names">
-        </mat-input-container>
-      </form>
+      <ng-container
+        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: newVisit, index: -1, isNew: true}"></ng-container>
       <mat-action-row>
-        <button mat-button form="newForm">Check in</button>
+        <button mat-button type="submit" form="visit_-1">Check in</button>
       </mat-action-row>
     </mat-expansion-panel>
 
     <mat-expansion-panel *ngFor="let visit of site.visits; let i = index">
       <mat-expansion-panel-header>
-        <mat-panel-title>Visit Date: {{visit.visitDate | date: 'shortDate'}}</mat-panel-title>
+        <mat-panel-title>Visit Date: {{visit.visitDate | date: 'mediumDate'}}</mat-panel-title>
         <mat-panel-description>some more info, not sure what?</mat-panel-description>
       </mat-expansion-panel-header>
-      <form [id]="'visit_' + i" (submit)="saveVisit(visit)">
-        <mat-input-container>
-          <input matInput [(ngModel)]="visit.visitDate"
-                 [matDatepicker]="picker"
-                 required
-                 name="date"
-                 placeholder="Visit date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-input-container>
-        <mat-checkbox [(ngModel)]="visit.bibleGiven" name="bibleGiven">Bible given</mat-checkbox>
-        <mat-input-container>
-          <input matInput [(ngModel)]="visit.workerName"
-                 required
-                 name="workerName"
-                 placeholder="Worker Names">
-        </mat-input-container>
-      </form>
-
+      <ng-container
+        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: visit, index: i, isNew: false}"></ng-container>
       <mat-action-row>
         <button mat-button [attr.form]="'visit_' + i">
           <mat-icon mat-list-icon>save</mat-icon>
           Update
         </button>
-        <button mat-button (click)="deleteVisit(visit, i)">
+        <button mat-button type="button" (click)="deleteVisit(visit, i)">
           <mat-icon mat-list-icon>delete</mat-icon>
           Delete
         </button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
+  <ng-template #siteVisitEditTemplate let-visit let-index="index" let-isNew="isNew">
+    <form [id]="'visit_' + index" class="visit" (submit)="saveVisit(visit, isNew)">
+      <mat-input-container>
+        <input matInput [(ngModel)]="visit.visitDate"
+               [matDatepicker]="picker"
+               required
+               name="date"
+               placeholder="Visit date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput [(ngModel)]="visit.workerName"
+               name="workerName"
+               placeholder="Worker Names">
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput [(ngModel)]="visit.teamMembers"
+               required
+               name="teamMembers"
+               placeholder="Team Members">
+      </mat-input-container>
+
+      <mat-checkbox [(ngModel)]="visit.bibleGiven" name="bibleGiven">Bible given</mat-checkbox>
+      <mat-checkbox [(ngModel)]="visit.giftsGiven" name="giftsGiven">Gift given</mat-checkbox>
+      <mat-checkbox [(ngModel)]="visit.loginGiven" name="loginGiven">Login given</mat-checkbox>
+      <mat-checkbox [(ngModel)]="visit.prayer" name="prayer">Prayer</mat-checkbox>
+
+      <mat-input-container>
+        <mat-select [(ngModel)]="visit.englishAbility" name="englishAbility" placeholder="English Ability">
+          <mat-option value="poor">Poor</mat-option>
+          <mat-option value="basic">Basic</mat-option>
+          <mat-option value="moderate">Moderate</mat-option>
+          <mat-option value="advance">Advance</mat-option>
+        </mat-select>
+      </mat-input-container>
+      <mat-input-container>
+        <mat-select [(ngModel)]="visit.age" name="age" placeholder="Age">
+          <mat-option value="under 18">Under 18</mat-option>
+          <mat-option value="18-30">18 - 30</mat-option>
+          <mat-option value="31+">31+</mat-option>
+        </mat-select>
+      </mat-input-container>
+      <mat-input-container>
+        <mat-select [(ngModel)]="visit.followUpRequired" name="followUpRequired" placeholder="Follow up required">
+          <mat-option [value]="null">N/A</mat-option>
+          <mat-option value="Yes general">Yes general</mat-option>
+          <mat-option value="Yes English lesson">Yes English lesson</mat-option>
+          <mat-option value="No">No</mat-option>
+        </mat-select>
+      </mat-input-container>
+
+      <div class="trafficking-box">
+        <span class="mat-caption">Signs of Trafficking</span>
+        <div class="trafficking">
+          <mat-checkbox [(ngModel)]="visit.dressedInappropriately" name="dressedInappropriately">Dressed
+            Inappropriately
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.inadequateLighting" name="inadequateLighting">Inadequate Lighting
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.canNotLeave" name="canNotLeave">Can't leave site</mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.sleepingOnSite" name="sleepingOnSite">Sleeping on site</mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.beingMovedAround" name="beingMovedAround">Being moved around</mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.doesntHaveDocuments" name="doesntHaveDocuments">Doesn't have documents
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.depressed" name="depressed">Fearful/Depressed</mat-checkbox>
+          <mat-checkbox [(ngModel)]="visit.lowJobSatisfaction" name="lowJobSatisfaction">Dissatisfaction with Job
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <mat-input-container>
+        <textarea matInput [(ngModel)]="visit.notes"
+                  rows="4"
+                  name="notes"
+                  placeholder="Notes"></textarea>
+      </mat-input-container>
+    </form>
+  </ng-template>
 
 </div>

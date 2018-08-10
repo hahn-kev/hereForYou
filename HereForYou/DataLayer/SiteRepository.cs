@@ -36,7 +36,7 @@ namespace HereForYou.DataLayer
                     () => _connection.SiteVisits
                         .Where(visit => visit.SiteId == siteId)
                         .Select(visit => Sql.Ext.Max(visit.VisitDate).ToValue())
-                        .First())
+                        .FirstOrDefault())
                 .Update();
         }
 

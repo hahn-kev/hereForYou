@@ -13,7 +13,7 @@ import { ConfirmDialogComponent } from '../../dialog/confirm-dialog/confirm-dial
 })
 export class SitesEditComponent implements OnInit {
   public site: SiteExtended;
-  public newVisit = new SiteVisit();
+  public newVisit: SiteVisit;
 
   constructor(private route: ActivatedRoute,
               private siteService: SitesService,
@@ -39,15 +39,19 @@ export class SitesEditComponent implements OnInit {
   }
 
   async saveVisit(siteVisit: SiteVisit, isNew = false) {
-    await this.siteService.saveVisit(siteVisit).toPromise();
+    siteVisit = await this.siteService.saveVisit(siteVisit).toPromise();
     if (isNew) {
-      this.site.visits = [this.newVisit, ...this.site.visits];
+      this.site.visits = [siteVisit, ...this.site.visits];
       this.setupNewVisit();
     }
     this.updateLastVisit();
   }
 
   updateLastVisit() {
+    if (this.site.visits.length == 0) {
+      this.site.lastVisit = null;
+      return;
+    }
     this.site.lastVisit = this.site.visits.reduce((previousValue, currentValue) => this.maxDate(previousValue,
       currentValue.visitDate), new Date(0));
   }
@@ -73,8 +77,12 @@ export class SitesEditComponent implements OnInit {
     let result = await dialogRef.afterClosed().toPromise();
     if (result) {
       await this.siteService.deleteVisit(siteVisit.id).toPromise();
-      this.site.visits = this.site.visits.splice(index, 1);
+      this.site.visits = this.site.visits.filter(value => value.id == siteVisit.id);
       this.updateLastVisit();
     }
+  }
+
+  mapsUrl(address: string) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address.trim())}`
   }
 }

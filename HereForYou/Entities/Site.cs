@@ -11,6 +11,7 @@ namespace HereForYou.Entities
         public int Id { get; set; }
         public string Name { get; set;}
         public DateTime? LastVisit { get; set;}
+        public string Address { get; set; }
 
     }
     [Table("Site", IsColumnAttributeRequired = false)]

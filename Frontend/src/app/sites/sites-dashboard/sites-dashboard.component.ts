@@ -18,4 +18,5 @@ export class SitesDashboardComponent implements OnInit {
     this.sites = this.sitesService.getSites();
   }
 
+
 }

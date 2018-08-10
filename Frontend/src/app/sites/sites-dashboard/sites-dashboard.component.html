@@ -1,9 +1,9 @@
 <mat-nav-list>
   <ng-container *ngFor="let site of sites | async; last as isLast">
-    <mat-list-item routerLink="/site/edit/{{site.id}}">
+    <a mat-list-item routerLink="/site/edit/{{site.id}}">
       <span mat-line>{{site.name}}</span>
-      <span mat-line>Last visit {{site.lastVisit | date:'shortDate'}}</span>
-    </mat-list-item>
+      <span mat-line>Last visit {{ site.lastVisit ? (site.lastVisit | date:'mediumDate') : 'Never'}}</span>
+    </a>
     <mat-divider *ngIf="!isLast"></mat-divider>
   </ng-container>
 
