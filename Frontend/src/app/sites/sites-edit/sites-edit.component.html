@@ -22,7 +22,7 @@
         <mat-icon mat-list-icon>delete</mat-icon>
         Delete
       </button>
-      <a mat-button [href]="mapsUrl(site.address)">
+      <a *ngIf="site.address" mat-button [href]="mapsUrl(site.address)">
         <mat-icon>map</mat-icon>
         Navigate
       </a>
