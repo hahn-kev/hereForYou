@@ -103,10 +103,6 @@ const routes: Routes = [
       },
       {
         path: 'site',
-        canActivate: [RoleGuardService],
-        data: {
-          requireRole: 'admin'
-        },
         children: [
           {
             path: 'edit/:id',

@@ -29,8 +29,10 @@ namespace HereForYou.Controllers
         private readonly SecurityTokenHandler _securityTokenHandler;
         private readonly Settings _settings;
 
-        public AuthenticateController(IOptions<JWTSettings> jwtOptions, SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager, IOptions<Settings> options)
+        public AuthenticateController(IOptions<JWTSettings> jwtOptions,
+            SignInManager<IdentityUser> signInManager,
+            UserManager<IdentityUser> userManager,
+            IOptions<Settings> options)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -49,15 +51,18 @@ namespace HereForYou.Controllers
             {
                 throw new ArgumentException("user email required");
             }
+
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (!result.Succeeded)
             {
                 return result.Errors();
             }
+
             if (user.Id <= 0)
             {
                 throw new ArgumentException("user id not generated error");
             }
+
             return Json(new {Status = "Success"});
         }
 
@@ -76,11 +81,13 @@ namespace HereForYou.Controllers
         {
             var identityUser = await _userManager.FindByNameAsync(credentials.Username);
             if (identityUser == null) throw ThrowLoginFailed();
-            var identityResult = await _userManager.ChangePasswordAsync(identityUser, credentials.Password, credentials.NewPassword);
+            var identityResult =
+                await _userManager.ChangePasswordAsync(identityUser, credentials.Password, credentials.NewPassword);
             if (!identityResult.Succeeded)
             {
                 return identityResult.Errors();
             }
+
             identityUser.ResetPassword = false;
             await _userManager.UpdateAsync(identityUser);
             return await JsonLoginResult(identityUser);
@@ -93,37 +100,41 @@ namespace HereForYou.Controllers
             {
                 throw new ArgumentException("Account Locked, please contact an administrator");
             }
+
             if (!signInResult.Succeeded)
             {
                 throw ThrowLoginFailed();
             }
+
             return await JsonLoginResult(user);
         }
 
         private async Task<IActionResult> JsonLoginResult(IdentityUser user)
         {
+            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+            var userProfile = new UserProfile(user) {IsAdmin = claimsPrincipal.IsInRole("admin")};
             if (user.ResetPassword)
             {
                 //don't generate and return an access token if the reset password flag is set
                 return Json(new Dictionary<string, object>
                 {
-                    {"user", new UserProfile(user)}
+                    {"user", userProfile}
                 });
             }
-            var token = await GetJwtSecurityToken(user);
+
+            var token = GetJwtSecurityToken(user, claimsPrincipal);
             var accessTokenString = _securityTokenHandler.WriteToken(token);
             Response.Cookies.Append(JwtCookieName, accessTokenString);
             return Json(new Dictionary<string, object>
             {
                 {"access_token", accessTokenString},
-                {"user", new UserProfile(user)}
+                {"user", userProfile}
             });
         }
 
-        private async Task<JwtSecurityToken> GetJwtSecurityToken(IdentityUser identityUser)
+        private JwtSecurityToken GetJwtSecurityToken(IdentityUser identityUser,
+            ClaimsPrincipal claimsPrincipal)
         {
-            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(identityUser);
-
             return new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
@@ -135,12 +146,20 @@ namespace HereForYou.Controllers
             );
         }
 
+        public static readonly string IsRideProviderClaim = "isRideProvider";
+
         private static IEnumerable<Claim> GetTokenClaims(IdentityUser identityUser)
         {
-            return new List<Claim>
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+            if (identityUser.RideProvider)
+            {
+                claims.Add(new Claim(IsRideProviderClaim, "true"));
+            }
+
+            return claims;
         }
 
         private Exception ThrowLoginFailed()
@@ -156,6 +175,7 @@ namespace HereForYou.Controllers
             {
                 return Unauthorized();
             }
+
             var ssoBody = QueryHelpers.ParseQuery(Encoding.UTF8.GetString(Convert.FromBase64String(sso)));
             string nonce = ssoBody["nonce"];
 
@@ -164,11 +184,13 @@ namespace HereForYou.Controllers
                 //todo redirect to login and handel there
                 throw new NotImplementedException("Please login before trying to access Discourse");
             }
+
             var identityUser = await _userManager.GetUserAsync(User);
             if (identityUser == null)
             {
                 throw new NullReferenceException("User not found");
             }
+
             var queryBuilder = new QueryBuilder
             {
                 {"nonce", nonce},

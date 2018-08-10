@@ -7,7 +7,7 @@ using HereForYou.Services;
 
 namespace HereForYou.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "siteEditor")]
     [Route("api/[controller]")]
     public class SiteController : Controller
     {

@@ -77,12 +77,9 @@ namespace HereForYou
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
                 //require auth on every controller by default
-#if DEBUG
-                options.Filters.Add(typeof(AllowAnonymousFilter));
-#else
+
                 options.Filters.Add(
                     new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
-#endif
                 options.Filters.Add(typeof(GlobalExceptionHandler));
             });
             services.AddResponseCaching();
@@ -99,6 +96,10 @@ namespace HereForYou
             });
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("siteEditor",
+                    builder => builder.RequireAssertion(context =>
+                        context.User.IsInRole("admin") ||
+                        context.User.HasClaim(claim => claim.Type == AuthenticateController.IsRideProviderClaim)));
 //                options.AddPolicy("test");
             });
             services.AddScoped<RideRequestRepository>();
@@ -126,6 +127,7 @@ namespace HereForYou
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
