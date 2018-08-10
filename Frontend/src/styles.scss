@@ -6,10 +6,10 @@
 @include mat-core();
 
 // Define a theme.
-$primary: mat-palette($mat-yellow);
-$accent: mat-palette($mat-deep-orange, A200, A100, A400);
+$primary : mat-palette($mat-red, 300);
+$accent : mat-palette($mat-green);
 
-$theme: mat-dark-theme($primary, $accent);
+$theme : mat-light-theme($primary, $accent);
 
 // Include all theme styles for the components.
 @include angular-material-theme($theme);
@@ -57,11 +57,11 @@ html, body {
 
 markdown {
   a {
-    color: mat-color($primary);
+    color : mat-color($accent);
   }
   del {
-    text-decoration: none;
-    color: mat-color($accent);
+    text-decoration : none;
+    color           : mat-color($primary, 400);
   }
 }
 
