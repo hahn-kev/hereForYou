@@ -31,38 +31,40 @@
 
   <mat-accordion>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel #newPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>Add new visit</mat-panel-title>
       </mat-expansion-panel-header>
       <ng-container
-        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: newVisit, index: -1, isNew: true}"></ng-container>
+        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: newVisit, index: -1, isNew: true, panel: newPanel}"></ng-container>
       <mat-action-row>
         <button mat-button type="submit" form="visit_-1">Check in</button>
       </mat-action-row>
     </mat-expansion-panel>
 
-    <mat-expansion-panel *ngFor="let visit of site.visits; let i = index">
+    <mat-expansion-panel *ngFor="let visit of site.visits; let i = index" #panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Visit Date: {{visit.visitDate | date: 'mediumDate'}}</mat-panel-title>
-        <mat-panel-description>some more info, not sure what?</mat-panel-description>
+        <mat-panel-description>Workers: {{visit.workerName ? visit.workerName : 'None'}} | Team Members:
+          {{visit.teamMembers}}
+        </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-container
-        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: visit, index: i, isNew: false}"></ng-container>
+        *ngTemplateOutlet="siteVisitEditTemplate; context: {$implicit: visit, index: i, isNew: false, panel: panel}"></ng-container>
       <mat-action-row>
+        <button mat-button type="button" (click)="deleteVisit(visit)">
+          <mat-icon mat-list-icon>delete</mat-icon>
+          Delete
+        </button>
         <button mat-button [attr.form]="'visit_' + i">
           <mat-icon mat-list-icon>save</mat-icon>
           Update
         </button>
-        <button mat-button type="button" (click)="deleteVisit(visit, i)">
-          <mat-icon mat-list-icon>delete</mat-icon>
-          Delete
-        </button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
-  <ng-template #siteVisitEditTemplate let-visit let-index="index" let-isNew="isNew">
-    <form [id]="'visit_' + index" class="visit" (submit)="saveVisit(visit, isNew)">
+  <ng-template #siteVisitEditTemplate let-visit let-index="index" let-isNew="isNew" let-panel="panel">
+    <form [id]="'visit_' + index" class="visit" #form="ngForm" (submit)="saveVisit(visit, isNew, panel, form)">
       <mat-input-container>
         <input matInput [(ngModel)]="visit.visitDate"
                [matDatepicker]="picker"

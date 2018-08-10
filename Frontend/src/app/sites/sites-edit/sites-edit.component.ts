@@ -3,13 +3,16 @@ import { SiteExtended } from '../site';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiteVisit } from '../site-visit';
 import { SitesService } from '../sites.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog/confirm-dialog.component';
+import { NgForm } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sites-edit',
   templateUrl: './sites-edit.component.html',
-  styleUrls: ['./sites-edit.component.scss']
+  styleUrls: ['./sites-edit.component.scss'],
+  providers: [DatePipe]
 })
 export class SitesEditComponent implements OnInit {
   public site: SiteExtended;
@@ -18,7 +21,8 @@ export class SitesEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private siteService: SitesService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -38,13 +42,15 @@ export class SitesEditComponent implements OnInit {
     this.router.navigate(['..', site.id], {relativeTo: this.route});
   }
 
-  async saveVisit(siteVisit: SiteVisit, isNew = false) {
+  async saveVisit(siteVisit: SiteVisit, isNew = false, panel: MatExpansionPanel, form: NgForm) {
     siteVisit = await this.siteService.saveVisit(siteVisit).toPromise();
     if (isNew) {
       this.site.visits = [siteVisit, ...this.site.visits];
       this.setupNewVisit();
+      form.resetForm();
     }
     this.updateLastVisit();
+    panel.close();
   }
 
   updateLastVisit() {
@@ -64,20 +70,23 @@ export class SitesEditComponent implements OnInit {
 
   async deleteSite() {
     let dialogRef = this.dialog.open(ConfirmDialogComponent,
-      {data: ConfirmDialogComponent.Options(`Delete Site?`, 'Delete', 'Cancel')});
+      {data: ConfirmDialogComponent.Options(`Delete ${this.site.name} Site?`, 'Delete', 'Cancel')});
     let result = await dialogRef.afterClosed().toPromise();
     if (!result) return;
     await this.siteService.deleteSite(this.site.id).toPromise();
     this.router.navigate(['../..'], {relativeTo: this.route});
   }
 
-  async deleteVisit(siteVisit: SiteVisit, index: number) {
+  async deleteVisit(siteVisit: SiteVisit) {
     let dialogRef = this.dialog.open(ConfirmDialogComponent,
-      {data: ConfirmDialogComponent.Options(`Delete Visit?`, 'Delete', 'Cancel')});
+      {
+        data: ConfirmDialogComponent.Options(`Delete ${this.datePipe.transform(siteVisit.visitDate,
+          'mediumDate')} Visit?`, 'Delete', 'Cancel')
+      });
     let result = await dialogRef.afterClosed().toPromise();
     if (result) {
       await this.siteService.deleteVisit(siteVisit.id).toPromise();
-      this.site.visits = this.site.visits.filter(value => value.id == siteVisit.id);
+      this.site.visits = this.site.visits.filter(value => value.id !== siteVisit.id);
       this.updateLastVisit();
     }
   }
