@@ -17,6 +17,7 @@ import { DatePipe } from '@angular/common';
 export class SitesEditComponent implements OnInit {
   public site: SiteExtended;
   public newVisit: SiteVisit;
+  public isNew: boolean;
 
   constructor(private route: ActivatedRoute,
               private siteService: SitesService,
@@ -28,6 +29,7 @@ export class SitesEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { site: SiteExtended }) => {
       this.site = data.site;
+      this.isNew = !data.site.id;
       this.setupNewVisit();
     });
   }

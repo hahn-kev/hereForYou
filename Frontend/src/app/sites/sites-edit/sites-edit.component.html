@@ -18,7 +18,7 @@
         <mat-icon mat-list-icon>save</mat-icon>
         Save
       </button>
-      <button type="button" mat-button (click)="deleteSite()">
+      <button *ngIf="!isNew" type="button" mat-button (click)="deleteSite()">
         <mat-icon mat-list-icon>delete</mat-icon>
         Delete
       </button>
@@ -31,7 +31,10 @@
 
   <mat-accordion>
 
-    <mat-expansion-panel #newPanel>
+    <mat-expansion-panel #newPanel
+                         [disabled]="isNew"
+                         [matTooltipDisabled]="!isNew"
+                         matTooltip="To add a visit you must save first">
       <mat-expansion-panel-header>
         <mat-panel-title>Add new visit</mat-panel-title>
       </mat-expansion-panel-header>
