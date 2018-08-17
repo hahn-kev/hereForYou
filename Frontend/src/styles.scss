@@ -7,7 +7,7 @@
 
 // Define a theme.
 $primary : mat-palette($mat-red, 300);
-$accent : mat-palette($mat-green);
+$accent : mat-palette($mat-blue-grey);
 
 $theme : mat-light-theme($primary, $accent);
 
