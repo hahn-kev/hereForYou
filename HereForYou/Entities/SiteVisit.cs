@@ -22,7 +22,7 @@ namespace HereForYou.Entities
 
         public string EnglishAbility { get; set; }
         public string Age { get; set; }
-        public bool FollowUpRequired { get; set; }
+        public string FollowUpRequired { get; set; }
 
         public bool DressedInappropriately { get; set; }
         public bool InadequateLighting { get; set; }
