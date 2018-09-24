@@ -1,5 +1,12 @@
+<ng-container *appToolbarContent>
+  <mat-form-field floatLabel="never" color="accent">
+    <input #search matInput name="search" (keyup)="filterSites(search.value)" placeholder="Search">
+  </mat-form-field>
+</ng-container>
+
 <mat-nav-list>
-  <ng-container *ngFor="let site of sites | async; last as isLast">
+  <ng-container *ngFor="let site of filteredSites; last as isLast">
+
     <a mat-list-item routerLink="/site/edit/{{site.id}}">
       <span mat-line>{{site.name}}</span>
       <span mat-line>Last visit {{ site.lastVisit ? (site.lastVisit | date:'mediumDate') : 'Never'}}</span>

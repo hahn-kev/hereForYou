@@ -41,7 +41,9 @@ export class SitesEditComponent implements OnInit {
 
   async saveSite() {
     let site = await this.siteService.saveSite(this.site).toPromise();
-    this.router.navigate(['..', site.id], {relativeTo: this.route});
+    if (this.isNew) {
+      this.router.navigate(['..', site.id], {relativeTo: this.route, replaceUrl: true});
+    }
   }
 
   async saveVisit(siteVisit: SiteVisit, isNew = false, panel: MatExpansionPanel, form: NgForm) {

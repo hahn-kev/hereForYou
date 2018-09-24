@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Site } from '../site';
 import { SitesService } from '../sites.service';
 
@@ -9,14 +8,23 @@ import { SitesService } from '../sites.service';
   styleUrls: ['./sites-dashboard.component.scss']
 })
 export class SitesDashboardComponent implements OnInit {
-  sites: Observable<Site[]>;
+  sites: Site[];
+  filteredSites: Site[];
 
   constructor(private sitesService: SitesService) {
   }
 
-  ngOnInit() {
-    this.sites = this.sitesService.getSites();
+  async ngOnInit() {
+    this.sites = await this.sitesService.getSites().toPromise();
+    this.filteredSites = this.sites;
   }
 
+  filterSites(search: string) {
+    search = search.trim().toUpperCase();
+    this.filteredSites = this.sites.filter(site => !search
+      || (site.name && site.name.toUpperCase().includes(search))
+      || (site.address && site.address.toUpperCase().includes(search))
+    );
+  }
 
 }
