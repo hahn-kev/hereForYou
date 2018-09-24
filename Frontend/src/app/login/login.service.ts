@@ -33,7 +33,12 @@ export class LoginService implements CanActivate {
     //todo pull out roles, and any claims we want
     let roles = [];
     if (decodedToken) {
-      roles.push(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+      let tokenRoles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      if (typeof tokenRoles === 'string') {
+        roles.push(tokenRoles);
+      } else if (tokenRoles instanceof Array) {
+        roles = [...tokenRoles];
+      }
       //exp is expiration date in seconds from epoch
       let expireDate = new Date(decodedToken.exp * 1000);
       if (expireDate.valueOf() < new Date().valueOf()) {
@@ -72,5 +77,9 @@ export class LoginService implements CanActivate {
 
   hasRole(role: string): Observable<boolean> {
     return this.rolesSubject.map(roles => roles.includes(role));
+  }
+
+  hasAnyRole(roles: string[]): Observable<boolean> {
+    return this.rolesSubject.map(userRoles => userRoles.some(userRole => roles.includes(userRole)));
   }
 }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using RestEase;
 
 namespace HereForYou.Controllers
 {
@@ -23,6 +24,7 @@ namespace HereForYou.Controllers
     public class AuthenticateController : Controller
     {
         public const string JwtCookieName = ".JwtAccessToken";
+        private static ICaptchaApi _captchaApi = RestClient.For<ICaptchaApi>("https://www.google.com/recaptcha/api");
         private readonly JWTSettings _jwtOptions;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -41,12 +43,56 @@ namespace HereForYou.Controllers
             _settings = options.Value;
         }
 
-        [Authorize(Roles = "admin")]
+        public class CaptchaResponse
+        {
+            public bool success { get; set; }
+        }
+        
+        public interface ICaptchaApi
+        {
+            [Post("siteverify")]
+            Task<CaptchaResponse> SendEmail(string secret, string response);
+        }
+        
+        private async Task<bool> TestCaptcha(string response)
+        {
+            var captchaResponse = await _captchaApi.SendEmail(_settings.CaptchaSecretKey, response);
+            return captchaResponse.success;
+        }
+
+        [HttpPost("signup")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Signup([FromBody] SignupUser signupUser)
+        {
+            if (!await TestCaptcha(signupUser.Captcha))
+            {
+                throw new ArgumentException("Captcha failed");
+            }
+            
+            var user = new IdentityUser().CopyFrom(signupUser);
+            user.Approved = false;
+
+            var result = await _userManager.CreateAsync(user, signupUser.Password);
+            if (!result.Succeeded)
+            {
+                return result.Errors();
+            }
+
+            if (user.Id <= 0)
+            {
+                throw new ArgumentException("user id not generated error");
+            }
+
+            return Json(new {Status = "Success"});
+        }
+
+        [Authorize(Roles = "admin,manager")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
             var user = new IdentityUser().CopyFrom(registerUser);
             user.ResetPassword = true;
+            user.Approved = true;
             if (string.IsNullOrEmpty(user.Email))
             {
                 throw new ArgumentException("user email required");
@@ -72,6 +118,7 @@ namespace HereForYou.Controllers
         {
             var identityUser = await _userManager.FindByNameAsync(credentials.Username);
             if (identityUser == null) throw ThrowLoginFailed();
+            if (!identityUser.Approved) throw new ArgumentException("Your account has not been approved yet");
             return await SignIn(identityUser, credentials.Password);
         }
 

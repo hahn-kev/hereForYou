@@ -14,9 +14,10 @@ export class RequireRoleDirective implements OnDestroy {
               private loginService: LoginService) {
   }
 
-  @Input() set requireRole(role: string) {
+  @Input() set requireRole(role: string | string[]) {
     if (this.hasRoleSubscription) this.hasRoleSubscription.unsubscribe();
-    this.hasRoleSubscription = this.loginService.hasRole(role).subscribe(hasRole => this.updateView(hasRole));
+    if (typeof role === 'string') role = [role];
+    this.hasRoleSubscription = this.loginService.hasAnyRole(role).subscribe(hasRole => this.updateView(hasRole));
   }
 
   updateView(hasRole: boolean) {

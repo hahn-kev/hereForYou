@@ -6,7 +6,8 @@ export class User {
               public rideProvider = false,
               public isAdmin = false,
               public resetPassword = false,
-              public isManager = false) {
+              public isManager = false,
+              public approved = false) {
   }
   // todo have range support
 }

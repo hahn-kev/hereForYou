@@ -8,5 +8,6 @@ namespace HereForYou.Entities
     {
         public bool RideProvider { get; set; }
         public bool ResetPassword { get; set; }
+        public bool Approved { get; set; }
     }
 }

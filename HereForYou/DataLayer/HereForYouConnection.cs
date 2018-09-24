@@ -44,7 +44,7 @@ namespace HereForYou.DataLayer
                     from adminRole in Roles.Where(role => role.Name == "admin").DefaultIfEmpty()
                     from userAdminRole in UserRoles.Where(userRole => userRole.RoleId == adminRole.Id && userRole.UserId == user.Id).DefaultIfEmpty()
                     from managerRole in Roles.Where(role => role.Name == "manger").DefaultIfEmpty()
-                    from userManagerRole in UserRoles.Where(userRole => userRole.RoleId == adminRole.Id && userRole.UserId == user.Id).DefaultIfEmpty()
+                    from userManagerRole in UserRoles.Where(userRole => userRole.RoleId == managerRole.Id && userRole.UserId == user.Id).DefaultIfEmpty()
                     select new UserProfile
                     {
                         Id = user.Id,
@@ -53,7 +53,9 @@ namespace HereForYou.DataLayer
                         RideProvider = user.RideProvider,
                         UserName = user.UserName,
                         IsAdmin = userAdminRole != null,
-                        IsManager = userManagerRole != null
+                        IsManager = userManagerRole != null,
+                        Approved = user.Approved,
+                        ResetPassword = user.ResetPassword
                     };
             }
         }

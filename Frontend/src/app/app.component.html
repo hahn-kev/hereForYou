@@ -94,7 +94,7 @@
         </ng-container>
 
 
-        <ng-container *requireRole="'admin'">
+        <ng-container *requireRole="['admin', 'manager']">
           <mat-divider></mat-divider>
           <h3 mat-subheader>Admin</h3>
           <mat-list-item routerLink="/user/admin" routerLinkActive="active-link">

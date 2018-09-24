@@ -24,4 +24,14 @@ export class AuthenticateService {
     }
     return user;
   }
+
+  signup(username: string, password: string, email: string, phone: string, captcha: string) {
+    return this.http.post('/api/authenticate/signup', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Phone: phone,
+      Captcha: captcha
+    }).toPromise();
+  }
 }

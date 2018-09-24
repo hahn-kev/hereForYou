@@ -24,21 +24,21 @@ namespace HereForYou.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,manager")]
         [HttpGet]
         public IReadOnlyCollection<IUser> Users()
         {
             return _usersRepository.Users.ToList();
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,manager")]
         [HttpGet("{name}")]
         public UserProfile Get(string name)
         {
             return _usersRepository.UserByName(name);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,manager")]
         [HttpPut("{id}")]
         public Task<IActionResult> Put(int id, [FromBody] RegisterUser registerUser)
         {
@@ -109,7 +109,7 @@ namespace HereForYou.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,manager")]
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {

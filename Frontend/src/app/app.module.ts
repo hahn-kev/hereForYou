@@ -24,10 +24,27 @@ import { AuthenciateInterceptorService } from './login/authenciate-interceptor.s
 import { AuthenticateService } from './login/authenticate.service';
 import { LearnComponent } from './learn/learn.component';
 import {
-  MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
-  MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
-  MatNativeDateModule, MatOptionModule, MatProgressBarModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
-  MatTableModule, MatToolbarModule, MatTooltipModule
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatProgressBarModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import { FlipCardComponent } from './home/flip-card/flip-card.component';
 import { ActivityIndicatorService } from './activity-indicator.service';
@@ -59,6 +76,9 @@ import { CookieModule } from 'ngx-cookie';
 import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
 import { SitesService } from 'app/sites/sites.service';
 import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
+import { SignupComponent } from './signup/signup.component';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 @NgModule({
   declarations: [
@@ -86,7 +106,8 @@ import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
     ClassRequestComponent,
     MessageComponent,
     SitesDashboardComponent,
-    SitesEditComponent
+    SitesEditComponent,
+    SignupComponent
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -130,7 +151,9 @@ import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
     }),
     MarkdownModule.forRoot(),
     ClipboardModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule,
   ],
   providers: [
     RideShareService,

@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         await this.userService.deleteUser(this.user.id);
-        this.router.navigate(['/user/admin']);
+        this.router.navigate(['/user/admin'], {replaceUrl: true});
       }
     });
   }

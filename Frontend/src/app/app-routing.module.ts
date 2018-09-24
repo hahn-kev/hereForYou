@@ -20,6 +20,7 @@ import { IsSelfResolverService } from './user/is-self-resolver.service';
 import { SitesDashboardComponent } from './sites/sites-dashboard/sites-dashboard.component';
 import { SitesEditComponent } from './sites/sites-edit/sites-edit.component';
 import { SiteResolveByIdService } from './sites/sites-edit/site-resolve-by-id.service';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   {
@@ -77,7 +78,7 @@ const routes: Routes = [
         component: AdminComponent,
         canActivate: [RoleGuardService],
         data: {
-          requireRole: 'admin'
+          requireRole: ['admin', 'manager']
         }
       },
       {
@@ -132,6 +133,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: 'message',

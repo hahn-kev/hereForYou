@@ -21,6 +21,7 @@ namespace HereForYou
         
         public string MailgunApiKey { get; set; }
         public string MailgunDomain { get; set; }
+        public string CaptchaSecretKey { get; set; }
         
         public string DiscourseSsoSecret { get; set; }
 

@@ -1,5 +1,11 @@
+<ng-container *appToolbarContent="">
+  <button mat-icon-button mat-tooltip="Refresh" (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</ng-container>
+
 <mat-nav-list>
-  <ng-container *ngFor="let user of users | async">
+  <ng-container *ngFor="let user of users">
     <mat-list-item routerLink="/user/edit/{{user.userName}}">
       <span mat-line>{{user.userName}}</span>
     </mat-list-item>

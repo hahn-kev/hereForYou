@@ -31,7 +31,8 @@ export class UserService {
       userName: user.userName,
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
-      email: user.email
+      email: user.email,
+      approved: user.approved
     }, {responseType: 'text'}).toPromise();
   }
 
@@ -42,7 +43,8 @@ export class UserService {
       userName: user.userName,
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
-      email: user.email
+      email: user.email,
+      approved: user.approved
     }, {responseType: 'text'}).toPromise();
   }
 
@@ -52,7 +54,8 @@ export class UserService {
       userName: user.userName,
       phoneNumber: user.phoneNumber,
       rideProvider: user.rideProvider,
-      email: user.email
+      email: user.email,
+      approved: user.approved
     }).toPromise();
   }
 

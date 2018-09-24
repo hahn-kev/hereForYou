@@ -9,7 +9,7 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput required name="email" [(ngModel)]="user.email" type="email" email #emailElement="ngModel"
+          <input matInput name="email" [(ngModel)]="user.email" type="email" #emailElement="ngModel"
                  placeholder="Email" i18n-placeholder="user email address@@email">
           <mat-error *ngIf="emailElement.invalid && (emailElement.dirty || emailElement.touched)"
                      i18n="email validation error@@emailValidation">
@@ -19,7 +19,7 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput required name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
+          <input matInput name="phoneNumber" [(ngModel)]="user.phoneNumber" type="tel"
                  placeholder="Phone Number" i18n-placeholder="user phone number@@phoneNumber">
         </mat-form-field>
       </div>
@@ -56,6 +56,13 @@
                       [disabled]="isSelf"
                       name="rideprovider"
                       i18n="checkbox is ride provider@@rideProvider">Ride Provider
+        </mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox [(ngModel)]="user.approved"
+                      [disabled]="isSelf"
+                      name="approved"
+                      i18n="checkbox is approved@@accountApprovedCheckbox">Account approved
         </mat-checkbox>
       </div>
       <ng-container *requireRole="'admin'">
