@@ -37,18 +37,29 @@ export class UserComponent implements OnInit {
     this.router.navigate([this.isSelf ? '/home' : '/user/admin']);
   }
 
-  async grantAdmin() {
-    await this.userService.grantAdmin(this.user.userName);
-    this.user.isAdmin = true;
+  async grantRole(role: string) {
+    await this.userService.grantAdmin(this.user.userName, role);
+    if (role == 'manager') {
+      this.user.isManager = true;
+    } else if (role == 'admin') {
+      this.user.isAdmin = true;
+    }
   }
 
-  async revokeAdmin() {
-    await this.userService.revokeAdmin(this.user.userName);
-    this.user.isAdmin = false;
+  async revokeRole(role: string) {
+    await this.userService.revokeAdmin(this.user.userName, role);
+    if (role == 'manager') {
+      this.user.isManager = false;
+    } else if (role == 'admin') {
+      this.user.isAdmin = false;
+    }
   }
 
   deleteUser() {
-    let dialogRef = this.dialog.open(ConfirmDialogComponent, {data: ConfirmDialogComponent.Options(`Delete User ${this.user.userName}?`, 'Delete', 'Cancel')});
+    let dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {
+        data: ConfirmDialogComponent.Options(`Delete User ${this.user.userName}?`, 'Delete', 'Cancel')
+      });
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         await this.userService.deleteUser(this.user.id);

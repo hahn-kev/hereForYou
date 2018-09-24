@@ -62,18 +62,34 @@
         <div *ngIf="!isNew">
           <button type="button"
                   *ngIf="!user.isAdmin"
-                  (click)="grantAdmin()"
+                  (click)="grantRole('admin')"
                   mat-raised-button
                   color="accent">
             Grant Admin rights
           </button>
           <button type="button"
                   *ngIf="user.isAdmin"
-                  (click)="revokeAdmin()"
+                  (click)="revokeRole('admin')"
                   mat-raised-button
                   color="accent">
             Revoke Admin rights
           </button>
+
+          <button type="button"
+                  *ngIf="!user.isAdmin && !user.isManager"
+                  (click)="grantRole('manager')"
+                  mat-raised-button
+                  color="accent">
+            Grant Manager rights
+          </button>
+          <button type="button"
+                  *ngIf="!user.isAdmin && user.isManager"
+                  (click)="revokeRole('manager')"
+                  mat-raised-button
+                  color="accent">
+            Revoke Manager rights
+          </button>
+
           <button type="button" (click)="deleteUser()" mat-raised-button color="accent">Delete</button>
         </div>
       </ng-container>

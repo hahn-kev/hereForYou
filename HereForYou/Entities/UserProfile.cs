@@ -22,6 +22,7 @@ namespace HereForYou.Entities
         public bool RideProvider { get; set; }
         public bool ResetPassword { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsManager { get; set; }
     }
 
     public interface IUser

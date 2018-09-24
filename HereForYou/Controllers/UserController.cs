@@ -88,23 +88,23 @@ namespace HereForYou.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPut("grantadmin/{username}")]
-        public async Task<IActionResult> GrantAdmin(string username)
+        [HttpPut("grant/{role}/{username}")]
+        public async Task<IActionResult> GrantRole(string role, string username)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null) throw new NullReferenceException("User not found");
-            var identityResult = await _userManager.AddToRoleAsync(user, "admin");
+            var identityResult = await _userManager.AddToRoleAsync(user, role);
             if (!identityResult.Succeeded) return identityResult.Errors();
             return Ok();
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPut("revokeadmin/{username}")]
-        public async Task<IActionResult> RevokeAdmin(string username)
+        [HttpPut("revoke/{role}/{username}")]
+        public async Task<IActionResult> RevokeRole(string role, string username)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null) throw new NullReferenceException("User not found");
-            var identityResult = await _userManager.RemoveFromRoleAsync(user, "admin");
+            var identityResult = await _userManager.RemoveFromRoleAsync(user, role);
             if (!identityResult.Succeeded) return identityResult.Errors();
             return Ok();
         }

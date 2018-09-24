@@ -41,10 +41,10 @@ namespace HereForYou.DataLayer
             get
             {
                 return from user in GetTable<UserProfile>()
-                    from role in Roles.Where(role => role.Name == "admin").DefaultIfEmpty()
-                    from userRole in UserRoles
-                        .Where(userRole => userRole.RoleId == role.Id && userRole.UserId == user.Id)
-                        .DefaultIfEmpty()
+                    from adminRole in Roles.Where(role => role.Name == "admin").DefaultIfEmpty()
+                    from userAdminRole in UserRoles.Where(userRole => userRole.RoleId == adminRole.Id && userRole.UserId == user.Id).DefaultIfEmpty()
+                    from managerRole in Roles.Where(role => role.Name == "manger").DefaultIfEmpty()
+                    from userManagerRole in UserRoles.Where(userRole => userRole.RoleId == adminRole.Id && userRole.UserId == user.Id).DefaultIfEmpty()
                     select new UserProfile
                     {
                         Id = user.Id,
@@ -52,7 +52,8 @@ namespace HereForYou.DataLayer
                         PhoneNumber = user.PhoneNumber,
                         RideProvider = user.RideProvider,
                         UserName = user.UserName,
-                        IsAdmin = userRole != null
+                        IsAdmin = userAdminRole != null,
+                        IsManager = userManagerRole != null
                     };
             }
         }
@@ -78,7 +79,7 @@ namespace HereForYou.DataLayer
             TryCreateTable<SiteVisit>();
             TryCreateTable<ImageInfo>();
 
-            var roles = new[] {"admin"};
+            var roles = new[] {"admin", "manager"};
             foreach (var role in roles)
             {
                 if (!await _roleManager.RoleExistsAsync(role))
