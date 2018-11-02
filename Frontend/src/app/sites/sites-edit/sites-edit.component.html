@@ -46,8 +46,8 @@
     </mat-expansion-panel>
 
     <mat-expansion-panel *ngFor="let visit of site.visits; let i = index" #panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Visit Date: {{visit.visitDate | date: 'mediumDate'}}</mat-panel-title>
+      <mat-expansion-panel-header class="width-zero-mat-content">
+        <mat-panel-title>{{visit.visitDate | date: "shortDate"}}</mat-panel-title>
         <mat-panel-description>Workers: {{visit.workerName ? visit.workerName : 'None'}} | Team Members:
           {{visit.teamMembers}}
         </mat-panel-description>
@@ -146,4 +146,4 @@
     </form>
   </ng-template>
 
-</div>
+

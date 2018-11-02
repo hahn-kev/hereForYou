@@ -17,6 +17,14 @@
 
   .mat-accordion {
     grid-area : accordion;
+    .mat-content {
+      width : 0;
+    }
+    .mat-expansion-panel-header-description {
+      white-space   : nowrap;
+      overflow      : hidden;
+      text-overflow : ellipsis;
+    }
   }
 }
 
