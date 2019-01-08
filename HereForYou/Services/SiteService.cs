@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HereForYou.DataLayer;
 using HereForYou.Entities;
@@ -17,7 +16,7 @@ namespace HereForYou.Services
             _visitRepository = visitRepository;
         }
 
-        public List<Site> ListSites()
+        public List<SiteAgg> ListSites()
         {
             return _siteRepository.ListSites();
         }

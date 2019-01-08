@@ -40,9 +40,21 @@ namespace HereForYou.DataLayer
                 .Update();
         }
 
-        public List<Site> ListSites()
+        public List<SiteAgg> ListSites()
         {
-            return _connection.Sites.OrderByDescending(site => site.LastVisit).ToList();
+            return (from site in _connection.GetTable<SiteAgg>()
+                orderby site.LastVisit descending
+                select new SiteAgg
+                {
+                    Id = site.Id,
+                    LastVisit = site.LastVisit,
+                    Name = site.Name,
+                    Address = site.Address,
+                    TeamMembers = _connection.SiteVisits.Where(visit => visit.SiteId == site.Id)
+                        .Select(visit => visit.TeamMembers.JoinSql(" ")).Single(),
+                    WorkerNames = _connection.SiteVisits.Where(visit => visit.SiteId == site.Id)
+                        .Select(visit => visit.WorkerName.JoinSql(" ")).Single()
+                }).ToList();
         }
 
         private Site Add(Site site)

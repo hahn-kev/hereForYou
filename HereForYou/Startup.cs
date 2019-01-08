@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,6 @@ using HereForYou.DataLayer;
 using HereForYou.Services;
 using LinqToDB.Data;
 using LinqToDB.Identity;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -190,8 +188,8 @@ namespace HereForYou
                 if (env.IsDevelopment())
                 {
                     DataConnection.TurnTraceSwitchOn();
-                    DataConnection.WriteTraceLine = (message, category) => Debug.WriteLine(message, category);
-                    hereForYouConnection.Setup().Wait();
+                    DataConnection.WriteTraceLine = (message, category) => Console.WriteLine(message);
+//                    hereForYouConnection.Setup().Wait();
                 }
             }
         }

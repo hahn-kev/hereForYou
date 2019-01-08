@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Site } from '../site';
+import { SiteAgg } from '../site';
 import { SitesService } from '../sites.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { SitesService } from '../sites.service';
   styleUrls: ['./sites-dashboard.component.scss']
 })
 export class SitesDashboardComponent implements OnInit {
-  sites: Site[];
-  filteredSites: Site[];
+  sites: SiteAgg[];
+  filteredSites: SiteAgg[];
 
   constructor(private sitesService: SitesService) {
   }
@@ -24,6 +24,8 @@ export class SitesDashboardComponent implements OnInit {
     this.filteredSites = this.sites.filter(site => !search
       || (site.name && site.name.toUpperCase().includes(search))
       || (site.address && site.address.toUpperCase().includes(search))
+      || (site.teamMembers && site.teamMembers.toUpperCase().includes(search))
+      || (site.workerNames && site.workerNames.toUpperCase().includes(search))
     );
   }
 

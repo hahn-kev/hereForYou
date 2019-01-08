@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
+using HereForYou.Entities;
+using HereForYou.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using HereForYou.Entities;
-using System;
-using HereForYou.DataLayer;
-using HereForYou.Services;
 
 namespace HereForYou.Controllers
 {
@@ -20,9 +20,9 @@ namespace HereForYou.Controllers
 
 
         [HttpGet]
-        public IActionResult Sites()
+        public List<SiteAgg> Sites()
         {
-            return Json(_siteService.ListSites());
+            return _siteService.ListSites();
         }
 
         [HttpGet("{id}")]

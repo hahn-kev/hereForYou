@@ -9,14 +9,22 @@ namespace HereForYou.Entities
     {
         [Identity, PrimaryKey]
         public int Id { get; set; }
-        public string Name { get; set;}
-        public DateTime? LastVisit { get; set;}
-        public string Address { get; set; }
 
+        public string Name { get; set; }
+        public DateTime? LastVisit { get; set; }
+        public string Address { get; set; }
     }
+
     [Table("Site", IsColumnAttributeRequired = false)]
-    public class SiteExtended: Site
+    public class SiteExtended : Site
     {
-        public List<SiteVisit> Visits {get; set;}
+        public List<SiteVisit> Visits { get; set; }
+    }
+
+    [Table("Site", IsColumnAttributeRequired = false)]
+    public class SiteAgg : Site
+    {
+        public string WorkerNames { get; set; }
+        public string TeamMembers { get; set; }
     }
 }

@@ -12,6 +12,12 @@ namespace HereForYou.DataLayer
         {
             return Convert.ToInt32(context.InsertWithIdentity(obj));
         }
+
+        [Sql.Expression("string_agg({0}, {1})", ServerSideOnly = true)]
+        public static string JoinSql<T>(this T value, string delimiter)
+        {
+            throw new NotSupportedException("only supported server side");
+        }
     }
 
     public class MyPostgreSQLDataProvider : PostgreSQLDataProvider
@@ -22,13 +28,15 @@ namespace HereForYou.DataLayer
 
         public override ISqlBuilder CreateSqlBuilder()
         {
-            return new MyPostgresSqlBuilder(GetSqlOptimizer(), SqlProviderFlags,
+            return new MyPostgresSqlBuilder(GetSqlOptimizer(),
+                SqlProviderFlags,
                 MappingSchema.ValueToSqlConverter);
         }
 
         public class MyPostgresSqlBuilder : PostgreSQLSqlBuilder
         {
-            public MyPostgresSqlBuilder(ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags,
+            public MyPostgresSqlBuilder(ISqlOptimizer sqlOptimizer,
+                SqlProviderFlags sqlProviderFlags,
                 ValueToSqlConverter valueToSqlConverter) : base(sqlOptimizer, sqlProviderFlags, valueToSqlConverter)
             {
             }
@@ -44,6 +52,7 @@ namespace HereForYou.DataLayer
                         StringBuilder.Append("uuid");
                         return;
                 }
+
                 base.BuildDataType(type, createDbType);
             }
         }

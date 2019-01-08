@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Site, SiteExtended } from './site';
+import { Site, SiteAgg, SiteExtended } from './site';
 import { HttpClient } from '@angular/common/http';
 import { SiteVisit } from './site-visit';
 
@@ -10,7 +10,7 @@ export class SitesService {
   }
 
   getSites() {
-    return this.http.get<Site[]>('/api/site');
+    return this.http.get<SiteAgg[]>('/api/site');
   }
 
   getSite(id: number) {
